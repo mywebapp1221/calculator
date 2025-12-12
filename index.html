@@ -1,142 +1,125 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>K.ARTS セットメニュー</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>K.ARTS セットメニュー</title>
 
-  <style>
-    :root{
-      --bg:#f5f5f5;
-      --card:#fff;
-      --text:#111827;
-      --muted:#6b7280;
-      --line:#e5e7eb;
-      --accent:#dc2626; /* 赤文字おすすめ */
-      --shadow:0 2px 10px rgba(0,0,0,.08);
-      --radius:14px;
-    }
+<style>
+:root{
+  --bg:#f5f5f5;
+  --card:#fff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --accent:#dc2626;
+  --shadow:0 2px 10px rgba(0,0,0,.08);
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
+/* ヘッダー */
+.topbar{
+  position:sticky; top:0; z-index:10;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:10px 12px;
+}
+.title{
+  font-weight:800;
+  text-align:center;
+  font-size:16px;
+}
 
-    /* ヘッダー */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:10;
-      background:#fff;
-      border-bottom:1px solid var(--line);
-      padding:10px 12px;
-    }
+/* タブ */
+.tabs{
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  margin-top:8px;
+}
+.tab{
+  padding:10px 6px;
+  font-size:14px;
+  color:var(--muted);
+  border-bottom:3px solid transparent;
+  cursor:pointer;
+  font-weight:600;
+}
+.tab.active{
+  color:var(--text);
+  border-bottom-color:var(--text);
+}
 
-    .title{
-      font-weight:800;
-      text-align:center;
-      font-size:16px;
-    }
+/* レイアウト */
+.wrap{
+  padding:12px;
+  max-width:960px;
+  margin:0 auto;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+@media (min-width:900px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
 
-    /* タブ */
-    .tabs{
-      display:flex;
-      gap:24px;
-      justify-content:center;
-      margin-top:8px;
-    }
-
-    .tab{
-      padding:10px 6px;
-      font-size:14px;
-      color:var(--muted);
-      border-bottom:3px solid transparent;
-      cursor:pointer;
-      font-weight:600;
-    }
-
-    .tab.active{
-      color:var(--text);
-      border-bottom-color:var(--text);
-    }
-
-    /* レイアウト */
-    .wrap{
-      padding:12px;
-      max-width:960px;
-      margin:0 auto;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:12px;
-    }
-
-    @media (min-width:900px){
-      .grid{ grid-template-columns: repeat(3, 1fr); }
-    }
-
-    /* カード */
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      cursor:pointer;
-      transition:.1s;
-    }
-
-    .card:active{ transform:scale(.99); }
-
-    .img{
-      height:110px;
-      background:#e5e7eb;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:12px;
-      color:#374151;
-    }
-
-    .content{ padding:12px; }
-
-    .name{
-      font-weight:800;
-      font-size:15px;
-      line-height:1.2;
-    }
-
-    .recommend{
-      color:var(--accent);
-      font-size:12px;
-      font-weight:800;
-      margin-left:6px;
-    }
-
-    .desc{
-      margin-top:6px;
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.3;
-    }
-
-    .price{
-      margin-top:10px;
-      font-size:22px;
-      font-weight:900;
-    }
-
-    .hidden{ display:none; }
-  </style>
+/* カード */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  cursor:pointer;
+  transition:.1s;
+}
+.card:active{transform:scale(.99)}
+.img{
+  height:110px;
+  background:#e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  color:#374151;
+}
+.content{padding:12px}
+.name{
+  font-weight:800;
+  font-size:15px;
+  line-height:1.2;
+}
+.recommend{
+  color:var(--accent);
+  font-size:12px;
+  font-weight:800;
+  margin-left:6px;
+}
+.desc{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.3;
+}
+.price{
+  margin-top:10px;
+  font-size:22px;
+  font-weight:900;
+}
+.hidden{display:none}
+</style>
 </head>
 
 <body>
 
-<!-- ヘッダー -->
 <div class="topbar">
   <div class="title">K.ARTS メニュー</div>
   <div class="tabs">
@@ -147,94 +130,102 @@
 
 <div class="wrap">
 
-  <!-- セット -->
-  <div class="grid" id="panel-set">
+<!-- セット -->
+<div class="grid" id="panel-set">
 
-    <!-- Aセット -->
-    <div class="card" onclick="chooseSet('A')">
-      <div class="img">Aセット 写真</div>
-      <div class="content">
-        <div class="name">
-          Aセット <span class="recommend">おすすめ</span>
-        </div>
-        <div class="desc">
-          植物4種＋花1個<br>
-          ネット公開つき
-        </div>
-        <div class="price">¥3,200</div>
+  <!-- プライムセット -->
+  <div class="card" onclick="chooseSet('PRIME')">
+    <div class="img">プライムセット 写真</div>
+    <div class="content">
+      <div class="name">プライムセット</div>
+      <div class="desc">
+        すべて使い放題<br>
+        植物・花・ネット公開すべて込み
       </div>
+      <div class="price">¥5,000〜</div>
     </div>
-
-    <!-- Bセット -->
-    <div class="card" onclick="chooseSet('B')">
-      <div class="img">Bセット 写真</div>
-      <div class="content">
-        <div class="name">Bセット</div>
-        <div class="desc">
-          植物3種<br>
-          ＋500円で花追加
-        </div>
-        <div class="price">¥1,400</div>
-      </div>
-    </div>
-
-    <!-- Cセット -->
-    <div class="card" onclick="chooseSet('C')">
-      <div class="img">Cセット 写真</div>
-      <div class="content">
-        <div class="name">Cセット</div>
-        <div class="desc">
-          植物1種<br>
-          まずは体験
-        </div>
-        <div class="price">¥800</div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- 自分で選ぶ -->
-  <div class="hidden" id="panel-custom">
-    <div class="grid">
-      <div class="card" onclick="location.href='plants.html'">
-        <div class="img">40種類の植物</div>
-        <div class="content">
-          <div class="name">1つずつ選ぶ</div>
-          <div class="desc">
-            ポチポチ選択<br>
-            合計を見て確定
-          </div>
-          <div class="price">→</div>
-        </div>
+  <!-- スタンダードセット -->
+  <div class="card" onclick="chooseSet('STANDARD')">
+    <div class="img">スタンダードセット 写真</div>
+    <div class="content">
+      <div class="name">
+        スタンダードセット
+        <span class="recommend">おすすめ</span>
       </div>
+      <div class="desc">
+        植物4種＋花1個<br>
+        ネット公開つき
+      </div>
+      <div class="price">¥3,200〜</div>
+    </div>
+  </div>
+
+  <!-- グロースセット -->
+  <div class="card" onclick="chooseSet('GROWTH')">
+    <div class="img">グロースセット 写真</div>
+    <div class="content">
+      <div class="name">グロースセット</div>
+      <div class="desc">
+        植物3種<br>
+        ＋花・拡張OK
+      </div>
+      <div class="price">¥1,400〜</div>
+    </div>
+  </div>
+
+  <!-- ベーシックセット -->
+  <div class="card" onclick="chooseSet('BASIC')">
+    <div class="img">ベーシックセット 写真</div>
+    <div class="content">
+      <div class="name">ベーシックセット</div>
+      <div class="desc">
+        植物1種<br>
+        まずは体験
+      </div>
+      <div class="price">¥800〜</div>
     </div>
   </div>
 
 </div>
 
+<!-- 自分で選ぶ -->
+<div class="hidden" id="panel-custom">
+  <div class="grid">
+    <div class="card" onclick="location.href='plants.html'">
+      <div class="img">40種類の植物</div>
+      <div class="content">
+        <div class="name">1つずつ選ぶ</div>
+        <div class="desc">選択 → 合計 → 確定</div>
+        <div class="price">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
 <script>
-  const tabs = document.querySelectorAll('.tab');
-  const panels = {
-    set: document.getElementById('panel-set'),
-    custom: document.getElementById('panel-custom')
-  };
-
-  tabs.forEach(tab=>{
-    tab.onclick=()=>{
-      tabs.forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-      Object.values(panels).forEach(p=>p.classList.add('hidden'));
-      panels[tab.dataset.tab].classList.remove('hidden');
-    }
-  });
-
-  function chooseSet(plan){
-    localStorage.setItem("KARTS_PLAN", plan);
-    alert(plan + "セットを選びました");
-    // window.location.href = "confirm.html";
+const tabs=document.querySelectorAll('.tab');
+const panels={
+  set:document.getElementById('panel-set'),
+  custom:document.getElementById('panel-custom')
+};
+tabs.forEach(tab=>{
+  tab.onclick=()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    Object.values(panels).forEach(p=>p.classList.add('hidden'));
+    panels[tab.dataset.tab].classList.remove('hidden');
   }
+});
+function chooseSet(plan){
+  localStorage.setItem("KARTS_PLAN",plan);
+  alert(plan+" を選びました");
+  // window.location.href="confirm.html";
+}
 </script>
 
 </body>
 </html>
-
