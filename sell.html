@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>K.ARTS｜自分の作品を売る</title>
+
+<style>
+:root{
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --shadow:0 6px 18px rgba(0,0,0,.12);
+  --radius:16px;
+}
+*{ box-sizing:border-box; }
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #fde68a 0%, transparent 40%),
+    radial-gradient(circle at 90% 20%, #fca5a5 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, #86efac 0%, transparent 40%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+}
+
+.topbar{
+  position:sticky; top:0; z-index:20;
+  background:rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:10px 12px;
+}
+.toprow{
+  max-width:980px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px;
+}
+.brand{ font-weight:900; font-size:16px; }
+.back{
+  text-decoration:none; color:var(--text); font-weight:900;
+  border:1px solid var(--line); background:#fff;
+  padding:8px 10px; border-radius:12px;
+}
+
+.wrap{ max-width:980px; margin:0 auto; padding:16px; }
+
+.panel{
+  background:rgba(255,255,255,.88);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+
+h1{ margin:0 0 6px; font-size:18px; }
+.lead{ margin:0 0 14px; color:var(--muted); font-size:13px; line-height:1.5; }
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+@media (min-width:900px){
+  .grid{ grid-template-columns: 1fr 1fr; }
+}
+
+.field{
+  display:flex; flex-direction:column; gap:8px;
+}
+label{ font-weight:900; font-size:13px; }
+input, textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px 12px;
+  font-size:14px;
+  outline:none;
+  background:#fff;
+}
+textarea{ min-height:120px; resize:vertical; }
+
+.row{
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.btn{
+  border:none;
+  border-radius:14px;
+  padding:12px 14px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+.btn.primary{
+  background:linear-gradient(135deg,#111827,#334155);
+  color:#fff;
+}
+.btn.ghost{
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--text);
+  box-shadow:none;
+}
+
+.preview{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.pimg{
+  height:240px;
+  background:#e5e7eb;
+  overflow:hidden;
+}
+.pimg img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+.pbody{ padding:14px; }
+.pname{ font-weight:900; font-size:16px; }
+.pprice{ margin-top:8px; font-weight:900; font-size:22px; }
+.pdesc{ margin-top:8px; color:var(--muted); font-size:13px; line-height:1.6; white-space:pre-wrap; }
+
+.list{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+@media (min-width:900px){
+  .list{ grid-template-columns:repeat(2,1fr); }
+}
+.item{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+.item .thumb{ height:160px; background:#e5e7eb; overflow:hidden; }
+.item .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.item .meta{ padding:12px; }
+.item .nm{ font-weight:900; }
+.item .pr{ font-weight:900; margin-top:6px; }
+.item .dc{ color:var(--muted); font-size:12px; margin-top:6px; white-space:pre-wrap; }
+.item .actions{ display:flex; gap:10px; padding:0 12px 12px; }
+.small{ font-size:12px; color:var(--muted); margin-top:6px; }
+</style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="toprow">
+      <a class="back" href="./index.html">← メニューへ</a>
+      <div class="brand">K.ARTS｜自分の作品を売る</div>
+      <a class="back" href="./custom.html">自分で選ぶ</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="panel">
+      <h1>作品を登録（画像・値段・解説）</h1>
+      <p class="lead">
+        まずはURL画像でOK（CloudinaryのURLでも、GitHubの公開URLでも可）。<br>
+        登録するとこの端末のブラウザに保存される（localStorage）。
+      </p>
+
+      <div class="grid">
+        <!-- 入力 -->
+        <div>
+          <div class="field">
+            <label for="title">作品名（任意）</label>
+            <input id="title" placeholder="例：黄葉の森ボトル" />
+          </div>
+
+          <div class="field" style="margin-top:12px;">
+            <label for="imgUrl">画像URL（必須）</label>
+            <input id="imgUrl" placeholder="https://res.cloudinary.com/....jpg" />
+            <div class="small">※ 画像が出ない時はURLが公開されてない or パス間違い。</div>
+          </div>
+
+          <div class="field" style="margin-top:12px;">
+            <label for="price">値段（円）</label>
+            <input id="price" inputmode="numeric" placeholder="例：2800" />
+          </div>
+
+          <div class="field" style="margin-top:12px;">
+            <label for="desc">解説</label>
+            <textarea id="desc" placeholder="例：秋の黄葉を閉じ込めた小さな世界。光が当たると葉の陰影が…"></textarea>
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <button class="btn ghost" id="previewBtn" type="button">プレビュー更新</button>
+            <button class="btn primary" id="saveBtn" type="button">登録して保存</button>
+          </div>
+
+          <div class="row" style="margin-top:10px;">
+            <button class="btn ghost" id="clearFormBtn" type="button">入力をリセット</button>
+            <button class="btn ghost" id="clearAllBtn" type="button">登録作品を全削除</button>
+          </div>
+        </div>
+
+        <!-- プレビュー -->
+        <div>
+          <div class="preview">
+            <div class="pimg" id="pimg">
+              <!-- 画像 -->
+            </div>
+            <div class="pbody">
+              <div class="pname" id="pTitle">（作品名）</div>
+              <div class="pprice" id="pPrice">¥0</div>
+              <div class="pdesc" id="pDesc">（解説）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 一覧 -->
+      <div style="margin-top:16px; font-weight:900;">登録済みの作品</div>
+      <div class="list" id="list"></div>
+    </div>
+  </div>
+
+<script>
+const KEY = "karts_sell_items_v1";
+
+function yen(n){
+  const x = Number(n || 0);
+  return "¥" + x.toLocaleString("ja-JP");
+}
+function load(){
+  try{ return JSON.parse(localStorage.getItem(KEY) || "[]"); }
+  catch(e){ return []; }
+}
+function saveAll(items){
+  localStorage.setItem(KEY, JSON.stringify(items));
+}
+
+function getVals(){
+  return {
+    title: document.getElementById("title").value.trim() || "（無題）",
+    imgUrl: document.getElementById("imgUrl").value.trim(),
+    price: Number((document.getElementById("price").value || "0").replace(/[^\d]/g,"")) || 0,
+    desc: document.getElementById("desc").value.trim() || "（解説なし）"
+  };
+}
+
+function renderPreview(){
+  const v = getVals();
+  document.getElementById("pTitle").textContent = v.title;
+  document.getElementById("pPrice").textContent = yen(v.price);
+  document.getElementById("pDesc").textContent = v.desc;
+
+  const box = document.getElementById("pimg");
+  if(!v.imgUrl){
+    box.innerHTML = "";
+    box.style.background = "#e5e7eb";
+    return;
+  }
+  box.innerHTML = `<img src="${v.imgUrl}" alt="preview">`;
+}
+
+function renderList(){
+  const items = load();
+  const list = document.getElementById("list");
+  if(items.length === 0){
+    list.innerHTML = `<div class="small">まだ登録がありません。</div>`;
+    return;
+  }
+  list.innerHTML = items.map(it => `
+    <div class="item">
+      <div class="thumb">${it.imgUrl ? `<img src="${it.imgUrl}" alt="">` : ""}</div>
+      <div class="meta">
+        <div class="nm">${escapeHtml(it.title)}</div>
+        <div class="pr">${yen(it.price)}</div>
+        <div class="dc">${escapeHtml(it.desc)}</div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" data-del="${it.id}" type="button">削除</button>
+      </div>
+    </div>
+  `).join("");
+
+  list.querySelectorAll("[data-del]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const id = btn.getAttribute("data-del");
+      const next = load().filter(x => x.id !== id);
+      saveAll(next);
+      renderList();
+    });
+  });
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[m]));
+}
+
+document.getElementById("previewBtn").addEventListener("click", renderPreview);
+
+document.getElementById("saveBtn").addEventListener("click", ()=>{
+  const v = getVals();
+  if(!v.imgUrl){
+    alert("画像URLが空です。Cloudinaryなど公開URLを入れて。");
+    return;
+  }
+  const items = load();
+  items.unshift({ ...v, id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()+Math.random())) });
+  saveAll(items);
+  renderList();
+  alert("登録しました（このブラウザに保存）");
+});
+
+document.getElementById("clearFormBtn").addEventListener("click", ()=>{
+  document.getElementById("title").value = "";
+  document.getElementById("imgUrl").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("desc").value = "";
+  renderPreview();
+});
+
+document.getElementById("clearAllBtn").addEventListener("click", ()=>{
+  if(confirm("登録作品を全部消す？（この端末のブラウザ内データが消える）")){
+    localStorage.removeItem(KEY);
+    renderList();
+  }
+});
+
+["title","imgUrl","price","desc"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", renderPreview);
+});
+
+renderPreview();
+renderList();
+</script>
+</body>
+</html>
