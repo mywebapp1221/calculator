@@ -180,6 +180,10 @@ body{
 }
 
 .hidden{ display:none; }
+/* 写真表示 */
+.photo-display{ margin:14px 0; text-align:center; }
+.photo-display img{ max-width:100%; height:auto; border-radius:12px; box-shadow:var(--shadow); display:inline-block; }
+.photo-caption{ margin-top:8px; font-size:13px; color:var(--muted); }
 </style>
 </head>
 
@@ -194,6 +198,12 @@ body{
 </div>
 
 <div class="wrap">
+
+  <!-- Photo preview: workspace内の画像を表示 -->
+  <div class="photo-display">
+    <img src="image/IMG_20251207_132950699_HDR.jpg" alt="作品写真" />
+    <p class="photo-caption">作品写真 — ファイル: <code>image/IMG_20251207_132950699_HDR.jpg</code></p>
+  </div>
 
 <div id="panel-set">
 
