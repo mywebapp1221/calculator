@@ -1,98 +1,629 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>K.ARTS｜セット</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>K.ARTS メニュー</title>
 
 <style>
+:root{
+  --card:#ffffff; --text:#111827; --muted:#6b7280; --line:#e5e7eb;
+  --accent:#dc2626; --shadow:0 6px 18px rgba(0,0,0,.12); --radius:16px;
+}
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 body{
-  margin:0;
-  font-family:system-ui,sans-serif;
-  background:#f3f4f6;
+  margin:0; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #fde68a 0%, transparent 40%),
+    radial-gradient(circle at 90% 20%, #fca5a5 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, #86efac 0%, transparent 40%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
 }
-header{
-  background:#fff;
-  border-bottom:1px solid #ddd;
-  padding:12px;
-  text-align:center;
-  font-weight:900;
+
+/* ===== topbar ===== */
+.topbar{
+  position:sticky; top:0; z-index:30;
+  background:rgba(255,255,255,.92); backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--line); padding:10px 12px;
 }
-nav{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:8px;
+.title{ font-weight:900; text-align:center; font-size:16px; }
+.subnav{
+  display:flex; justify-content:center; gap:10px; margin-top:10px; flex-wrap:wrap;
 }
-nav a{
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid #ddd;
-  text-decoration:none;
-  color:#111;
-  font-weight:700;
+.tabbtn{
+  border:1px solid var(--line); background:#fff; border-radius:999px;
+  padding:10px 14px; font-weight:900; cursor:pointer; color:var(--text);
 }
-nav a.active{
-  background:#111;
-  color:#fff;
+.tabbtn.active{ background:#111827; color:#fff; border-color:#111827; }
+
+/* ===== layout ===== */
+.wrap{ padding:16px; max-width:980px; margin:0 auto; }
+.panel{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.9)),
+    linear-gradient(135deg, #fde68a, #fca5a5, #86efac);
+  border-radius:24px; padding:16px;
 }
-main{
-  max-width:900px;
-  margin:20px auto;
-  padding:12px;
+.hidden{ display:none; }
+
+/* ===== section ===== */
+.section-head{ display:flex; align-items:center; gap:10px; margin:14px 2px 6px; }
+.section-badge{
+  background:linear-gradient(135deg, #111827, #334155);
+  color:#fff; border-radius:999px; padding:5px 10px; font-size:12px; font-weight:900;
 }
+.section-title{ font-size:14px; font-weight:900; }
+.section-sub{ margin:0 2px 12px; font-size:12px; color:var(--muted); line-height:1.5; }
+
+/* ===== grid/cards ===== */
+.grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+@media (min-width:900px){ .grid{ grid-template-columns:repeat(3,1fr); } }
+.grid.two{ grid-template-columns:repeat(2,1fr); }
+
 .card{
-  background:#fff;
-  border-radius:16px;
-  box-shadow:0 6px 16px rgba(0,0,0,.1);
-  margin-bottom:16px;
-  overflow:hidden;
+  background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+  overflow:hidden; cursor:pointer; position:relative;
+  transition: transform .08s ease;
 }
+.card:active{ transform:scale(.99); }
 .img{
-  height:160px;
-  background:#ddd;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  height:160px; overflow:hidden;
+  background:linear-gradient(180deg,#e5e7eb,#d1d5db);
+  display:flex; align-items:center; justify-content:center;
+  color:#374151; font-weight:900;
 }
-.content{
-  padding:14px;
+.img img{ width:100%; height:100%; object-fit:cover; display:block; }
+.content{ padding:14px; }
+.name{ font-weight:900; font-size:15px; }
+.desc{ margin-top:6px; font-size:13px; color:var(--muted); line-height:1.35; }
+.price{ margin-top:10px; font-size:20px; font-weight:900; }
+
+.add-pill{
+  position:absolute; top:10px; right:10px;
+  background:rgba(17,24,39,.9); color:#fff;
+  font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
-.price{
-  font-size:20px;
+
+.vs{
+  margin:14px 2px 18px; padding:12px 14px; border-radius:14px;
+  background:#fff; border:1px solid var(--line);
+  font-weight:900; display:flex; justify-content:space-between;
+}
+
+/* ===== custom: category pills ===== */
+.pills{
+  display:flex; gap:8px; flex-wrap:wrap;
+  margin:8px 2px 12px;
+}
+.pill{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:999px;
+  padding:8px 12px;
   font-weight:900;
+  font-size:12px;
+  cursor:pointer;
 }
+.pill.active{
+  background:#111827;
+  color:#fff;
+  border-color:#111827;
+}
+
+/* ===== cart button ===== */
+.cart-fab{
+  position:fixed; right:16px; bottom:16px; z-index:50;
+  background:#111827; color:#fff; border:none; border-radius:999px;
+  padding:14px 16px; box-shadow:0 14px 30px rgba(0,0,0,.25);
+  cursor:pointer; display:flex; align-items:center; gap:10px; font-weight:900;
+}
+.badge{
+  min-width:22px; height:22px; border-radius:999px; background:var(--accent);
+  display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; padding:0 6px;
+}
+
+/* ===== modal ===== */
+.modal-bg{
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  display:none; align-items:flex-end; justify-content:center; z-index:60;
+}
+.modal{
+  width:min(980px,100%); background:#fff; border-radius:18px 18px 0 0;
+  box-shadow:0 20px 60px rgba(0,0,0,.35); padding:14px;
+  max-height:75vh; overflow:auto;
+}
+.modal-head{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.modal-title{ font-weight:900; }
+.modal-close{
+  border:1px solid var(--line); background:#fff; border-radius:999px;
+  padding:8px 12px; font-weight:900; cursor:pointer;
+}
+.cart-list{ margin-top:10px; display:flex; flex-direction:column; gap:10px; }
+.cart-item{
+  border:1px solid var(--line); border-radius:14px; padding:10px;
+  display:flex; justify-content:space-between; gap:10px; align-items:center;
+}
+.cart-left{ display:flex; flex-direction:column; gap:2px; }
+.cart-name{ font-weight:900; }
+.cart-meta{ font-size:12px; color:var(--muted); }
+.cart-right{ display:flex; align-items:center; gap:8px; }
+.qtybtn{
+  width:34px; height:34px; border-radius:10px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; font-weight:900;
+}
+.qty{ min-width:26px; text-align:center; font-weight:900; }
+.total-row{
+  margin-top:12px; padding-top:12px; border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:center; font-weight:900;
+}
+.danger{
+  border:1px solid #fecaca; background:#fff1f2; color:#9f1239;
+  border-radius:12px; padding:10px; font-weight:900; cursor:pointer;
+}
+.primary{
+  border:none; background:#111827; color:#fff; border-radius:12px; padding:10px 12px; font-weight:900; cursor:pointer;
+}
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.small{ font-size:12px; color:var(--muted); margin-top:6px; line-height:1.5; }
+
+/* ===== toast ===== */
+.toast{
+  position:fixed; left:50%; bottom:86px; transform:translateX(-50%);
+  background:#111827; color:#fff; padding:10px 12px; border-radius:999px;
+  font-weight:900; font-size:13px; opacity:0; pointer-events:none;
+  transition: opacity .15s, transform .15s;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  z-index:70;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(-4px); }
 </style>
 </head>
 
 <body>
-<header>
-  K.ARTS メニュー（セット）
-  <nav>
-    <a class="active" href="index.html">セット</a>
-    <a href="custom.html">自分で選ぶ</a>
-    <a href="buy.html">買う</a>
-  </nav>
-</header>
 
-<main>
-  <div class="card">
-    <div class="img">写真（後で）</div>
-    <div class="content">
-      <div><b>スタンダードセット</b></div>
-      <div>植物4種＋花1</div>
-      <div class="price">¥3,200〜</div>
+<div class="topbar">
+  <div class="title">K.ARTS メニュー</div>
+  <div class="subnav">
+    <button class="tabbtn active" data-view="set">セット</button>
+    <button class="tabbtn" data-view="custom">自分で選ぶ</button>
+    <button class="tabbtn" data-view="buy">買う</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="panel">
+
+    <!-- ===== セット ===== -->
+    <section id="view-set">
+      <div class="section-head">
+        <span class="section-badge">期間限定</span>
+        <span class="section-title">紅葉 vs 黄葉</span>
+      </div>
+      <p class="section-sub">タップでカートへ追加できます</p>
+
+      <div class="grid two">
+        <div class="card" data-add="set_momiji_red">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真(赤) まだ</div>
+          <div class="content">
+            <div class="name">紅葉セット</div>
+            <div class="desc">🔴 赤色の植物 使い放題</div>
+            <div class="price">¥2,800〜</div>
+          </div>
+        </div>
+
+        <div class="card" data-add="set_momiji_yellow">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">
+            <img id="setPhotoA" alt="黄葉セット">
+          </div>
+          <div class="content">
+            <div class="name">黄葉セット</div>
+            <div class="desc">🟡 黄色の植物 使い放題</div>
+            <div class="price">¥2,800〜</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vs">
+        <span>紅か、黄か。</span>
+        <span>どっち派？</span>
+      </div>
+
+      <div class="section-head">
+        <span class="section-badge">セット</span>
+        <span class="section-title">定番</span>
+      </div>
+
+      <div class="grid">
+        <div class="card" data-add="set_prime">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真 まだ</div>
+          <div class="content">
+            <div class="name">プライムセット</div>
+            <div class="desc">すべて使い放題</div>
+            <div class="price">¥5,000</div>
+          </div>
+        </div>
+
+        <div class="card" data-add="set_standard">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真 まだ</div>
+          <div class="content">
+            <div class="name">スタンダードセット</div>
+            <div class="desc">植物4種＋花1</div>
+            <div class="price">¥3,200〜</div>
+          </div>
+        </div>
+
+        <div class="card" data-add="set_growth">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真 まだ</div>
+          <div class="content">
+            <div class="name">グロースセット</div>
+            <div class="desc">植物3種</div>
+            <div class="price">¥1,400〜</div>
+          </div>
+        </div>
+
+        <div class="card" data-add="set_basic">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真 まだ</div>
+          <div class="content">
+            <div class="name">ベーシックセット</div>
+            <div class="desc">植物1種</div>
+            <div class="price">¥800〜</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 自分で選ぶ（マクド風：カテゴリ切替＋追加） ===== -->
+    <section id="view-custom" class="hidden">
+      <div class="section-head">
+        <span class="section-badge">自分で選ぶ</span>
+        <span class="section-title">3層で世界を作る</span>
+      </div>
+      <p class="section-sub">カテゴリを切り替えて、タップでカートへ。カートから数量変更できます。</p>
+
+      <div class="pills" id="customPills">
+        <button class="pill active" data-cat="layer1">第一層</button>
+        <button class="pill" data-cat="layer2">第二層</button>
+        <button class="pill" data-cat="layer3">第三層</button>
+      </div>
+
+      <!-- 第一層 -->
+      <div id="cat-layer1">
+        <div class="section-head">
+          <span class="section-badge">第一層</span><span class="section-title">地面を決めます</span>
+        </div>
+        <div class="grid">
+          <div class="card" data-add="c_ground_soil"><div class="add-pill">＋ 追加</div><div class="img">土</div><div class="content"><div class="name">土</div><div class="desc">ベース</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c_ground_stone"><div class="add-pill">＋ 追加</div><div class="img">石</div><div class="content"><div class="name">石</div><div class="desc">硬質</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c_ground_moss"><div class="add-pill">＋ 追加</div><div class="img">苔</div><div class="content"><div class="name">苔</div><div class="desc">しっとり</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c_ground_green"><div class="add-pill">＋ 追加</div><div class="img">緑植物</div><div class="content"><div class="name">緑植物</div><div class="desc">生命感</div><div class="price">¥300</div></div></div>
+        </div>
+      </div>
+
+      <!-- 第二層 -->
+      <div id="cat-layer2" class="hidden">
+        <div class="section-head">
+          <span class="section-badge">第二層</span><span class="section-title">世界観を決めます</span>
+        </div>
+        <div class="grid">
+          <div class="card" data-add="c_world_momiji_red"><div class="add-pill">＋ 追加</div><div class="img">紅葉(赤)</div><div class="content"><div class="name">紅葉【赤色】</div><div class="desc">差し色</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c_world_momiji_yellow"><div class="add-pill">＋ 追加</div><div class="img">紅葉(黄)</div><div class="content"><div class="name">紅葉【黄色】</div><div class="desc">明るさ</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c_world_nobara"><div class="add-pill">＋ 追加</div><div class="img">ノバラ</div><div class="content"><div class="name">ノバラ</div><div class="desc">雰囲気</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c_world_watage"><div class="add-pill">＋ 追加</div><div class="img">綿毛</div><div class="content"><div class="name">綿毛</div><div class="desc">ふわふわ</div><div class="price">¥200</div></div></div>
+        </div>
+      </div>
+
+      <!-- 第三層 -->
+      <div id="cat-layer3" class="hidden">
+        <div class="section-head">
+          <span class="section-badge">第三層</span><span class="section-title">仕上げ</span>
+        </div>
+        <div class="grid">
+          <div class="card" data-add="c_finish_flower"><div class="add-pill">＋ 追加</div><div class="img">花</div><div class="content"><div class="name">花</div><div class="desc">仕上げの華</div><div class="price">¥500</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 買う（作品一覧：サンプル。あとで増やせる） ===== -->
+    <section id="view-buy" class="hidden">
+      <div class="section-head">
+        <span class="section-badge">買う</span>
+        <span class="section-title">完成作品を選ぶ</span>
+      </div>
+      <p class="section-sub">作品をタップでカートへ追加できます（ここに作品を増やしていく）。</p>
+
+      <div class="grid">
+        <div class="card" data-add="b_art_001">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">作品写真</div>
+          <div class="content">
+            <div class="name">作品A（サンプル）</div>
+            <div class="desc">自然を閉じ込めた一点物</div>
+            <div class="price">¥2,500</div>
+          </div>
+        </div>
+
+        <div class="card" data-add="b_art_002">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">作品写真</div>
+          <div class="content">
+            <div class="name">作品B（サンプル）</div>
+            <div class="desc">黄葉モチーフ</div>
+            <div class="price">¥3,000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="small">
+        ※作品の写真は Cloudinary URL を入れれば表示できる（下の ITEMS で image を設定）。
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<button class="cart-fab" id="cartFab" aria-label="カートを見る">
+  🛒 カート <span class="badge" id="cartBadge">0</span>
+</button>
+
+<!-- toast -->
+<div class="toast" id="toast">カートに追加しました</div>
+
+<!-- cart modal -->
+<div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-label="カート">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">🛒 カート</div>
+      <button class="modal-close" id="closeModal">閉じる</button>
+    </div>
+
+    <div class="cart-list" id="cartList"></div>
+
+    <div class="total-row">
+      <div>合計</div>
+      <div id="cartTotal">¥0</div>
+    </div>
+
+    <div class="actions">
+      <button class="danger" id="clearCart">すべて削除</button>
+      <button class="primary" id="checkout">レジに進む</button>
+    </div>
+
+    <div class="small" id="checkoutHint">
+      「レジに進む」は今は合計を出すだけ（後でPayPay等に接続するなら拡張）。
     </div>
   </div>
+</div>
 
-  <div class="card">
-    <div class="img">写真（後で）</div>
-    <div class="content">
-      <div><b>ベーシックセット</b></div>
-      <div>植物1種</div>
-      <div class="price">¥800〜</div>
-    </div>
-  </div>
-</main>
+<script>
+/* ========= 設定 ========= */
+/** ★黄葉セットのCloudinary URLをここに入れる（https://... から始まるやつ） */
+const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE";
+
+/* ========= 商品マスタ ========= */
+const ITEMS = {
+  // セット
+  set_momiji_red:    { id:"set_momiji_red",    name:"紅葉セット", price:2800 },
+  set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:2800, image:PHOTO_A },
+  set_prime:         { id:"set_prime",         name:"プライムセット", price:5000 },
+  set_standard:      { id:"set_standard",      name:"スタンダードセット", price:3200 },
+  set_growth:        { id:"set_growth",        name:"グロースセット", price:1400 },
+  set_basic:         { id:"set_basic",         name:"ベーシックセット", price:800  },
+
+  // 自分で選ぶ
+  c_ground_soil:     { id:"c_ground_soil",     name:"土", price:50 },
+  c_ground_stone:    { id:"c_ground_stone",    name:"石", price:100 },
+  c_ground_moss:     { id:"c_ground_moss",     name:"苔", price:200 },
+  c_ground_green:    { id:"c_ground_green",    name:"緑植物", price:300 },
+
+  c_world_momiji_red:    { id:"c_world_momiji_red",    name:"紅葉【赤色】", price:200 },
+  c_world_momiji_yellow: { id:"c_world_momiji_yellow", name:"紅葉【黄色】", price:200 },
+  c_world_nobara:        { id:"c_world_nobara",        name:"ノバラ", price:200 },
+  c_world_watage:        { id:"c_world_watage",        name:"綿毛", price:200 },
+
+  c_finish_flower:   { id:"c_finish_flower",   name:"花", price:500 },
+
+  // 買う（作品サンプル：あとで増やす）
+  b_art_001: { id:"b_art_001", name:"作品A（サンプル）", price:2500, image:"" },
+  b_art_002: { id:"b_art_002", name:"作品B（サンプル）", price:3000, image:"" },
+};
+
+/* ========= カート ========= */
+function loadCart(){
+  try{ return JSON.parse(localStorage.getItem("karts_cart")||"{}"); }
+  catch(e){ return {}; }
+}
+function saveCart(c){ localStorage.setItem("karts_cart", JSON.stringify(c)); }
+let cart = loadCart();
+
+function cartCount(){ return Object.values(cart).reduce((s,it)=>s+(it.qty||0),0); }
+function cartTotal(){
+  let t=0;
+  for(const id of Object.keys(cart)){
+    const qty = cart[id].qty||0;
+    const item = ITEMS[id];
+    if(item) t += item.price * qty;
+  }
+  return t;
+}
+function yen(n){ return "¥" + Number(n||0).toLocaleString("ja-JP"); }
+
+function addToCart(id){
+  if(!ITEMS[id]) return;
+  if(!cart[id]) cart[id] = { id, qty:0 };
+  cart[id].qty += 1;
+  saveCart(cart);
+  renderBadge();
+  showToast((ITEMS[id].name||"追加") + " を追加");
+}
+function setQty(id, qty){
+  if(qty<=0){ delete cart[id]; }
+  else { cart[id] = { id, qty }; }
+  saveCart(cart);
+  renderBadge();
+  renderCart();
+}
+
+/* ========= toast ========= */
+function showToast(msg){
+  const t = document.getElementById("toast");
+  if(!t) return;
+  t.textContent = msg || "追加しました";
+  t.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 900);
+}
+
+/* ========= UI ========= */
+function renderBadge(){
+  document.getElementById("cartBadge").textContent = String(cartCount());
+}
+function renderSetPhoto(){
+  const img = document.getElementById("setPhotoA");
+  const url = (ITEMS.set_momiji_yellow.image || "").trim();
+  if(!img) return;
+  if(url.startsWith("http")){
+    img.src = url;
+  }else{
+    img.parentElement.textContent = "写真URL未設定";
+  }
+}
+
+/* ---- view switch (1ページ) ---- */
+const views = {
+  set: document.getElementById("view-set"),
+  custom: document.getElementById("view-custom"),
+  buy: document.getElementById("view-buy"),
+};
+function showView(key){
+  Object.keys(views).forEach(k=>{
+    views[k].classList.toggle("hidden", k!==key);
+  });
+  document.querySelectorAll(".tabbtn").forEach(b=>{
+    b.classList.toggle("active", b.dataset.view===key);
+  });
+  // hash update
+  if(location.hash !== "#" + key) location.hash = key;
+  window.scrollTo({top:0, behavior:"instant"});
+}
+function initViewFromHash(){
+  const key = (location.hash||"#set").replace("#","");
+  if(views[key]) showView(key);
+  else showView("set");
+}
+document.querySelectorAll(".tabbtn").forEach(btn=>{
+  btn.addEventListener("click", ()=>showView(btn.dataset.view));
+});
+window.addEventListener("hashchange", initViewFromHash);
+
+/* ---- custom category switch ---- */
+const pillWrap = document.getElementById("customPills");
+function showCustomCat(cat){
+  const ids = ["layer1","layer2","layer3"];
+  ids.forEach(k=>{
+    document.getElementById("cat-"+k).classList.toggle("hidden", k!==cat);
+  });
+  pillWrap.querySelectorAll(".pill").forEach(p=>{
+    p.classList.toggle("active", p.dataset.cat===cat);
+  });
+}
+pillWrap?.querySelectorAll(".pill").forEach(p=>{
+  p.addEventListener("click", ()=>showCustomCat(p.dataset.cat));
+});
+
+/* ---- add handlers ---- */
+document.querySelectorAll("[data-add]").forEach(el=>{
+  el.addEventListener("click", ()=>addToCart(el.dataset.add));
+});
+
+/* ---- cart modal ---- */
+const modalBg = document.getElementById("modalBg");
+const cartList = document.getElementById("cartList");
+const cartTotalEl = document.getElementById("cartTotal");
+
+function openCart(){
+  renderCart();
+  modalBg.style.display = "flex";
+}
+function closeCart(){
+  modalBg.style.display = "none";
+}
+document.getElementById("cartFab").addEventListener("click", openCart);
+document.getElementById("closeModal").addEventListener("click", closeCart);
+modalBg.addEventListener("click", (e)=>{ if(e.target===modalBg) closeCart(); });
+
+function renderCart(){
+  const ids = Object.keys(cart);
+  cartList.innerHTML = "";
+  if(ids.length===0){
+    cartList.innerHTML = `<div class="small">カートは空です。カードをタップして追加してね。</div>`;
+  }else{
+    ids.forEach(id=>{
+      const it = ITEMS[id];
+      if(!it) return;
+      const qty = cart[id].qty||0;
+
+      const row = document.createElement("div");
+      row.className = "cart-item";
+      row.innerHTML = `
+        <div class="cart-left">
+          <div class="cart-name">${it.name}</div>
+          <div class="cart-meta">${yen(it.price)} × ${qty} = ${yen(it.price*qty)}</div>
+        </div>
+        <div class="cart-right">
+          <button class="qtybtn" data-minus="${id}">−</button>
+          <div class="qty">${qty}</div>
+          <button class="qtybtn" data-plus="${id}">＋</button>
+        </div>
+      `;
+      cartList.appendChild(row);
+    });
+  }
+  cartTotalEl.textContent = yen(cartTotal());
+
+  // bind +/- (毎回付け直す)
+  cartList.querySelectorAll("[data-minus]").forEach(b=>{
+    b.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const id=b.dataset.minus;
+      const q=(cart[id]?.qty||0)-1;
+      setQty(id,q);
+    });
+  });
+  cartList.querySelectorAll("[data-plus]").forEach(b=>{
+    b.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const id=b.dataset.plus;
+      const q=(cart[id]?.qty||0)+1;
+      setQty(id,q);
+    });
+  });
+}
+
+document.getElementById("clearCart").addEventListener("click", ()=>{
+  cart = {};
+  saveCart(cart);
+  renderBadge();
+  renderCart();
+  showToast("カートを空にしました");
+});
+
+document.getElementById("checkout").addEventListener("click", ()=>{
+  alert("合計金額： " + yen(cartTotal()));
+});
+
+/* init */
+renderSetPhoto();
+renderBadge();
+initViewFromHash();
+showCustomCat("layer1");
+</script>
+
 </body>
 </html>
