@@ -26,7 +26,7 @@ body{
 }
 .title{ font-weight:900; text-align:center; font-size:16px; }
 .subnav{
-  display:flex; justify-content:center; gap:10px; margin-top:10px;
+  display:flex; justify-content:center; gap:10px; margin-top:10px; flex-wrap:wrap;
 }
 .linkbtn{
   border:1px solid var(--line); background:#fff; border-radius:999px;
@@ -52,9 +52,13 @@ body{
 .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 @media (min-width:900px){ .grid{ grid-template-columns:repeat(3,1fr); } }
 
-.card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; cursor:pointer; }
-.img{ height:160px; overflow:hidden; background:linear-gradient(180deg,#e5e7eb,#d1d5db);
-  display:flex; align-items:center; justify-content:center; color:#374151; font-weight:900;
+.card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; cursor:pointer; position:relative; }
+.img{
+  height:160px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#e5e7eb,#d1d5db);
+  display:flex; align-items:center; justify-content:center;
+  color:#374151; font-weight:900;
 }
 .img img{ width:100%; height:100%; object-fit:cover; display:block; }
 .content{ padding:14px; }
@@ -63,10 +67,10 @@ body{
 .price{ margin-top:10px; font-size:20px; font-weight:900; }
 
 .add-pill{
-  position:absolute; top:10px; right:10px; background:rgba(17,24,39,.9); color:#fff;
+  position:absolute; top:10px; right:10px;
+  background:rgba(17,24,39,.9); color:#fff;
   font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
-.card{ position:relative; }
 .vs{
   margin:14px 2px 18px; padding:12px 14px; border-radius:14px;
   background:#fff; border:1px solid var(--line); font-weight:900; display:flex; justify-content:space-between;
@@ -92,6 +96,7 @@ body{
   <div class="subnav">
     <a class="linkbtn primary" href="./index.html">セット</a>
     <a class="linkbtn" href="./custom.html">自分で選ぶ</a>
+    <a class="linkbtn" href="./sell.html">売る</a>
   </div>
 </div>
 
@@ -117,7 +122,9 @@ body{
 
       <div class="card" data-add="set_momiji_yellow">
         <div class="add-pill">＋ 追加</div>
-        <div class="img"><img id="setPhotoA" alt="黄葉セット"></div>
+        <div class="img">
+          <img id="setPhotoA" alt="黄葉セット">
+        </div>
         <div class="content">
           <div class="name">黄葉セット</div>
           <div class="desc">🟡 黄色の植物 使い放題</div>
@@ -186,39 +193,52 @@ body{
 </button>
 
 <script>
-/** ★Cloudinary URL（黄葉セット）だけまず入れる */
+/** ★黄葉セットのCloudinary URLをここに入れる（https://... から始まるやつ） */
 const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE";
 
 /** 商品マスタ（セットだけ） */
 const ITEMS = {
-  set_momiji_red:    { id:"set_momiji_red", name:"紅葉セット", price:2800, layer:"セット(期間限定)", image:"" },
-  set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:2800, layer:"セット(期間限定)", image:PHOTO_A },
-  set_prime:         { id:"set_prime", name:"プライムセット", price:5000, layer:"セット", image:"" },
-  set_standard:      { id:"set_standard", name:"スタンダードセット", price:3200, layer:"セット", image:"" },
-  set_growth:        { id:"set_growth", name:"グロースセット", price:1400, layer:"セット", image:"" },
-  set_basic:         { id:"set_basic", name:"ベーシックセット", price:800,  layer:"セット", image:"" },
+  set_momiji_red:    { id:"set_momiji_red", name:"紅葉セット", price:2800 },
+  set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:2800, image:PHOTO_A },
+  set_prime:         { id:"set_prime", name:"プライムセット", price:5000 },
+  set_standard:      { id:"set_standard", name:"スタンダードセット", price:3200 },
+  set_growth:        { id:"set_growth", name:"グロースセット", price:1400 },
+  set_basic:         { id:"set_basic", name:"ベーシックセット", price:800  },
 };
 
-function loadCart(){ try{ return JSON.parse(localStorage.getItem("karts_cart")||"{}"); }catch(e){ return {}; } }
+function loadCart(){
+  try{ return JSON.parse(localStorage.getItem("karts_cart")||"{}"); }
+  catch(e){ return {}; }
+}
 function saveCart(c){ localStorage.setItem("karts_cart", JSON.stringify(c)); }
 let cart = loadCart();
 
-function cartCount(){ return Object.values(cart).reduce((s,it)=>s+it.qty,0); }
+function cartCount(){ return Object.values(cart).reduce((s,it)=>s+(it.qty||0),0); }
+
 function addToCart(id){
   if(!ITEMS[id]) return;
-  if(!cart[id]) cart[id]={id,qty:0};
+  if(!cart[id]) cart[id]={ id, qty:0 };
   cart[id].qty += 1;
   saveCart(cart);
   renderBadge();
 }
+
 function renderBadge(){
   document.getElementById("cartBadge").textContent = String(cartCount());
 }
+
 function renderSetPhoto(){
   const img = document.getElementById("setPhotoA");
-  const it = ITEMS.set_momiji_yellow;
-  if(img && it.image && it.image.startsWith("http")) img.src = it.image;
-  else if(img) img.parentElement.textContent = "写真URL未設定";
+  const url = (ITEMS.set_momiji_yellow.image || "").trim();
+  if(!img) return;
+
+  if(url.startsWith("http")){
+    img.src = url;
+  }else{
+    // img枠を「未設定」表示にする
+    const box = img.parentElement;
+    box.innerHTML = "写真URL未設定";
+  }
 }
 
 document.querySelectorAll("[data-add]").forEach(el=>{
@@ -226,7 +246,6 @@ document.querySelectorAll("[data-add]").forEach(el=>{
 });
 
 document.getElementById("cartFab").addEventListener("click", ()=>{
-  // カートを見るページ（custom側で実装するので誘導）
   location.href = "./custom.html#cart";
 });
 
