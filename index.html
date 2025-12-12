@@ -29,7 +29,7 @@ body{
     linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
 }
 
-/* ===== ヘッダー ===== */
+/* ヘッダー */
 .topbar{
   position:sticky;
   top:0;
@@ -45,7 +45,7 @@ body{
   font-size:16px;
 }
 
-/* ===== タブ ===== */
+/* タブ */
 .tabs{
   display:flex;
   justify-content:center;
@@ -57,6 +57,7 @@ body{
   font-size:14px;
   color:var(--muted);
   border-bottom:3px solid transparent;
+  cursor:pointer;
   font-weight:700;
 }
 .tab.active{
@@ -64,13 +65,14 @@ body{
   border-bottom-color:var(--text);
 }
 
-/* ===== レイアウト ===== */
+/* レイアウト */
 .wrap{
   padding:14px;
   max-width:980px;
   margin:0 auto;
 }
 
+/* セット全体 */
 #panel-set{
   background:
     linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.88)),
@@ -79,7 +81,7 @@ body{
   padding:14px;
 }
 
-/* ===== セクション ===== */
+/* セクション */
 .section-head{
   display:flex;
   align-items:center;
@@ -97,6 +99,7 @@ body{
 .section-title{
   font-size:13px;
   font-weight:900;
+  color:#374151;
 }
 .section-sub{
   margin:0 2px 10px;
@@ -104,7 +107,7 @@ body{
   color:var(--muted);
 }
 
-/* ===== グリッド ===== */
+/* グリッド */
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -114,20 +117,21 @@ body{
   grid-template-columns:repeat(2,1fr);
 }
 
-/* ===== カード ===== */
+/* カード */
 .card{
-  background:#fff;
+  background:
+    linear-gradient(180deg, #ffffff, #ffffff),
+    radial-gradient(circle at top left, rgba(134,239,172,.18), transparent 60%);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
   overflow:hidden;
 }
 
-/* ===== 画像表示（ここ超重要） ===== */
+/* 画像 */
 .img{
-  height:180px;
-  position:relative;
+  height:120px;
   overflow:hidden;
-  background:#ddd;
+  background:#e5e7eb;
 }
 .img img{
   width:100%;
@@ -135,20 +139,9 @@ body{
   object-fit:cover;
   display:block;
 }
-.img-label{
-  position:absolute;
-  left:10px;
-  bottom:10px;
-  background:rgba(0,0,0,.6);
-  color:#fff;
-  padding:4px 8px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:900;
-}
 
-/* ===== テキスト ===== */
 .content{ padding:12px; }
+
 .name{
   font-weight:900;
   font-size:15px;
@@ -164,7 +157,7 @@ body{
   font-weight:900;
 }
 
-/* ===== VS ===== */
+/* VS */
 .vs{
   margin:10px 2px 14px;
   padding:10px 12px;
@@ -189,51 +182,48 @@ body{
 </div>
 
 <div class="wrap">
-<div id="panel-set">
+  <div id="panel-set">
 
-  <!-- 期間限定 -->
-  <div class="section-head">
-    <span class="section-tag">期間限定</span>
-    <span class="section-title">紅葉 vs 黄葉</span>
-  </div>
-  <p class="section-sub">今だけ｜色で選ぶ自然アート</p>
+    <!-- 期間限定 -->
+    <div class="section-head">
+      <span class="section-tag">期間限定</span>
+      <span class="section-title">紅葉 vs 黄葉</span>
+    </div>
+    <p class="section-sub">今だけ｜色で選ぶ自然アート</p>
 
-  <div class="grid two-only">
-
-    <!-- 紅葉 -->
-    <div class="card">
-      <div class="img">
-        <span class="img-label">紅葉</span>
-        <img src="image/IMG_20251207_132950699_HDR.jpg" alt="紅葉セット">
+    <div class="grid two-only">
+      <!-- 紅葉（写真まだ） -->
+      <div class="card">
+        <div class="img">
+          <!-- 赤写真ができたらここを差し替え -->
+        </div>
+        <div class="content">
+          <div class="name">紅葉セット</div>
+          <div class="desc">🔴 赤色の植物 使い放題</div>
+          <div class="price">¥2,800〜</div>
+        </div>
       </div>
-      <div class="content">
-        <div class="name">紅葉セット</div>
-        <div class="desc">🔴 赤色の植物 使い放題</div>
-        <div class="price">¥2,800〜</div>
+
+      <!-- 黄葉（← この写真を使用） -->
+      <div class="card">
+        <div class="img">
+          <!-- ★ここが一番大事：image フォルダに入れたjpgを参照 -->
+          <img src="image/IMG_20251207_132950699_HDR.jpg" alt="黄葉セット">
+        </div>
+        <div class="content">
+          <div class="name">黄葉セット</div>
+          <div class="desc">🟡 黄色の植物 使い放題</div>
+          <div class="price">¥2,800〜</div>
+        </div>
       </div>
     </div>
 
-    <!-- 黄葉 -->
-    <div class="card">
-      <div class="img">
-        <span class="img-label">黄葉</span>
-        <img src="image/IMG_20251207_132950699_HDR.jpg" alt="黄葉セット">
-      </div>
-      <div class="content">
-        <div class="name">黄葉セット</div>
-        <div class="desc">🟡 黄色の植物 使い放題</div>
-        <div class="price">¥2,800〜</div>
-      </div>
+    <div class="vs">
+      <span>紅か、黄か。</span>
+      <span>どっち派？</span>
     </div>
 
   </div>
-
-  <div class="vs">
-    <span>紅か、黄か。</span>
-    <span>どっち派？</span>
-  </div>
-
-</div>
 </div>
 
 </body>
