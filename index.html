@@ -12,8 +12,8 @@
   --muted:#6b7280;
   --line:#e5e7eb;
   --accent:#dc2626;
-  --shadow:0 2px 10px rgba(0,0,0,.08);
-  --radius:14px;
+  --shadow:0 6px 18px rgba(0,0,0,.12);
+  --radius:16px;
 }
 
 *{ box-sizing:border-box; }
@@ -22,8 +22,6 @@ body{
   margin:0;
   font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
   color:var(--text);
-
-  /* ===== 背景：自然グラデ ===== */
   background:
     radial-gradient(circle at 10% 10%, #fde68a 0%, transparent 40%),
     radial-gradient(circle at 90% 20%, #fca5a5 0%, transparent 45%),
@@ -31,7 +29,7 @@ body{
     linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
 }
 
-/* ヘッダー */
+/* ===== ヘッダー ===== */
 .topbar{
   position:sticky;
   top:0;
@@ -46,8 +44,6 @@ body{
   text-align:center;
   font-size:16px;
 }
-
-/* タブ */
 .tabs{
   display:flex;
   justify-content:center;
@@ -59,7 +55,6 @@ body{
   font-size:14px;
   color:var(--muted);
   border-bottom:3px solid transparent;
-  cursor:pointer;
   font-weight:700;
 }
 .tab.active{
@@ -67,23 +62,22 @@ body{
   border-bottom-color:var(--text);
 }
 
-/* レイアウト */
+/* ===== レイアウト ===== */
 .wrap{
-  padding:14px;
+  padding:16px;
   max-width:980px;
   margin:0 auto;
 }
 
-/* セット全体の背景 */
 #panel-set{
   background:
-    linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.88)),
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.9)),
     linear-gradient(135deg, #fde68a, #fca5a5, #86efac);
-  border-radius:20px;
-  padding:14px;
+  border-radius:24px;
+  padding:16px;
 }
 
-/* セクション */
+/* ===== セクション ===== */
 .section-head{
   display:flex;
   align-items:center;
@@ -97,54 +91,50 @@ body{
   padding:4px 10px;
   font-size:12px;
   font-weight:900;
-  box-shadow:0 4px 10px rgba(220,38,38,.35);
 }
 .section-title{
-  font-size:13px;
+  font-size:14px;
   font-weight:900;
-  color:#374151;
 }
 .section-sub{
-  margin:0 2px 10px;
+  margin:0 2px 12px;
   font-size:12px;
   color:var(--muted);
 }
 
-/* グリッド */
+/* ===== グリッド ===== */
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  gap:14px;
 }
-@media (min-width:900px){
-  .grid{ grid-template-columns:repeat(3,1fr); }
-  .grid.two-only{ grid-template-columns:repeat(2,1fr); }
+.grid.two-only{
+  grid-template-columns:repeat(2,1fr);
 }
 
-/* カード */
+/* ===== カード ===== */
 .card{
-  background:
-    linear-gradient(180deg, #ffffff, #ffffff),
-    radial-gradient(circle at top left, rgba(134,239,172,.18), transparent 60%);
+  background:var(--card);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
   overflow:hidden;
-  cursor:pointer;
-  transition:.1s;
 }
-.card:active{ transform:scale(.99); }
 
+/* 写真エリア */
 .img{
-  height:110px;
+  height:160px;
+  overflow:hidden;
   background:#e5e7eb;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  color:#374151;
 }
-.content{ padding:12px; }
+.img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
 
+/* テキスト */
+.content{ padding:14px; }
 .name{
   font-weight:900;
   font-size:15px;
@@ -159,7 +149,6 @@ body{
   margin-top:6px;
   font-size:13px;
   color:var(--muted);
-  line-height:1.35;
 }
 .price{
   margin-top:10px;
@@ -167,23 +156,17 @@ body{
   font-weight:900;
 }
 
-/* VSコピー */
+/* VS */
 .vs{
-  margin:10px 2px 14px;
-  padding:10px 12px;
-  border-radius:12px;
+  margin:14px 2px 18px;
+  padding:12px 14px;
+  border-radius:14px;
   background:#fff;
   border:1px solid var(--line);
   font-weight:900;
   display:flex;
   justify-content:space-between;
 }
-
-.hidden{ display:none; }
-/* 写真表示 */
-.photo-display{ margin:14px 0; text-align:center; }
-.photo-display img{ max-width:100%; height:auto; border-radius:12px; box-shadow:var(--shadow); display:inline-block; }
-.photo-caption{ margin-top:8px; font-size:13px; color:var(--muted); }
 </style>
 </head>
 
@@ -192,19 +175,12 @@ body{
 <div class="topbar">
   <div class="title">K.ARTS メニュー</div>
   <div class="tabs">
-    <div class="tab active" data-tab="set">セット</div>
-    <div class="tab" data-tab="custom">自分で選ぶ</div>
+    <div class="tab active">セット</div>
+    <div class="tab">自分で選ぶ</div>
   </div>
 </div>
 
 <div class="wrap">
-
-  <!-- Photo preview: workspace内の画像を表示 -->
-  <div class="photo-display">
-    <img src="image/IMG_20251207_132950699_HDR.jpg" alt="作品写真" />
-    <p class="photo-caption">作品写真 — ファイル: <code>image/IMG_20251207_132950699_HDR.jpg</code></p>
-  </div>
-
 <div id="panel-set">
 
   <!-- 期間限定 -->
@@ -215,8 +191,11 @@ body{
   <p class="section-sub">今だけ｜色で選ぶ自然アート</p>
 
   <div class="grid two-only">
+    <!-- 紅葉（仮） -->
     <div class="card">
-      <div class="img">紅葉</div>
+      <div class="img">
+        <!-- あとで赤系写真を入れる -->
+      </div>
       <div class="content">
         <div class="name">紅葉セット</div>
         <div class="desc">🔴 赤色の植物 使い放題</div>
@@ -224,8 +203,11 @@ body{
       </div>
     </div>
 
+    <!-- 黄葉（写真あり） -->
     <div class="card">
-      <div class="img">黄葉</div>
+      <div class="img">
+        <img src="image/IMG_20251207_132950699_HDR.jpg" alt="黄葉セット">
+      </div>
       <div class="content">
         <div class="name">黄葉セット</div>
         <div class="desc">🟡 黄色の植物 使い放題</div>
@@ -246,7 +228,7 @@ body{
 
   <div class="grid">
     <div class="card">
-      <div class="img">プライム</div>
+      <div class="img"></div>
       <div class="content">
         <div class="name">プライムセット</div>
         <div class="desc">すべて使い放題</div>
@@ -255,7 +237,7 @@ body{
     </div>
 
     <div class="card">
-      <div class="img">スタンダード</div>
+      <div class="img"></div>
       <div class="content">
         <div class="name">スタンダードセット <span class="recommend">おすすめ</span></div>
         <div class="desc">植物4種＋花1</div>
@@ -264,7 +246,7 @@ body{
     </div>
 
     <div class="card">
-      <div class="img">グロース</div>
+      <div class="img"></div>
       <div class="content">
         <div class="name">グロースセット</div>
         <div class="desc">植物3種</div>
@@ -273,7 +255,7 @@ body{
     </div>
 
     <div class="card">
-      <div class="img">ベーシック</div>
+      <div class="img"></div>
       <div class="content">
         <div class="name">ベーシックセット</div>
         <div class="desc">植物1種</div>
@@ -283,7 +265,6 @@ body{
   </div>
 
 </div>
-
 </div>
 
 </body>
