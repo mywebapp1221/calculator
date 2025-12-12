@@ -1,156 +1,284 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K.ARTS セット選択</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>K.ARTS メニュー</title>
+  <style>
+    :root{
+      --bg:#f5f5f5;
+      --card:#fff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --brand:#e11d48; /* おすすめ赤 */
+      --shadow:0 2px 10px rgba(0,0,0,.08);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
 
-<style>
-  body {
-    font-family: system-ui, sans-serif;
-    margin: 0;
-    padding: 16px;
-    background: #f4f4f4;
-  }
+    /* ヘッダー */
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      background:#fff; border-bottom:1px solid var(--line);
+      padding:10px 12px;
+    }
+    .topbar .title{
+      font-weight:700; text-align:center; font-size:16px;
+    }
 
-  h1 {
-    font-size: 1.3rem;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+    /* タブ */
+    .tabs{
+      display:flex; gap:18px;
+      overflow:auto; padding:10px 4px 0;
+      scrollbar-width:none;
+    }
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{
+      white-space:nowrap;
+      padding:10px 4px;
+      font-size:14px;
+      color:var(--muted);
+      border-bottom:3px solid transparent;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tab.active{
+      color:var(--text);
+      border-bottom-color:var(--brand);
+      font-weight:700;
+    }
 
-  .set-box {
-    background: white;
-    padding: 16px;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
+    /* グリッドカード */
+    .wrap{ padding:12px; max-width:980px; margin:0 auto; }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
 
-  .set-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2563eb;
-  }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      cursor:pointer;
+      user-select:none;
+      border:1px solid #0000;
+      transition: transform .08s ease, border-color .08s ease;
+    }
+    .card:active{ transform: scale(.99); }
+    .card:hover{ border-color: #e5e7eb; }
 
-  .popular {
-    color: #ef4444;
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
+    .img{
+      height:110px;
+      background: #ddd;
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
+    }
+    .img small{ color:#374151; opacity:.8; }
 
-  .price {
-    font-size: 1.1rem;
-    margin-top: 8px;
-    margin-bottom: 12px;
-  }
+    /* おすすめバッジ */
+    .badge{
+      position:absolute; left:10px; top:10px;
+      background:var(--brand);
+      color:#fff;
+      font-weight:800;
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      box-shadow:0 2px 8px rgba(225,29,72,.25);
+    }
 
-  .old-price {
-    text-decoration: line-through;
-    color: #6b7280;
-  }
+    .content{ padding:12px; }
+    .name{
+      font-weight:800;
+      font-size:14px;
+      line-height:1.25;
+      min-height: 36px;
+    }
+    .desc{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.3;
+      min-height: 32px;
+    }
+    .price{
+      margin-top:10px;
+      display:flex; align-items:baseline; gap:6px;
+    }
+    .yen{ font-weight:900; font-size:22px; letter-spacing:.2px; }
+    .old{
+      color:var(--muted);
+      text-decoration:line-through;
+      font-size:12px;
+    }
 
-  .set-detail {
-    font-size: 0.95rem;
-    margin-bottom: 10px;
-    line-height: 1.4rem;
-  }
-
-  .btn {
-    width: 100%;
-    background: #2563eb;
-    color: white;
-    padding: 14px;
-    text-align: center;
-    border-radius: 12px;
-    font-size: 1rem;
-    margin-top: 10px;
-    cursor: pointer;
-    border: none;
-  }
-  .btn:active {
-    opacity: 0.8;
-  }
-
-  .small-link {
-    text-align: center;
-    font-size: 0.85rem;
-    margin-top: 20px;
-    color: #555;
-  }
-
-  .small-link a {
-    color: #4b5563;
-    text-decoration: underline;
-  }
-</style>
+    /* 下固定の合計（将来、カート型にする場合用） */
+    .footer{
+      position:sticky; bottom:0;
+      background:#fff;
+      border-top:1px solid var(--line);
+      padding:10px 12px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px;
+    }
+    .footer .total{ font-weight:900; font-size:16px; }
+    .footer button{
+      border:0; border-radius:999px;
+      padding:10px 14px;
+      font-weight:800;
+      background:#16a34a;
+      color:#fff;
+    }
+    .hidden{ display:none; }
+  </style>
 </head>
-
 <body>
 
-<h1>500円から始められます。<br>迷わない３つのセットがおすすめです。</h1>
-
-<!-- Aセット -->
-<div class="set-box">
-  <div class="set-title">Aセット（おすすめ）</div>
-  <div class="popular">いちばん選ばれています</div>
-
-  <div class="price">
-    <span class="old-price">3,300円</span> → <strong>3,200円（100円引き）</strong>
+  <div class="topbar">
+    <div class="title">K.ARTS セットメニュー</div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="recommend">おすすめ</div>
+      <div class="tab" data-tab="set">セット</div>
+      <div class="tab" data-tab="custom">自分で選ぶ</div>
+    </div>
   </div>
 
-  <div class="set-detail">
-    ● 植物 4種類<br>
-    ● 花 1個<br>
-    ● ネット公開つき（家族にも見せられます）
+  <div class="wrap">
+
+    <!-- おすすめ（Aを最上段に） -->
+    <div class="grid" id="panel-recommend">
+      <div class="card" onclick="chooseSet('A')">
+        <div class="img">
+          <div class="badge">おすすめ</div>
+          <small>（ここにAセットの写真）</small>
+        </div>
+        <div class="content">
+          <div class="name">Aセット（いちばん人気）</div>
+          <div class="desc">植物4種＋花1個＋ネット公開つき</div>
+          <div class="price">
+            <span class="yen">¥3,200</span>
+            <span class="old">¥3,300</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="chooseSet('B')">
+        <div class="img">
+          <div class="badge">おすすめ</div>
+          <small>（ここにBセットの写真）</small>
+        </div>
+        <div class="content">
+          <div class="name">Bセット</div>
+          <div class="desc">植物3種（花は＋500円で追加OK）</div>
+          <div class="price">
+            <span class="yen">¥1,400</span>
+            <span class="old">¥1,500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="chooseSet('C')">
+        <div class="img">
+          <div class="badge">おすすめ</div>
+          <small>（ここにCセットの写真）</small>
+        </div>
+        <div class="content">
+          <div class="name">Cセット（まずは体験）</div>
+          <div class="desc">植物1種（花は＋500円で追加OK）</div>
+          <div class="price">
+            <span class="yen">¥800</span>
+            <span class="old">¥900</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- セット（同じでもOK。後で並び替えできる） -->
+    <div class="grid hidden" id="panel-set">
+      <div class="card" onclick="chooseSet('A')">
+        <div class="img"><small>Aセット写真</small></div>
+        <div class="content">
+          <div class="name">Aセット</div>
+          <div class="desc">植物4＋花1＋ネット公開</div>
+          <div class="price"><span class="yen">¥3,200</span></div>
+        </div>
+      </div>
+      <div class="card" onclick="chooseSet('B')">
+        <div class="img"><small>Bセット写真</small></div>
+        <div class="content">
+          <div class="name">Bセット</div>
+          <div class="desc">植物3（花は追加）</div>
+          <div class="price"><span class="yen">¥1,400</span></div>
+        </div>
+      </div>
+      <div class="card" onclick="chooseSet('C')">
+        <div class="img"><small>Cセット写真</small></div>
+        <div class="content">
+          <div class="name">Cセット</div>
+          <div class="desc">植物1（花は追加）</div>
+          <div class="price"><span class="yen">¥800</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自分で選ぶ（ここに40マスへリンク） -->
+    <div class="hidden" id="panel-custom">
+      <div style="padding:10px; color:#374151;">
+        自分で1つずつ選ぶ（セット割引なし）
+      </div>
+      <div class="grid">
+        <div class="card" onclick="location.href='plants.html'">
+          <div class="img"><small>植物をえらぶ（40マス）</small></div>
+          <div class="content">
+            <div class="name">植物を1つずつ選ぶ</div>
+            <div class="desc">ポチポチ選択 → 合計表示 → 確定</div>
+            <div class="price"><span class="yen">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <button class="btn" onclick="chooseSet('A')">Aセットを選ぶ</button>
-</div>
+  <script>
+    // タブ切り替え
+    const tabs = document.querySelectorAll('.tab');
+    const panels = {
+      recommend: document.getElementById('panel-recommend'),
+      set: document.getElementById('panel-set'),
+      custom: document.getElementById('panel-custom')
+    };
 
-<!-- Bセット -->
-<div class="set-box">
-  <div class="set-title">Bセット</div>
-  <div class="price">
-    <span class="old-price">1,500円</span> → <strong>1,400円（100円引き）</strong>
-  </div>
+    tabs.forEach(t => {
+      t.addEventListener('click', () => {
+        tabs.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
 
-  <div class="set-detail">
-    ● 植物 3種類<br>
-    ● ＋500円で花を追加できます
-  </div>
+        Object.values(panels).forEach(p => p.classList.add('hidden'));
+        panels[t.dataset.tab].classList.remove('hidden');
+      });
+    });
 
-  <button class="btn" onclick="chooseSet('B')">Bセットを選ぶ</button>
-</div>
-
-<!-- Cセット -->
-<div class="set-box">
-  <div class="set-title">Cセット</div>
-  <div class="price">
-    <span class="old-price">900円</span> → <strong>800円（100円引き）</strong>
-  </div>
-
-  <div class="set-detail">
-    ● 植物 1種類<br>
-    ● ＋500円で花を追加できます
-  </div>
-
-  <button class="btn" onclick="chooseSet('C')">Cセットを選ぶ</button>
-</div>
-
-<!-- 個別選択リンク（目立たせない） -->
-<div class="small-link">
-  ── または ──<br>
-  <a href="plants.html">1つずつ選ぶ（セット割引なし）</a>
-</div>
-
-<script>
-function chooseSet(plan) {
-  // 選んだセットを保存（次のページで読み取る）
-  localStorage.setItem("KARTS_PLAN", plan);
-  window.location.href = "confirm.html";
-}
-</script>
+    // セット選択 → 次のページへ（confirm.html を後で作る）
+    function chooseSet(plan){
+      localStorage.setItem("KARTS_PLAN", plan);
+      // いったん確認用
+      alert(plan + "セットを選びました！次は確認画面へ進むようにできます。");
+      // window.location.href = "confirm.html";
+    }
+  </script>
 
 </body>
 </html>
