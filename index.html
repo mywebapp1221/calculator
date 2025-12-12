@@ -1,232 +1,156 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>K.ARTS 植物えらび</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f3f4f6;
-      color: #111827;
-      padding: 16px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K.ARTS セット選択</title>
 
-    h1 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 16px;
+    background: #f4f4f4;
+  }
 
-    .hint {
-      font-size: 0.9rem;
-      color: #4b5563;
-      margin-bottom: 12px;
-    }
+  h1 {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr)); /* 縦5マス */
-      gap: 6px;
-      margin-bottom: 16px;
-    }
+  .set-box {
+    background: white;
+    padding: 16px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
 
-    .cell {
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      background: #ffffff;
-      padding: 4px;
-      text-align: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 70px; /* スマホでもなんとか押せるサイズ */
-    }
+  .set-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2563eb;
+  }
 
-    .cell img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 2px;
-    }
+  .popular {
+    color: #ef4444;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
 
-    .name {
-      font-size: 0.65rem;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
+  .price {
+    font-size: 1.1rem;
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
 
-    .price {
-      font-size: 0.6rem;
-      color: #6b7280;
-    }
+  .old-price {
+    text-decoration: line-through;
+    color: #6b7280;
+  }
 
-    .cell.selected {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
-      background: #eff6ff;
-    }
+  .set-detail {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    line-height: 1.4rem;
+  }
 
-    .summary {
-      position: sticky;
-      bottom: 0;
-      background: #f3f4f6;
-      padding-top: 8px;
-      border-top: 1px solid #e5e7eb;
-    }
+  .btn {
+    width: 100%;
+    background: #2563eb;
+    color: white;
+    padding: 14px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 1rem;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+  }
+  .btn:active {
+    opacity: 0.8;
+  }
 
-    .total-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
+  .small-link {
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 20px;
+    color: #555;
+  }
 
-    #totalAmount {
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .btn-confirm {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 999px;
-      background: #16a34a;
-      color: white;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-confirm:active {
-      opacity: 0.85;
-    }
-
-    .selected-list {
-      font-size: 0.75rem;
-      color: #4b5563;
-      margin-bottom: 8px;
-      min-height: 1.2em;
-    }
-  </style>
+  .small-link a {
+    color: #4b5563;
+    text-decoration: underline;
+  }
+</style>
 </head>
+
 <body>
-  <h1>植物をえらんでください</h1>
-  <p class="hint">
-    マスをタップするとえらべます。もう一度タップすると解除できます。<br>
-    下に合計金額が表示されます。
-  </p>
 
-  <div class="grid" id="plantGrid">
-    <!-- ここに40マス分つくる。今は例として8個だけ入れてる -->
-    <div class="cell" data-name="苔" data-price="200">
-      <!-- 実際は img src="..." に差し替え -->
-      <img src="https://via.placeholder.com/150?text=%E8%8B%94" alt="苔">
-      <div class="name">苔</div>
-      <div class="price">+200円</div>
-    </div>
+<h1>500円から始められます。<br>迷わない３つのセットがおすすめです。</h1>
 
-    <div class="cell" data-name="石" data-price="200">
-      <img src="https://via.placeholder.com/150?text=%E7%9F%B3" alt="石">
-      <div class="name">石</div>
-      <div class="price">+200円</div>
-    </div>
+<!-- Aセット -->
+<div class="set-box">
+  <div class="set-title">Aセット（おすすめ）</div>
+  <div class="popular">いちばん選ばれています</div>
 
-    <div class="cell" data-name="葉" data-price="200">
-      <img src="https://via.placeholder.com/150?text=%E8%91%89" alt="葉">
-      <div class="name">葉</div>
-      <div class="price">+200円</div>
-    </div>
-
-    <div class="cell" data-name="小枝" data-price="200">
-      <img src="https://via.placeholder.com/150?text=%E5%B0%8F%E6%9E%9D" alt="小枝">
-      <div class="name">小枝</div>
-      <div class="price">+200円</div>
-    </div>
-
-    <div class="cell" data-name="赤い実" data-price="400">
-      <img src="https://via.placeholder.com/150?text=%E8%B5%A4%E3%81%84%E5%AE%9F" alt="赤い実">
-      <div class="name">赤い実</div>
-      <div class="price">+400円</div>
-    </div>
-
-    <div class="cell" data-name="ブルーベリー" data-price="400">
-      <img src="https://via.placeholder.com/150?text=Blue" alt="ブルーベリー">
-      <div class="name">ブルーベリー</div>
-      <div class="price">+400円</div>
-    </div>
-
-    <div class="cell" data-name="白い花" data-price="500">
-      <img src="https://via.placeholder.com/150?text=%E8%8A%B1" alt="白い花">
-      <div class="name">白い花</div>
-      <div class="price">+500円</div>
-    </div>
-
-    <div class="cell" data-name="黄色い花" data-price="500">
-      <img src="https://via.placeholder.com/150?text=%E8%89%B2" alt="黄色い花">
-      <div class="name">黄色い花</div>
-      <div class="price">+500円</div>
-    </div>
-
-    <!-- 本番ではここに残りのマスもコピペして増やす（40個まで） -->
+  <div class="price">
+    <span class="old-price">3,300円</span> → <strong>3,200円（100円引き）</strong>
   </div>
 
-  <div class="summary">
-    <div class="selected-list" id="selectedList"></div>
-    <div class="total-line">
-      <span>合計金額：</span>
-      <span id="totalAmount">0円</span>
-    </div>
-    <button class="btn-confirm" id="btnConfirm">この内容でお支払いへ</button>
+  <div class="set-detail">
+    ● 植物 4種類<br>
+    ● 花 1個<br>
+    ● ネット公開つき（家族にも見せられます）
   </div>
 
-  <script>
-    const cells = document.querySelectorAll('.cell');
-    const totalAmountEl = document.getElementById('totalAmount');
-    const selectedListEl = document.getElementById('selectedList');
-    const btnConfirm = document.getElementById('btnConfirm');
+  <button class="btn" onclick="chooseSet('A')">Aセットを選ぶ</button>
+</div>
 
-    function updateSummary() {
-      let total = 0;
-      const selectedNames = [];
+<!-- Bセット -->
+<div class="set-box">
+  <div class="set-title">Bセット</div>
+  <div class="price">
+    <span class="old-price">1,500円</span> → <strong>1,400円（100円引き）</strong>
+  </div>
 
-      cells.forEach(cell => {
-        if (cell.classList.contains('selected')) {
-          const price = Number(cell.dataset.price || "0");
-          const name = cell.dataset.name || "";
-          total += price;
-          selectedNames.push(name);
-        }
-      });
+  <div class="set-detail">
+    ● 植物 3種類<br>
+    ● ＋500円で花を追加できます
+  </div>
 
-      totalAmountEl.textContent = total.toLocaleString() + "円";
-      selectedListEl.textContent =
-        selectedNames.length > 0
-          ? "えらんだ植物：" + selectedNames.join("、")
-          : "";
-      return total;
-    }
+  <button class="btn" onclick="chooseSet('B')">Bセットを選ぶ</button>
+</div>
 
-    cells.forEach(cell => {
-      cell.addEventListener('click', () => {
-        cell.classList.toggle('selected');  // ON/OFF 変更
-        updateSummary();
-      });
-    });
+<!-- Cセット -->
+<div class="set-box">
+  <div class="set-title">Cセット</div>
+  <div class="price">
+    <span class="old-price">900円</span> → <strong>800円（100円引き）</strong>
+  </div>
 
-    btnConfirm.addEventListener('click', () => {
-      const total = updateSummary();
-      if (total === 0) {
-        alert("まだ植物がえらばれていません。");
-        return;
-      }
-      alert("合計 " + total.toLocaleString() + "円 です。\nこのあと実際の決済画面に進めるように実装できます。");
-    });
-  </script>
+  <div class="set-detail">
+    ● 植物 1種類<br>
+    ● ＋500円で花を追加できます
+  </div>
+
+  <button class="btn" onclick="chooseSet('C')">Cセットを選ぶ</button>
+</div>
+
+<!-- 個別選択リンク（目立たせない） -->
+<div class="small-link">
+  ── または ──<br>
+  <a href="plants.html">1つずつ選ぶ（セット割引なし）</a>
+</div>
+
+<script>
+function chooseSet(plan) {
+  // 選んだセットを保存（次のページで読み取る）
+  localStorage.setItem("KARTS_PLAN", plan);
+  window.location.href = "confirm.html";
+}
+</script>
+
 </body>
 </html>
