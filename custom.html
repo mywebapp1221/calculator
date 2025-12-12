@@ -1,508 +1,160 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>K.ARTS 自分で選ぶ</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K.ARTS｜自分で選ぶ</title>
 
 <style>
-:root{
-  --bg1:#fde68a; --bg2:#fca5a5; --bg3:#86efac;
-  --card:#ffffff; --text:#111827; --muted:#6b7280; --line:#e5e7eb;
-  --accent:#111827; --accent2:#dc2626;
-  --shadow:0 6px 18px rgba(0,0,0,.12);
-  --radius:16px;
-}
-
-*{ box-sizing:border-box; }
 body{
   margin:0;
-  font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 10% 10%, var(--bg1) 0%, transparent 40%),
-    radial-gradient(circle at 90% 20%, var(--bg2) 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, var(--bg3) 0%, transparent 40%),
-    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  font-family:system-ui,sans-serif;
+  background:#f3f4f6;
+  padding-bottom:80px;
 }
-
-.topbar{
-  position:sticky; top:0; z-index:20;
-  background:rgba(255,255,255,.92);
-  backdrop-filter: blur(8px);
-  border-bottom:1px solid var(--line);
-  padding:10px 12px;
-}
-.toprow{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:10px;
-}
-.brand{
-  font-weight:900; font-size:16px;
-}
-.back{
-  text-decoration:none;
-  color:var(--text);
-  font-weight:800;
-  border:1px solid var(--line);
-  padding:8px 10px;
-  border-radius:12px;
+header{
   background:#fff;
-}
-.cartbtn{
-  position:relative;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:8px 10px;
+  border-bottom:1px solid #ddd;
+  padding:12px;
+  text-align:center;
   font-weight:900;
-  cursor:pointer;
 }
-.badge{
-  position:absolute;
-  top:-6px; right:-6px;
-  min-width:20px; height:20px;
-  border-radius:999px;
-  background:var(--accent2);
-  color:#fff;
-  display:flex; align-items:center; justify-content:center;
-  font-size:12px; font-weight:900;
-  padding:0 6px;
-}
-
-.wrap{ max-width:980px; margin:0 auto; padding:16px; }
-.panel{
-  background:rgba(255,255,255,.85);
-  border:1px solid rgba(255,255,255,.6);
-  border-radius:24px;
-  box-shadow:var(--shadow);
-  padding:16px;
-}
-
-h1{
-  margin:0 0 6px;
-  font-size:18px;
-}
-.lead{
-  margin:0 0 14px;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-}
-
-.layer{
-  margin-top:14px;
-  padding-top:14px;
-  border-top:1px dashed rgba(107,114,128,.35);
-}
-.layer:first-of-type{ border-top:none; padding-top:0; margin-top:0; }
-
-.layerhead{
-  display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
-}
-.layerno{
-  font-weight:900;
-  background:linear-gradient(135deg,#111827,#334155);
-  color:#fff;
-  padding:4px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
-.layertitle{ font-weight:900; }
-.layersub{ color:var(--muted); font-size:12px; }
-
-.grid{
-  margin-top:12px;
-  display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:14px;
-}
-@media (min-width:900px){
-  .grid{ grid-template-columns:repeat(3, 1fr); }
-}
-
-.item{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  cursor:pointer;
-  transition:transform .08s ease;
-  border:1px solid rgba(229,231,235,.8);
-}
-.item:active{ transform:scale(.99); }
-
-.img{
-  height:150px;
-  background:#e5e7eb;
-  overflow:hidden;
-}
-.img img{
-  width:100%; height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.icontent{ padding:14px; }
-.iname{ font-weight:900; font-size:15px; }
-.iprice{ margin-top:8px; font-weight:900; font-size:18px; }
-.itag{
-  display:inline-block;
-  margin-top:8px;
-  font-size:12px;
-  color:var(--muted);
-  border:1px solid var(--line);
-  padding:4px 8px;
-  border-radius:999px;
-  background:#fff;
-}
-
-.footerbar{
-  position:sticky;
-  bottom:0;
-  z-index:20;
-  padding:10px 12px;
-  background:rgba(255,255,255,.92);
-  backdrop-filter: blur(8px);
-  border-top:1px solid var(--line);
-}
-.footrow{
-  max-width:980px;
-  margin:0 auto;
+nav{
   display:flex;
-  gap:10px;
-  align-items:center;
-  justify-content:space-between;
-}
-.total{
-  font-weight:900;
-}
-.checkout{
-  border:none;
-  border-radius:14px;
-  padding:12px 14px;
-  font-weight:900;
-  cursor:pointer;
-  background:linear-gradient(135deg,#111827,#334155);
-  color:#fff;
-  box-shadow:var(--shadow);
-}
-.clear{
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px 14px;
-  font-weight:900;
-  cursor:pointer;
-  background:#fff;
-}
-
-/* modal */
-.modalback{
-  position:fixed; inset:0;
-  background:rgba(0,0,0,.45);
-  display:none;
-  align-items:flex-end;
   justify-content:center;
-  z-index:50;
+  gap:10px;
+  margin-top:8px;
+}
+nav a{
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #ddd;
+  text-decoration:none;
+  color:#111;
+  font-weight:700;
+}
+nav a.active{
+  background:#111;
+  color:#fff;
+}
+main{
+  max-width:900px;
+  margin:20px auto;
   padding:12px;
 }
-.modal{
-  width:min(720px, 100%);
+.section{
+  margin-bottom:24px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.card{
   background:#fff;
-  border-radius:18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.1);
   overflow:hidden;
+  position:relative;
 }
-.modalhead{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:12px 14px;
-  border-bottom:1px solid var(--line);
-}
-.modalhead .ttl{ font-weight:900; }
-.close{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:8px 10px;
-  font-weight:900;
-  cursor:pointer;
-}
-.modbody{ padding:12px 14px; }
-.cartlist{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.cartrow{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px 12px;
-}
-.cartrow .left{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.cartrow .nm{ font-weight:900; }
-.cartrow .meta{ color:var(--muted); font-size:12px; }
-.cartrow .right{
+.img{
+  height:120px;
+  background:#ddd;
   display:flex;
   align-items:center;
-  gap:10px;
+  justify-content:center;
 }
-.rm{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:8px 10px;
+.add{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  padding:6px 10px;
   font-weight:900;
-  cursor:pointer;
 }
-.empty{
-  color:var(--muted);
-  font-size:13px;
-  padding:10px 0;
+.content{
+  padding:12px;
 }
-.smallnote{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:12px;
+.price{
+  font-weight:900;
+}
+
+/* 注文バー */
+.orderbar{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  background:#fff;
+  border-top:1px solid #ddd;
+  padding:10px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.orderbtn{
+  background:#111;
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  padding:10px 16px;
+  font-weight:900;
 }
 </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="toprow">
-      <a class="back" href="./index.html">← セットに戻る</a>
-      <div class="brand">K.ARTS 自分で選ぶ</div>
-      <button class="cartbtn" id="cartBtn" type="button">
-        🛒 カート
-        <span class="badge" id="cartCount">0</span>
-      </button>
-    </div>
-  </div>
+<header>
+  K.ARTS メニュー（自分で選ぶ）
+  <nav>
+    <a href="index.html">セット</a>
+    <a class="active" href="custom.html">自分で選ぶ</a>
+    <a href="buy.html">買う</a>
+  </nav>
+</header>
 
-  <div class="wrap">
-    <div class="panel">
-      <h1>自分で選ぶ（マクド方式）</h1>
-      <p class="lead">
-        各カードをタップするとカートに入ります。<br/>
-        右上🛒でカート確認／下の「レジに進む」で合計金額を表示。
-      </p>
-
-      <!-- 第1層 -->
-      <div class="layer">
-        <div class="layerhead">
-          <span class="layerno">第一層</span>
-          <span class="layertitle">作品の世界の地面を決めます</span>
-          <span class="layersub">ベース素材</span>
-        </div>
-        <div class="grid" id="layer1"></div>
+<main>
+  <div class="section">
+    <h3>第一層｜地面</h3>
+    <div class="grid">
+      <div class="card" onclick="add(50)">
+        <div class="add">＋</div>
+        <div class="img">土</div>
+        <div class="content">土 ¥50</div>
       </div>
-
-      <!-- 第2層 -->
-      <div class="layer">
-        <div class="layerhead">
-          <span class="layerno">第二層</span>
-          <span class="layertitle">作品の世界観を決めます</span>
-          <span class="layersub">色・雰囲気</span>
-        </div>
-        <div class="grid" id="layer2"></div>
-      </div>
-
-      <!-- 第3層 -->
-      <div class="layer">
-        <div class="layerhead">
-          <span class="layerno">第三層</span>
-          <span class="layertitle">作品の仕上げをしましょう</span>
-          <span class="layersub">フィニッシュ</span>
-        </div>
-        <div class="grid" id="layer3"></div>
+      <div class="card" onclick="add(100)">
+        <div class="add">＋</div>
+        <div class="img">石</div>
+        <div class="content">石 ¥100</div>
       </div>
     </div>
   </div>
 
-  <div class="footerbar">
-    <div class="footrow">
-      <div class="total">合計：<span id="totalPrice">¥0</span></div>
-      <div style="display:flex; gap:10px;">
-        <button class="clear" id="clearBtn" type="button">すべて削除</button>
-        <button class="checkout" id="checkoutBtn" type="button">レジに進む</button>
+  <div class="section">
+    <h3>第三層｜仕上げ</h3>
+    <div class="grid">
+      <div class="card" onclick="add(500)">
+        <div class="add">＋</div>
+        <div class="img">花</div>
+        <div class="content">花 ¥500</div>
       </div>
     </div>
   </div>
+</main>
 
-  <!-- カートモーダル -->
-  <div class="modalback" id="modalBack">
-    <div class="modal">
-      <div class="modalhead">
-        <div class="ttl">🛒 カートの中</div>
-        <button class="close" id="closeModal" type="button">閉じる</button>
-      </div>
-      <div class="modbody">
-        <div class="cartlist" id="cartList"></div>
-        <div class="smallnote">※ 今は「合計金額を出す」ところまで。次に「注文コード生成」や「QR表示」も足せる。</div>
-      </div>
-    </div>
+<div class="orderbar">
+  <div>
+    合計：<span id="total">¥0</span>
   </div>
+  <button class="orderbtn">レジに進む</button>
+</div>
 
 <script>
-/**
- * 画像について
- * - いまは「表示が確実」なように、画像が無い場合でもグレー枠のまま表示できる設計。
- * - 写真を入れる時は imgUrl を Cloudinary のURLに差し替えるだけでOK。
- */
-const MENU = [
-  // 第1層
-  { layer: 1, id:"soil", name:"土", price:50,  tag:"ベース", imgUrl:"" },
-  { layer: 1, id:"stone", name:"石", price:100, tag:"ベース", imgUrl:"" },
-  { layer: 1, id:"moss", name:"苔", price:200, tag:"ベース", imgUrl:"" },
-  { layer: 1, id:"green", name:"緑植物", price:300, tag:"ベース", imgUrl:"" },
-
-  // 第2層
-  { layer: 2, id:"momiji_red", name:"紅葉【赤色】", price:200, tag:"世界観", imgUrl:"" },
-  { layer: 2, id:"momiji_yellow", name:"紅葉【黄色】", price:200, tag:"世界観", imgUrl:"" },
-  { layer: 2, id:"nobara", name:"ノバラ", price:200, tag:"世界観", imgUrl:"" },
-  { layer: 2, id:"cotton", name:"綿毛", price:200, tag:"世界観", imgUrl:"" },
-
-  // 第3層
-  { layer: 3, id:"flower", name:"花", price:500, tag:"仕上げ", imgUrl:"" },
-];
-
-const CART_KEY = "karts_cart_v1";
-
-function yen(n){ return "¥" + (n||0).toLocaleString("ja-JP"); }
-
-function loadCart(){
-  try{
-    const raw = localStorage.getItem(CART_KEY);
-    return raw ? JSON.parse(raw) : [];
-  }catch(e){
-    return [];
-  }
+let total = 0;
+function add(price){
+  total += price;
+  document.getElementById("total").textContent = "¥" + total;
 }
-function saveCart(cart){
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-
-let cart = loadCart();
-
-function addToCart(item){
-  cart.push({ ...item, uid: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()+Math.random()) });
-  saveCart(cart);
-  renderCartBadgeAndTotal();
-}
-
-function removeFromCart(uid){
-  cart = cart.filter(x => x.uid !== uid);
-  saveCart(cart);
-  renderCartBadgeAndTotal();
-}
-
-function clearCart(){
-  cart = [];
-  saveCart(cart);
-  renderCartBadgeAndTotal();
-}
-
-function total(){
-  return cart.reduce((s,x)=>s+(x.price||0), 0);
-}
-
-function cardHtml(item){
-  const hasImg = item.imgUrl && item.imgUrl.trim().length > 0;
-  return `
-    <div class="item" data-id="${item.id}">
-      <div class="img">
-        ${hasImg ? `<img src="${item.imgUrl}" alt="${item.name}">` : ``}
-      </div>
-      <div class="icontent">
-        <div class="iname">${item.name}</div>
-        <div class="iprice">${yen(item.price)}</div>
-        <div class="itag">${item.tag}</div>
-      </div>
-    </div>
-  `;
-}
-
-function mountLayer(layerNo, containerId){
-  const el = document.getElementById(containerId);
-  const items = MENU.filter(x=>x.layer===layerNo);
-  el.innerHTML = items.map(cardHtml).join("");
-  el.querySelectorAll(".item").forEach(card=>{
-    card.addEventListener("click", ()=>{
-      const id = card.getAttribute("data-id");
-      const item = MENU.find(x=>x.id===id);
-      if(item) addToCart(item);
-    });
-  });
-}
-
-function renderCartBadgeAndTotal(){
-  document.getElementById("cartCount").textContent = String(cart.length);
-  document.getElementById("totalPrice").textContent = yen(total());
-}
-
-function openModal(){
-  renderCartList();
-  document.getElementById("modalBack").style.display = "flex";
-}
-function closeModal(){
-  document.getElementById("modalBack").style.display = "none";
-}
-
-function renderCartList(){
-  const list = document.getElementById("cartList");
-  if(cart.length === 0){
-    list.innerHTML = `<div class="empty">カートは空です。</div>`;
-    return;
-  }
-  list.innerHTML = cart.map(x=>`
-    <div class="cartrow">
-      <div class="left">
-        <div class="nm">${x.name}</div>
-        <div class="meta">${x.tag} / ${yen(x.price)}</div>
-      </div>
-      <div class="right">
-        <div style="font-weight:900;">${yen(x.price)}</div>
-        <button class="rm" data-uid="${x.uid}" type="button">削除</button>
-      </div>
-    </div>
-  `).join("");
-
-  list.querySelectorAll(".rm").forEach(btn=>{
-    btn.addEventListener("click", (e)=>{
-      const uid = btn.getAttribute("data-uid");
-      removeFromCart(uid);
-      renderCartList();
-    });
-  });
-}
-
-// init
-mountLayer(1, "layer1");
-mountLayer(2, "layer2");
-mountLayer(3, "layer3");
-renderCartBadgeAndTotal();
-
-document.getElementById("cartBtn").addEventListener("click", openModal);
-document.getElementById("closeModal").addEventListener("click", closeModal);
-document.getElementById("modalBack").addEventListener("click", (e)=>{
-  if(e.target.id === "modalBack") closeModal();
-});
-
-document.getElementById("clearBtn").addEventListener("click", ()=>{
-  clearCart();
-});
-
-document.getElementById("checkoutBtn").addEventListener("click", ()=>{
-  // とりあえず「合計金額を出す」
-  alert("合計金額は " + yen(total()) + " です。");
-});
 </script>
 </body>
 </html>

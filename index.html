@@ -1,258 +1,98 @@
-<!doctype html> 
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>K.ARTS メニュー（セット）</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K.ARTS｜セット</title>
 
 <style>
-:root{
-  --card:#ffffff; --text:#111827; --muted:#6b7280; --line:#e5e7eb;
-  --accent:#dc2626; --shadow:0 6px 18px rgba(0,0,0,.12); --radius:16px;
-}
-*{ box-sizing:border-box; }
 body{
-  margin:0; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--text);
-  background:
-    radial-gradient(circle at 10% 10%, #fde68a 0%, transparent 40%),
-    radial-gradient(circle at 90% 20%, #fca5a5 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, #86efac 0%, transparent 40%),
-    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  margin:0;
+  font-family:system-ui,sans-serif;
+  background:#f3f4f6;
 }
-.topbar{
-  position:sticky; top:0; z-index:20;
-  background:rgba(255,255,255,.92); backdrop-filter: blur(8px);
-  border-bottom:1px solid var(--line); padding:10px 12px;
+header{
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  padding:12px;
+  text-align:center;
+  font-weight:900;
 }
-.title{ font-weight:900; text-align:center; font-size:16px; }
-.subnav{
-  display:flex; justify-content:center; gap:10px; margin-top:10px; flex-wrap:wrap;
+nav{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:8px;
 }
-.linkbtn{
-  border:1px solid var(--line); background:#fff; border-radius:999px;
-  padding:10px 14px; font-weight:900; cursor:pointer; text-decoration:none; color:var(--text);
+nav a{
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #ddd;
+  text-decoration:none;
+  color:#111;
+  font-weight:700;
 }
-.linkbtn.primary{ background:#111827; color:#fff; border:none; }
-
-.wrap{ padding:16px; max-width:980px; margin:0 auto; }
-.panel{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.9)),
-    linear-gradient(135deg, #fde68a, #fca5a5, #86efac);
-  border-radius:24px; padding:16px;
+nav a.active{
+  background:#111;
+  color:#fff;
 }
-.section-head{ display:flex; align-items:center; gap:10px; margin:14px 2px 6px; }
-.section-badge{
-  background:linear-gradient(135deg, #111827, #334155);
-  color:#fff; border-radius:999px; padding:5px 10px; font-size:12px; font-weight:900;
+main{
+  max-width:900px;
+  margin:20px auto;
+  padding:12px;
 }
-.section-title{ font-size:14px; font-weight:900; }
-.section-sub{ margin:0 2px 12px; font-size:12px; color:var(--muted); line-height:1.5; }
-
-.grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
-@media (min-width:900px){ .grid{ grid-template-columns:repeat(3,1fr); } }
-
-.card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; cursor:pointer; position:relative; }
+.card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.1);
+  margin-bottom:16px;
+  overflow:hidden;
+}
 .img{
   height:160px;
-  overflow:hidden;
-  background:linear-gradient(180deg,#e5e7eb,#d1d5db);
-  display:flex; align-items:center; justify-content:center;
-  color:#374151; font-weight:900;
+  background:#ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.img img{ width:100%; height:100%; object-fit:cover; display:block; }
-.content{ padding:14px; }
-.name{ font-weight:900; font-size:15px; }
-.desc{ margin-top:6px; font-size:13px; color:var(--muted); }
-.price{ margin-top:10px; font-size:20px; font-weight:900; }
-
-.add-pill{
-  position:absolute; top:10px; right:10px;
-  background:rgba(17,24,39,.9); color:#fff;
-  font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
+.content{
+  padding:14px;
 }
-.vs{
-  margin:14px 2px 18px; padding:12px 14px; border-radius:14px;
-  background:#fff; border:1px solid var(--line); font-weight:900; display:flex; justify-content:space-between;
-}
-
-/* カートボタン */
-.cart-fab{
-  position:fixed; right:16px; bottom:16px; z-index:50;
-  background:#111827; color:#fff; border:none; border-radius:999px;
-  padding:14px 16px; box-shadow:0 14px 30px rgba(0,0,0,.25);
-  cursor:pointer; display:flex; align-items:center; gap:10px; font-weight:900;
-}
-.badge{
-  min-width:22px; height:22px; border-radius:999px; background:var(--accent);
-  display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; padding:0 6px;
+.price{
+  font-size:20px;
+  font-weight:900;
 }
 </style>
 </head>
+
 <body>
+<header>
+  K.ARTS メニュー（セット）
+  <nav>
+    <a class="active" href="index.html">セット</a>
+    <a href="custom.html">自分で選ぶ</a>
+    <a href="buy.html">買う</a>
+  </nav>
+</header>
 
-<div class="topbar">
-  <div class="title">K.ARTS メニュー（セット）</div>
-  <div class="subnav">
-    <a class="linkbtn primary" href="./index.html">セット</a>
-    <a class="linkbtn" href="./custom.html">自分で選ぶ</a>
-    <!-- ★ここを「買う」に変更して buy.html に -->
-    <a class="linkbtn" href="./buy.html">買う</a>
+<main>
+  <div class="card">
+    <div class="img">写真（後で）</div>
+    <div class="content">
+      <div><b>スタンダードセット</b></div>
+      <div>植物4種＋花1</div>
+      <div class="price">¥3,200〜</div>
+    </div>
   </div>
-</div>
 
-<div class="wrap">
-  <div class="panel">
-
-    <div class="section-head">
-      <span class="section-badge">期間限定</span>
-      <span class="section-title">紅葉 vs 黄葉</span>
+  <div class="card">
+    <div class="img">写真（後で）</div>
+    <div class="content">
+      <div><b>ベーシックセット</b></div>
+      <div>植物1種</div>
+      <div class="price">¥800〜</div>
     </div>
-    <p class="section-sub">タップでカートへ追加できます</p>
-
-    <div class="grid">
-      <div class="card" data-add="set_momiji_red">
-        <div class="add-pill">＋ 追加</div>
-        <div class="img">写真(赤) まだ</div>
-        <div class="content">
-          <div class="name">紅葉セット</div>
-          <div class="desc">🔴 赤色の植物 使い放題</div>
-          <div class="price">¥2,800〜</div>
-        </div>
-      </div>
-
-      <div class="card" data-add="set_momiji_yellow">
-        <div class="add-pill">＋ 追加</div>
-        <div class="img">
-          <img id="setPhotoA" alt="黄葉セット">
-        </div>
-        <div class="content">
-          <div class="name">黄葉セット</div>
-          <div class="desc">🟡 黄色の植物 使い放題</div>
-          <div class="price">¥2,800〜</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="vs">
-      <span>紅か、黄か。</span>
-      <span>どっち派？</span>
-    </div>
-
-    <div class="section-head">
-      <span class="section-badge">セット</span>
-      <span class="section-title">定番</span>
-    </div>
-
-    <div class="grid">
-      <div class="card" data-add="set_prime">
-        <div class="add-pill">＋ 追加</div>
-        <div class="img">写真 まだ</div>
-        <div class="content">
-          <div class="name">プライムセット</div>
-          <div class="desc">すべて使い放題</div>
-          <div class="price">¥5,000</div>
-        </div>
-      </div>
-
-      <div class="card" data-add="set_standard">
-        <div class="add-pill">＋ 追加</div>
-        <div class="img">写真 まだ</div>
-        <div class="content">
-          <div class="name">スタンダードセット</div>
-          <div class="desc">植物4種＋花1</div>
-          <div class="price">¥3,200〜</div>
-        </div>
-      </div>
-
-      <div class="card" data-add="set_growth">
-        <div class="add-pill">＋ 追加</div>
-        <div class="img">写真 まだ</div>
-        <div class="content">
-          <div class="name">グロースセット</div>
-          <div class="desc">植物3種</div>
-          <div class="price">¥1,400〜</div>
-        </div>
-      </div>
-
-      <div class="card" data-add="set_basic">
-        <div class="add-pill">＋ 追加</div>
-        <div class="img">写真 まだ</div>
-        <div class="content">
-          <div class="name">ベーシックセット</div>
-          <div class="desc">植物1種</div>
-          <div class="price">¥800〜</div>
-        </div>
-      </div>
-    </div>
-
   </div>
-</div>
-
-<button class="cart-fab" id="cartFab" aria-label="カートを見る">
-  🛒 カート <span class="badge" id="cartBadge">0</span>
-</button>
-
-<script>
-/** ★黄葉セットのCloudinary URLをここに入れる（https://... から始まるやつ） */
-const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE";
-
-/** 商品マスタ（セットだけ） */
-const ITEMS = {
-  set_momiji_red:    { id:"set_momiji_red", name:"紅葉セット", price:2800 },
-  set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:2800, image:PHOTO_A },
-  set_prime:         { id:"set_prime", name:"プライムセット", price:5000 },
-  set_standard:      { id:"set_standard", name:"スタンダードセット", price:3200 },
-  set_growth:        { id:"set_growth", name:"グロースセット", price:1400 },
-  set_basic:         { id:"set_basic", name:"ベーシックセット", price:800  },
-};
-
-function loadCart(){
-  try{ return JSON.parse(localStorage.getItem("karts_cart")||"{}"); }
-  catch(e){ return {}; }
-}
-function saveCart(c){ localStorage.setItem("karts_cart", JSON.stringify(c)); }
-let cart = loadCart();
-
-function cartCount(){ return Object.values(cart).reduce((s,it)=>s+(it.qty||0),0); }
-
-function addToCart(id){
-  if(!ITEMS[id]) return;
-  if(!cart[id]) cart[id]={ id, qty:0 };
-  cart[id].qty += 1;
-  saveCart(cart);
-  renderBadge();
-}
-
-function renderBadge(){
-  document.getElementById("cartBadge").textContent = String(cartCount());
-}
-
-function renderSetPhoto(){
-  const img = document.getElementById("setPhotoA");
-  const url = (ITEMS.set_momiji_yellow.image || "").trim();
-  if(!img) return;
-
-  if(url.startsWith("http")){
-    img.src = url;
-  }else{
-    // img枠を「未設定」表示にする
-    const box = img.parentElement;
-    box.innerHTML = "写真URL未設定";
-  }
-}
-
-document.querySelectorAll("[data-add]").forEach(el=>{
-  el.addEventListener("click", ()=>addToCart(el.dataset.add));
-});
-
-document.getElementById("cartFab").addEventListener("click", ()=>{
-  location.href = "./custom.html#cart";
-});
-
-renderSetPhoto();
-renderBadge();
-</script>
-
+</main>
 </body>
 </html>

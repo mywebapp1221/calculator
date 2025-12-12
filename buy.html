@@ -1,226 +1,98 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>K.ARTS｜作品を買う</title>
 
 <style>
-:root{
-  --bg:#f8fafc; --card:#fff; --text:#111827; --muted:#6b7280;
-  --accent:#111827; --danger:#dc2626;
-  --radius:16px; --shadow:0 10px 25px rgba(0,0,0,.12);
-}
-*{ box-sizing:border-box; }
-
 body{
   margin:0;
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:linear-gradient(180deg,#fefce8,#f8fafc);
-  color:var(--text);
+  font-family:system-ui,sans-serif;
+  background:#f3f4f6;
 }
-
-/* ===== ヘッダー ===== */
 header{
-  position:sticky; top:0; z-index:10;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid #e5e7eb;
+  background:#fff;
+  border-bottom:1px solid #ddd;
   padding:12px;
+  text-align:center;
+  font-weight:900;
 }
-h1{ margin:0; font-size:16px; font-weight:900; text-align:center; }
 nav{
-  display:flex; justify-content:center; gap:10px; margin-top:10px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:8px;
 }
 nav a{
-  text-decoration:none; font-weight:900;
-  padding:10px 14px; border-radius:999px;
-  border:1px solid #e5e7eb; color:#111827;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #ddd;
+  text-decoration:none;
+  color:#111;
+  font-weight:700;
 }
-nav a.active{ background:#111827; color:#fff; border:none; }
-
-/* ===== レイアウト ===== */
-main{ max-width:1000px; margin:0 auto; padding:16px; }
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+nav a.active{
+  background:#111;
+  color:#fff;
 }
-@media(min-width:900px){
-  .grid{ grid-template-columns:repeat(3,1fr); }
+main{
+  max-width:900px;
+  margin:20px auto;
+  padding:12px;
 }
-
-/* ===== カード ===== */
 .card{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.1);
+  margin-bottom:16px;
   overflow:hidden;
-  position:relative;
-  cursor:pointer;
 }
 .img{
   height:160px;
-  background:#e5e7eb;
+  background:#ddd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.img img{
-  width:100%; height:100%; object-fit:cover;
+.content{
+  padding:14px;
 }
-.body{ padding:14px; }
-.name{ font-weight:900; font-size:15px; }
-.desc{ margin-top:6px; font-size:13px; color:var(--muted); }
-.price{ margin-top:10px; font-size:20px; font-weight:900; }
-
-.add{
-  position:absolute; top:10px; right:10px;
-  background:rgba(17,24,39,.9);
-  color:#fff; font-size:12px; font-weight:900;
-  padding:6px 10px; border-radius:999px;
-}
-
-/* ===== カート ===== */
-.cart-btn{
-  position:fixed; right:16px; bottom:16px;
-  background:#111827; color:#fff;
-  border:none; border-radius:999px;
-  padding:14px 16px;
-  box-shadow:0 14px 30px rgba(0,0,0,.25);
+.price{
+  font-size:20px;
   font-weight:900;
 }
-.badge{
-  margin-left:6px;
-  background:var(--danger);
-  border-radius:999px;
-  padding:2px 8px;
-  font-size:12px;
-}
-
-/* ===== モーダル ===== */
-dialog{
-  width:min(92%,420px);
-  border:none; border-radius:20px;
-  padding:16px;
-}
-dialog::backdrop{ background:rgba(0,0,0,.4); }
-.cart-item{
-  display:flex; justify-content:space-between;
-  margin:10px 0;
-  font-size:14px;
-}
-.total{ font-weight:900; font-size:18px; margin-top:10px; }
-.cart-actions{
-  display:flex; gap:10px; margin-top:14px;
-}
-.cart-actions button{
-  flex:1; padding:10px;
-  border-radius:12px;
-  font-weight:900;
-}
-.clear{ background:#fee2e2; border:none; }
-.checkout{ background:#111827; color:#fff; border:none; }
 </style>
 </head>
 
 <body>
-
 <header>
-  <h1>K.ARTS｜作品を買う</h1>
+  K.ARTS（作品を買う）
   <nav>
-    <a class="active" href="./buy.html">作品を買う</a>
-    <a href="./custom.html">自分で選ぶ</a>
+    <a href="index.html">セット</a>
+    <a href="custom.html">自分で選ぶ</a>
+    <a class="active" href="buy.html">買う</a>
   </nav>
 </header>
 
 <main>
-  <div class="grid" id="grid"></div>
-</main>
-
-<button class="cart-btn" onclick="openCart()">
-  🛒 カート <span class="badge" id="cartCount">0</span>
-</button>
-
-<dialog id="cartModal">
-  <h3>カート</h3>
-  <div id="cartList"></div>
-  <div class="total" id="totalPrice">合計 ¥0</div>
-  <div class="cart-actions">
-    <button class="clear" onclick="clearCart()">全削除</button>
-    <button class="checkout" onclick="checkout()">レジに進む</button>
-  </div>
-</dialog>
-
-<script>
-/* ===== 作品データ（ここを書き換える） ===== */
-const PRODUCTS = [
-  {
-    id:"A001",
-    name:"黄葉の世界",
-    price:3800,
-    desc:"黄色い植物で構成した一点物",
-    image:"PASTE_CLOUDINARY_URL_HERE"
-  },
-  {
-    id:"A002",
-    name:"紅葉の世界",
-    price:4200,
-    desc:"赤色が主役の自然アート",
-    image:""
-  }
-];
-
-/* ===== 表示 ===== */
-const grid = document.getElementById("grid");
-PRODUCTS.forEach(p=>{
-  const el = document.createElement("div");
-  el.className="card";
-  el.innerHTML=`
-    <div class="add">＋ 追加</div>
-    <div class="img">${p.image?`<img src="${p.image}">`:""}</div>
-    <div class="body">
-      <div class="name">${p.name}</div>
-      <div class="desc">${p.desc}</div>
-      <div class="price">¥${p.price.toLocaleString()}</div>
+  <div class="card">
+    <div class="img">作品写真</div>
+    <div class="content">
+      <div><b>作品A</b></div>
+      <div>自然を閉じ込めた一点物</div>
+      <div class="price">¥2,500</div>
     </div>
-  `;
-  el.onclick=()=>addToCart(p);
-  grid.appendChild(el);
-});
+  </div>
 
-/* ===== カート ===== */
-let cart = JSON.parse(localStorage.getItem("karts_cart_buy")||"{}");
-
-function save(){ localStorage.setItem("karts_cart_buy",JSON.stringify(cart)); }
-function count(){
-  document.getElementById("cartCount").textContent =
-    Object.values(cart).reduce((s,i)=>s+i.qty,0);
-}
-function addToCart(p){
-  if(!cart[p.id]) cart[p.id]={...p,qty:0};
-  cart[p.id].qty++;
-  save(); count();
-}
-function openCart(){
-  const list=document.getElementById("cartList");
-  list.innerHTML="";
-  let total=0;
-  Object.values(cart).forEach(i=>{
-    total+=i.price*i.qty;
-    list.innerHTML+=`<div class="cart-item">
-      <span>${i.name} × ${i.qty}</span>
-      <span>¥${(i.price*i.qty).toLocaleString()}</span>
-    </div>`;
-  });
-  document.getElementById("totalPrice").textContent=`合計 ¥${total.toLocaleString()}`;
-  document.getElementById("cartModal").showModal();
-}
-function clearCart(){ cart={}; save(); count(); openCart(); }
-function checkout(){
-  alert("合計金額を表示しました（決済は次のステップ）");
-}
-
-count();
-</script>
-
+  <div class="card">
+    <div class="img">作品写真</div>
+    <div class="content">
+      <div><b>作品B</b></div>
+      <div>黄葉モチーフ</div>
+      <div class="price">¥3,000</div>
+    </div>
+  </div>
+</main>
 </body>
 </html>
