@@ -3,441 +3,106 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>K.ARTS メニュー</title>
+<title>K.ARTS メニュー（セット）</title>
 
 <style>
 :root{
-  --card:#ffffff;
-  --text:#111827;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-  --accent:#dc2626;
-  --shadow:0 6px 18px rgba(0,0,0,.12);
-  --radius:16px;
+  --card:#ffffff; --text:#111827; --muted:#6b7280; --line:#e5e7eb;
+  --accent:#dc2626; --shadow:0 6px 18px rgba(0,0,0,.12); --radius:16px;
 }
-
 *{ box-sizing:border-box; }
-
 body{
-  margin:0;
-  font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
-  color:var(--text);
+  margin:0; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--text);
   background:
     radial-gradient(circle at 10% 10%, #fde68a 0%, transparent 40%),
     radial-gradient(circle at 90% 20%, #fca5a5 0%, transparent 45%),
     radial-gradient(circle at 50% 90%, #86efac 0%, transparent 40%),
     linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
 }
-
-/* ===== ヘッダー ===== */
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(255,255,255,.92);
-  backdrop-filter: blur(8px);
-  border-bottom:1px solid var(--line);
-  padding:10px 12px;
+  position:sticky; top:0; z-index:20;
+  background:rgba(255,255,255,.92); backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--line); padding:10px 12px;
 }
-.title{
-  font-weight:900;
-  text-align:center;
-  font-size:16px;
+.title{ font-weight:900; text-align:center; font-size:16px; }
+.subnav{
+  display:flex; justify-content:center; gap:10px; margin-top:10px;
 }
-.tabs{
-  display:flex;
-  justify-content:center;
-  gap:28px;
-  margin-top:8px;
+.linkbtn{
+  border:1px solid var(--line); background:#fff; border-radius:999px;
+  padding:10px 14px; font-weight:900; cursor:pointer; text-decoration:none; color:var(--text);
 }
-.tab{
-  padding:10px 6px;
-  font-size:14px;
-  color:var(--muted);
-  border-bottom:3px solid transparent;
-  font-weight:800;
-  cursor:pointer;
-  user-select:none;
-}
-.tab.active{
-  color:var(--text);
-  border-bottom-color:var(--text);
-}
+.linkbtn.primary{ background:#111827; color:#fff; border:none; }
 
-/* ===== レイアウト ===== */
-.wrap{
-  padding:16px;
-  max-width:980px;
-  margin:0 auto;
-}
-
+.wrap{ padding:16px; max-width:980px; margin:0 auto; }
 .panel{
   background:
     linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.9)),
     linear-gradient(135deg, #fde68a, #fca5a5, #86efac);
-  border-radius:24px;
-  padding:16px;
+  border-radius:24px; padding:16px;
 }
-
-/* ===== セクション ===== */
-.section-head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:14px 2px 6px;
-}
+.section-head{ display:flex; align-items:center; gap:10px; margin:14px 2px 6px; }
 .section-badge{
   background:linear-gradient(135deg, #111827, #334155);
-  color:#fff;
-  border-radius:999px;
-  padding:5px 10px;
-  font-size:12px;
-  font-weight:900;
+  color:#fff; border-radius:999px; padding:5px 10px; font-size:12px; font-weight:900;
 }
-.section-title{
-  font-size:14px;
-  font-weight:900;
-}
-.section-sub{
-  margin:0 2px 12px;
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.5;
-}
+.section-title{ font-size:14px; font-weight:900; }
+.section-sub{ margin:0 2px 12px; font-size:12px; color:var(--muted); line-height:1.5; }
 
-/* ===== グリッド ===== */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-@media (min-width:900px){
-  .grid{ grid-template-columns:repeat(3,1fr); }
-}
+.grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+@media (min-width:900px){ .grid{ grid-template-columns:repeat(3,1fr); } }
 
-/* ===== カード ===== */
-.card{
-  background:var(--card);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  cursor:pointer;
-  transition: transform .08s ease, box-shadow .08s ease;
-  position:relative;
+.card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; cursor:pointer; }
+.img{ height:160px; overflow:hidden; background:linear-gradient(180deg,#e5e7eb,#d1d5db);
+  display:flex; align-items:center; justify-content:center; color:#374151; font-weight:900;
 }
-.card:active{ transform:scale(.99); }
-
-.img{
-  height:160px;
-  overflow:hidden;
-  background:linear-gradient(180deg,#e5e7eb,#d1d5db);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#374151;
-  font-weight:900;
-}
-.img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
+.img img{ width:100%; height:100%; object-fit:cover; display:block; }
 .content{ padding:14px; }
+.name{ font-weight:900; font-size:15px; }
+.desc{ margin-top:6px; font-size:13px; color:var(--muted); }
+.price{ margin-top:10px; font-size:20px; font-weight:900; }
 
-.name{
-  font-weight:900;
-  font-size:15px;
-}
-.desc{
-  margin-top:6px;
-  font-size:13px;
-  color:var(--muted);
-}
-.price{
-  margin-top:10px;
-  font-size:20px;
-  font-weight:900;
-}
-
-/* 右上の + 追加バッジ */
 .add-pill{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:rgba(17,24,39,.9);
-  color:#fff;
-  font-weight:900;
-  font-size:12px;
-  padding:6px 10px;
-  border-radius:999px;
-  display:flex;
-  align-items:center;
-  gap:6px;
+  position:absolute; top:10px; right:10px; background:rgba(17,24,39,.9); color:#fff;
+  font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
-
-/* VS */
+.card{ position:relative; }
 .vs{
-  margin:14px 2px 18px;
-  padding:12px 14px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid var(--line);
-  font-weight:900;
-  display:flex;
-  justify-content:space-between;
+  margin:14px 2px 18px; padding:12px 14px; border-radius:14px;
+  background:#fff; border:1px solid var(--line); font-weight:900; display:flex; justify-content:space-between;
 }
 
-/* ===== カートボタン（浮かす） ===== */
+/* カートボタン */
 .cart-fab{
-  position:fixed;
-  right:16px;
-  bottom:16px;
-  z-index:50;
-  background:#111827;
-  color:#fff;
-  border:none;
-  border-radius:999px;
-  padding:14px 16px;
-  box-shadow:0 14px 30px rgba(0,0,0,.25);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:900;
+  position:fixed; right:16px; bottom:16px; z-index:50;
+  background:#111827; color:#fff; border:none; border-radius:999px;
+  padding:14px 16px; box-shadow:0 14px 30px rgba(0,0,0,.25);
+  cursor:pointer; display:flex; align-items:center; gap:10px; font-weight:900;
 }
-.cart-fab:active{ transform:scale(.99); }
-
 .badge{
-  min-width:22px;
-  height:22px;
-  border-radius:999px;
-  background:var(--accent);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  font-weight:900;
-  padding:0 6px;
-}
-
-/* ===== ドロワー（カート） ===== */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  z-index:60;
-  display:none;
-}
-.overlay.show{ display:block; }
-
-.drawer{
-  position:fixed;
-  top:0;
-  right:0;
-  height:100%;
-  width:min(420px, 92vw);
-  background:#fff;
-  z-index:70;
-  box-shadow:-20px 0 40px rgba(0,0,0,.18);
-  transform:translateX(110%);
-  transition: transform .18s ease;
-  display:flex;
-  flex-direction:column;
-}
-.drawer.show{ transform:translateX(0); }
-
-.drawer-head{
-  padding:14px 14px 10px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-.drawer-title{
-  font-weight:900;
-  font-size:16px;
-}
-.icon-btn{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:8px 10px;
-  cursor:pointer;
-  font-weight:900;
-}
-.icon-btn:active{ transform:scale(.99); }
-
-.drawer-body{
-  padding:12px 14px;
-  overflow:auto;
-  flex:1;
-}
-
-.cart-empty{
-  color:var(--muted);
-  text-align:center;
-  padding:30px 0;
-  font-weight:800;
-}
-
-.cart-item{
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px;
-  display:grid;
-  grid-template-columns:64px 1fr;
-  gap:10px;
-  margin-bottom:10px;
-}
-.cart-thumb{
-  width:64px;
-  height:64px;
-  border-radius:12px;
-  overflow:hidden;
-  background:#e5e7eb;
-}
-.cart-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-.cart-meta{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.cart-name{ font-weight:900; }
-.cart-sub{ color:var(--muted); font-size:12px; }
-.cart-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:6px;
-}
-.qty{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.qty button{
-  width:32px;
-  height:32px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-.qty span{ font-weight:900; min-width:18px; text-align:center; }
-
-.drawer-foot{
-  border-top:1px solid var(--line);
-  padding:12px 14px;
-  background:rgba(255,255,255,.9);
-}
-.total{
-  display:flex;
-  justify-content:space-between;
-  font-weight:900;
-  font-size:16px;
-  margin-bottom:10px;
-}
-.actions{
-  display:flex;
-  gap:10px;
-}
-.btn{
-  flex:1;
-  border:none;
-  border-radius:14px;
-  padding:12px 12px;
-  font-weight:900;
-  cursor:pointer;
-}
-.btn.secondary{
-  background:#f3f4f6;
-  color:#111827;
-  border:1px solid var(--line);
-}
-.btn.primary{
-  background:#111827;
-  color:#fff;
-}
-
-/* ===== レジ（モーダル） ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:80;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-}
-.modal.show{ display:flex; }
-.modal-card{
-  width:min(520px, 96vw);
-  background:#fff;
-  border-radius:18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-  overflow:hidden;
-}
-.modal-head{
-  padding:14px 14px 10px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.modal-title{ font-weight:900; }
-.modal-body{ padding:14px; }
-.receipt{
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-}
-.receipt .row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:6px 0;
-  font-weight:800;
-}
-.receipt .muted{ color:var(--muted); font-weight:800; }
-.receipt .sum{
-  margin-top:8px;
-  border-top:1px dashed var(--line);
-  padding-top:10px;
-  font-size:18px;
-}
-.small-note{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
+  min-width:22px; height:22px; border-radius:999px; background:var(--accent);
+  display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; padding:0 6px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="topbar">
-  <div class="title">K.ARTS メニュー</div>
-  <div class="tabs">
-    <div class="tab active" data-tab="set">セット</div>
-    <div class="tab" data-tab="custom">自分で選ぶ</div>
+  <div class="title">K.ARTS メニュー（セット）</div>
+  <div class="subnav">
+    <a class="linkbtn primary" href="./index.html">セット</a>
+    <a class="linkbtn" href="./custom.html">自分で選ぶ</a>
   </div>
 </div>
 
 <div class="wrap">
+  <div class="panel">
 
-  <!-- ===== セット ===== -->
-  <div id="panel-set" class="panel">
     <div class="section-head">
       <span class="section-badge">期間限定</span>
       <span class="section-title">紅葉 vs 黄葉</span>
     </div>
-    <p class="section-sub">今だけ｜色で選ぶ自然アート</p>
+    <p class="section-sub">タップでカートへ追加できます</p>
 
     <div class="grid">
       <div class="card" data-add="set_momiji_red">
@@ -452,10 +117,7 @@ body{
 
       <div class="card" data-add="set_momiji_yellow">
         <div class="add-pill">＋ 追加</div>
-        <div class="img">
-          <!-- ★ここに Cloudinary URL を入れる（下の JS の ITEMS で設定） -->
-          <img id="setPhotoA" alt="黄葉セット">
-        </div>
+        <div class="img"><img id="setPhotoA" alt="黄葉セット"></div>
         <div class="content">
           <div class="name">黄葉セット</div>
           <div class="desc">🟡 黄色の植物 使い放題</div>
@@ -473,7 +135,6 @@ body{
       <span class="section-badge">セット</span>
       <span class="section-title">定番</span>
     </div>
-    <p class="section-sub">タップでカートへ追加できます</p>
 
     <div class="grid">
       <div class="card" data-add="set_prime">
@@ -516,464 +177,61 @@ body{
         </div>
       </div>
     </div>
+
   </div>
-
-  <!-- ===== 自分で選ぶ ===== -->
-  <div id="panel-custom" class="panel" style="display:none; margin-top:14px;">
-    <div class="section-head">
-      <span class="section-badge">自分で選ぶ</span>
-      <span class="section-title">マクドの注文みたいに、タップで追加</span>
-    </div>
-    <p class="section-sub">
-      3つの層で「地面→世界観→仕上げ」を決めます。<br>
-      タップでカートに入ります（同じ物は数量が増える）。
-    </p>
-
-    <!-- 第一層 -->
-    <div class="section-head">
-      <span class="section-badge">第一層</span>
-      <span class="section-title">作品の世界の地面を決めます</span>
-    </div>
-    <p class="section-sub">土 / 石 / 苔 / 緑植物</p>
-    <div class="grid" id="layer1"></div>
-
-    <!-- 第二層 -->
-    <div class="section-head">
-      <span class="section-badge">第二層</span>
-      <span class="section-title">作品の世界観を決めます</span>
-    </div>
-    <p class="section-sub">紅葉(赤) / 紅葉(黄) / ノバラ / 綿毛</p>
-    <div class="grid" id="layer2"></div>
-
-    <!-- 第三層 -->
-    <div class="section-head">
-      <span class="section-badge">第三層</span>
-      <span class="section-title">作品の仕上げをしましょう</span>
-    </div>
-    <p class="section-sub">花</p>
-    <div class="grid" id="layer3"></div>
-  </div>
-
 </div>
 
-<!-- カートFAB -->
-<button class="cart-fab" id="cartFab" aria-label="カートを開く">
-  🛒 カート
-  <span class="badge" id="cartBadge">0</span>
+<button class="cart-fab" id="cartFab" aria-label="カートを見る">
+  🛒 カート <span class="badge" id="cartBadge">0</span>
 </button>
 
-<!-- カート ドロワー -->
-<div class="overlay" id="overlay"></div>
-
-<div class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer-head">
-    <div class="drawer-title">カート</div>
-    <div style="display:flex; gap:8px;">
-      <button class="icon-btn" id="clearCart">全削除</button>
-      <button class="icon-btn" id="closeCart">閉じる</button>
-    </div>
-  </div>
-
-  <div class="drawer-body" id="cartList">
-    <!-- JSで描画 -->
-  </div>
-
-  <div class="drawer-foot">
-    <div class="total">
-      <span>合計</span>
-      <span id="cartTotal">¥0</span>
-    </div>
-    <div class="actions">
-      <button class="btn secondary" id="keepShopping">戻る</button>
-      <button class="btn primary" id="checkoutBtn">レジに進む</button>
-    </div>
-  </div>
-</div>
-
-<!-- レジ モーダル -->
-<div class="modal" id="modal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div class="modal-title">レジ（合計金額）</div>
-      <button class="icon-btn" id="closeModal">閉じる</button>
-    </div>
-    <div class="modal-body">
-      <div class="receipt" id="receipt"></div>
-      <div class="small-note">
-        ※この画面は「合計金額の確認」用です。<br>
-        将来：QRコード決済や注文番号表示に拡張できます。
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
-/**
- * ==============================
- * 1) ここに Cloudinary URL を入れてね
- * ==============================
- * 例:
- * const PHOTO_A = "https://res.cloudinary.com/drfgen4gm/image/upload/v12345/IMG_20251207_132950699_HDR.jpg";
- */
-const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE"; // ←ここにAのURLを貼る
+/** ★Cloudinary URL（黄葉セット）だけまず入れる */
+const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE";
 
-/**
- * ==============================
- * 2) 商品マスタ（写真URLがある物は image に入れる）
- * ==============================
- * id: 一意キー
- * name: 表示名
- * price: 円
- * layer: セット or 第1/第2/第3層
- * image: 画像URL（任意）
- */
+/** 商品マスタ（セットだけ） */
 const ITEMS = {
-  // セット（例）
-  set_momiji_red:    { id:"set_momiji_red",    name:"紅葉セット", price:2800, layer:"セット(期間限定)", image:"" },
+  set_momiji_red:    { id:"set_momiji_red", name:"紅葉セット", price:2800, layer:"セット(期間限定)", image:"" },
   set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:2800, layer:"セット(期間限定)", image:PHOTO_A },
-  set_prime:         { id:"set_prime",         name:"プライムセット", price:5000, layer:"セット", image:"" },
-  set_standard:      { id:"set_standard",      name:"スタンダードセット", price:3200, layer:"セット", image:"" },
-  set_growth:        { id:"set_growth",        name:"グロースセット", price:1400, layer:"セット", image:"" },
-  set_basic:         { id:"set_basic",         name:"ベーシックセット", price:800,  layer:"セット", image:"" },
-
-  // 第一層
-  l1_soil:   { id:"l1_soil",   name:"土",     price:50,  layer:"第一層", image:"" },
-  l1_stone:  { id:"l1_stone",  name:"石",     price:100, layer:"第一層", image:"" },
-  l1_moss:   { id:"l1_moss",   name:"苔",     price:200, layer:"第一層", image:"" },
-  l1_green:  { id:"l1_green",  name:"緑植物", price:300, layer:"第一層", image:"" },
-
-  // 第二層
-  l2_momiji_red:    { id:"l2_momiji_red",    name:"紅葉【赤色】", price:200, layer:"第二層", image:"" },
-  l2_momiji_yellow: { id:"l2_momiji_yellow", name:"紅葉【黄色】", price:200, layer:"第二層", image:"" },
-  l2_nobara:        { id:"l2_nobara",        name:"ノバラ",       price:200, layer:"第二層", image:"" },
-  l2_watage:        { id:"l2_watage",        name:"綿毛",         price:200, layer:"第二層", image:"" },
-
-  // 第三層
-  l3_flower: { id:"l3_flower", name:"花", price:500, layer:"第三層", image:"" },
+  set_prime:         { id:"set_prime", name:"プライムセット", price:5000, layer:"セット", image:"" },
+  set_standard:      { id:"set_standard", name:"スタンダードセット", price:3200, layer:"セット", image:"" },
+  set_growth:        { id:"set_growth", name:"グロースセット", price:1400, layer:"セット", image:"" },
+  set_basic:         { id:"set_basic", name:"ベーシックセット", price:800,  layer:"セット", image:"" },
 };
 
-/** カート（id -> {id, qty}） */
+function loadCart(){ try{ return JSON.parse(localStorage.getItem("karts_cart")||"{}"); }catch(e){ return {}; } }
+function saveCart(c){ localStorage.setItem("karts_cart", JSON.stringify(c)); }
 let cart = loadCart();
 
-function yen(n){
-  return "¥" + n.toLocaleString("ja-JP");
-}
-
-function saveCart(){
-  localStorage.setItem("karts_cart", JSON.stringify(cart));
-}
-function loadCart(){
-  try{
-    const raw = localStorage.getItem("karts_cart");
-    return raw ? JSON.parse(raw) : {};
-  }catch(e){
-    return {};
-  }
-}
-function cartCount(){
-  return Object.values(cart).reduce((sum, it) => sum + it.qty, 0);
-}
-function cartTotal(){
-  let sum = 0;
-  for (const k of Object.keys(cart)){
-    const item = ITEMS[k];
-    if (!item) continue;
-    sum += item.price * cart[k].qty;
-  }
-  return sum;
-}
-
+function cartCount(){ return Object.values(cart).reduce((s,it)=>s+it.qty,0); }
 function addToCart(id){
-  if (!ITEMS[id]) return;
-  if (!cart[id]) cart[id] = { id, qty: 0 };
+  if(!ITEMS[id]) return;
+  if(!cart[id]) cart[id]={id,qty:0};
   cart[id].qty += 1;
-  saveCart();
-  renderCart();
+  saveCart(cart);
+  renderBadge();
 }
-function decQty(id){
-  if (!cart[id]) return;
-  cart[id].qty -= 1;
-  if (cart[id].qty <= 0) delete cart[id];
-  saveCart();
-  renderCart();
+function renderBadge(){
+  document.getElementById("cartBadge").textContent = String(cartCount());
 }
-function incQty(id){
-  if (!cart[id]) return;
-  cart[id].qty += 1;
-  saveCart();
-  renderCart();
-}
-function removeItem(id){
-  delete cart[id];
-  saveCart();
-  renderCart();
-}
-function clearAll(){
-  cart = {};
-  saveCart();
-  renderCart();
-}
-
-/** 自分で選ぶのカード生成 */
-function makeCard(item){
-  const div = document.createElement("div");
-  div.className = "card";
-  div.dataset.add = item.id;
-
-  const imgWrap = document.createElement("div");
-  imgWrap.className = "img";
-
-  if (item.image && item.image.startsWith("http")) {
-    const img = document.createElement("img");
-    img.src = item.image;
-    img.alt = item.name;
-    imgWrap.appendChild(img);
-  } else {
-    imgWrap.textContent = "写真 まだ";
-  }
-
-  const addPill = document.createElement("div");
-  addPill.className = "add-pill";
-  addPill.textContent = "＋ 追加";
-  div.appendChild(addPill);
-
-  const content = document.createElement("div");
-  content.className = "content";
-
-  const name = document.createElement("div");
-  name.className = "name";
-  name.textContent = item.name;
-
-  const desc = document.createElement("div");
-  desc.className = "desc";
-  desc.textContent = item.layer;
-
-  const price = document.createElement("div");
-  price.className = "price";
-  price.textContent = yen(item.price);
-
-  content.appendChild(name);
-  content.appendChild(desc);
-  content.appendChild(price);
-
-  div.appendChild(imgWrap);
-  div.appendChild(content);
-
-  div.addEventListener("click", () => addToCart(item.id));
-  return div;
-}
-
-function renderCustom(){
-  const l1 = document.getElementById("layer1");
-  const l2 = document.getElementById("layer2");
-  const l3 = document.getElementById("layer3");
-  l1.innerHTML = ""; l2.innerHTML = ""; l3.innerHTML = "";
-
-  const layer1Ids = ["l1_soil","l1_stone","l1_moss","l1_green"];
-  const layer2Ids = ["l2_momiji_red","l2_momiji_yellow","l2_nobara","l2_watage"];
-  const layer3Ids = ["l3_flower"];
-
-  layer1Ids.forEach(id => l1.appendChild(makeCard(ITEMS[id])));
-  layer2Ids.forEach(id => l2.appendChild(makeCard(ITEMS[id])));
-  layer3Ids.forEach(id => l3.appendChild(makeCard(ITEMS[id])));
-}
-
-/** セット側の黄葉画像を反映 */
 function renderSetPhoto(){
   const img = document.getElementById("setPhotoA");
-  const item = ITEMS["set_momiji_yellow"];
-  if (img && item && item.image && item.image.startsWith("http")){
-    img.src = item.image;
-  } else if (img) {
-    // URL未設定なら画像タグを消して「写真まだ」にする
-    const wrap = img.parentElement;
-    wrap.innerHTML = "写真URL未設定";
-  }
+  const it = ITEMS.set_momiji_yellow;
+  if(img && it.image && it.image.startsWith("http")) img.src = it.image;
+  else if(img) img.parentElement.textContent = "写真URL未設定";
 }
 
-/** カート描画 */
-function renderCart(){
-  const badge = document.getElementById("cartBadge");
-  const totalEl = document.getElementById("cartTotal");
-  badge.textContent = String(cartCount());
-  totalEl.textContent = yen(cartTotal());
+document.querySelectorAll("[data-add]").forEach(el=>{
+  el.addEventListener("click", ()=>addToCart(el.dataset.add));
+});
 
-  const list = document.getElementById("cartList");
-  const keys = Object.keys(cart);
+document.getElementById("cartFab").addEventListener("click", ()=>{
+  // カートを見るページ（custom側で実装するので誘導）
+  location.href = "./custom.html#cart";
+});
 
-  if (keys.length === 0){
-    list.innerHTML = `<div class="cart-empty">カートは空です</div>`;
-    return;
-  }
-
-  list.innerHTML = "";
-  keys.forEach(id => {
-    const item = ITEMS[id];
-    if (!item) return;
-
-    const row = document.createElement("div");
-    row.className = "cart-item";
-
-    const thumb = document.createElement("div");
-    thumb.className = "cart-thumb";
-    if (item.image && item.image.startsWith("http")){
-      const im = document.createElement("img");
-      im.src = item.image;
-      im.alt = item.name;
-      thumb.appendChild(im);
-    }
-
-    const meta = document.createElement("div");
-    meta.className = "cart-meta";
-
-    const nm = document.createElement("div");
-    nm.className = "cart-name";
-    nm.textContent = item.name;
-
-    const sub = document.createElement("div");
-    sub.className = "cart-sub";
-    sub.textContent = `${item.layer} / ${yen(item.price)}`;
-
-    const row2 = document.createElement("div");
-    row2.className = "cart-row";
-
-    const qty = document.createElement("div");
-    qty.className = "qty";
-
-    const minus = document.createElement("button");
-    minus.textContent = "−";
-    minus.addEventListener("click", (e)=>{ e.stopPropagation(); decQty(id); });
-
-    const q = document.createElement("span");
-    q.textContent = String(cart[id].qty);
-
-    const plus = document.createElement("button");
-    plus.textContent = "＋";
-    plus.addEventListener("click", (e)=>{ e.stopPropagation(); incQty(id); });
-
-    qty.appendChild(minus);
-    qty.appendChild(q);
-    qty.appendChild(plus);
-
-    const del = document.createElement("button");
-    del.className = "icon-btn";
-    del.textContent = "削除";
-    del.addEventListener("click", (e)=>{ e.stopPropagation(); removeItem(id); });
-
-    row2.appendChild(qty);
-    row2.appendChild(del);
-
-    meta.appendChild(nm);
-    meta.appendChild(sub);
-    meta.appendChild(row2);
-
-    row.appendChild(thumb);
-    row.appendChild(meta);
-
-    list.appendChild(row);
-  });
-}
-
-/** レジ（合計）表示 */
-function openCheckout(){
-  const modal = document.getElementById("modal");
-  const receipt = document.getElementById("receipt");
-
-  const keys = Object.keys(cart);
-  if (keys.length === 0){
-    receipt.innerHTML = `<div class="row"><span class="muted">カートが空です</span><span></span></div>`;
-  } else {
-    let html = "";
-    keys.forEach(id => {
-      const item = ITEMS[id];
-      const qty = cart[id].qty;
-      const line = item.price * qty;
-      html += `
-        <div class="row">
-          <span>${item.name} × ${qty}</span>
-          <span>${yen(line)}</span>
-        </div>
-      `;
-    });
-    html += `
-      <div class="row sum">
-        <span>合計</span>
-        <span>${yen(cartTotal())}</span>
-      </div>
-    `;
-    receipt.innerHTML = html;
-  }
-
-  modal.classList.add("show");
-}
-
-/** タブ切り替え */
-function initTabs(){
-  const tabs = document.querySelectorAll(".tab");
-  const setPanel = document.getElementById("panel-set");
-  const customPanel = document.getElementById("panel-custom");
-
-  tabs.forEach(t => {
-    t.addEventListener("click", () => {
-      tabs.forEach(x => x.classList.remove("active"));
-      t.classList.add("active");
-
-      const name = t.dataset.tab;
-      if (name === "custom"){
-        setPanel.style.display = "none";
-        customPanel.style.display = "block";
-        renderCustom();
-      } else {
-        setPanel.style.display = "block";
-        customPanel.style.display = "none";
-      }
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  });
-}
-
-/** カート開閉 */
-function openCart(){
-  document.getElementById("overlay").classList.add("show");
-  document.getElementById("drawer").classList.add("show");
-}
-function closeCart(){
-  document.getElementById("overlay").classList.remove("show");
-  document.getElementById("drawer").classList.remove("show");
-}
-
-function initCartUI(){
-  document.getElementById("cartFab").addEventListener("click", openCart);
-  document.getElementById("overlay").addEventListener("click", closeCart);
-  document.getElementById("closeCart").addEventListener("click", closeCart);
-  document.getElementById("keepShopping").addEventListener("click", closeCart);
-  document.getElementById("clearCart").addEventListener("click", clearAll);
-  document.getElementById("checkoutBtn").addEventListener("click", openCheckout);
-
-  document.getElementById("closeModal").addEventListener("click", () => {
-    document.getElementById("modal").classList.remove("show");
-  });
-  document.getElementById("modal").addEventListener("click", (e) => {
-    if (e.target.id === "modal") e.currentTarget.classList.remove("show");
-  });
-}
-
-/** セットカードもタップで追加 */
-function initSetCards(){
-  document.querySelectorAll("[data-add]").forEach(el => {
-    el.addEventListener("click", () => addToCart(el.dataset.add));
-  });
-}
-
-function init(){
-  renderSetPhoto();
-  initTabs();
-  initCartUI();
-  initSetCards();
-  renderCart();
-}
-
-init();
+renderSetPhoto();
+renderBadge();
 </script>
 
 </body>
