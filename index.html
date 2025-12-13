@@ -566,12 +566,12 @@ body{
 <script>
 /* ========= 設定 ========= */
 /** ★黄葉セットのCloudinary URLをここに入れる（https://... から始まるやつ） */
-const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE";
+const PHOTO_A = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624565/file_000000001eb872069ab5fda893a3cfe5_xhfwpq.png";
 
 /* ========= 商品マスタ ========= */
 const ITEMS = {
   // セット
-  set_momiji_red:    { id:"set_momiji_red",    name:"紅葉セット", price:2800, image:"" },
+  set_momiji_red:    { id:"set_momiji_red",    name:"紅葉セット", price:2800, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624506/file_00000000bb3072069f6dbb872cd09bce_2_w5kit3.png" },
   set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:2800, image:PHOTO_A },
   set_prime:         { id:"set_prime",         name:"プライムセット", price:5000, image:"" },
   set_standard:      { id:"set_standard",      name:"スタンダードセット", price:3200, image:"" },
@@ -588,11 +588,11 @@ const ITEMS = {
   c1_moss:         { id:"c1_moss",         name:"苔", price:200, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601219/file_00000000241871fa9aafe1bafbbb984a_k5zad1.png" },
   c1_momiji:       { id:"c1_momiji",       name:"紅葉", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601321/file_0000000012dc720a8b80a3c41197c815_xu1tpo.png" },
   c1_kouyou:       { id:"c1_kouyou",       name:"黄葉", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601393/file_000000005a44722f856531f88eb3110a_uwor1e.png" },
-  c1_unknowngrass: { id:"c1_unknowngrass", name:"名もなき草", price:100, image:"" },
+  c1_unknowngrass: { id:"c1_unknowngrass", name:"名もなき草", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624471/file_0000000047787206beebb52b9e5a639f_2_g1lu54.png" },
 
   // 自分で選ぶ：第二層
-  c2_bigstone:      { id:"c2_bigstone",      name:"大石", price:150, image:"" },
-  c2_yamamoss:      { id:"c2_yamamoss",      name:"山苔", price:250, image:"" },
+  c2_bigstone:      { id:"c2_bigstone",      name:"大石", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624883/file_00000000d0f87206857479d9a19cbbd8_zgybek.png" },
+  c2_yamamoss:      { id:"c2_yamamoss",      name:"山苔", price:250, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624583/file_00000000ec507206a3336d7c2d198f9a_dhrsdf.png" },
   c2_donguri:       { id:"c2_donguri",       name:"どんぐり", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601304/file_00000000e1a87206929eec93544ea09d_lihqtn.png" },
   c2_matubokkuri:   { id:"c2_matubokkuri",   name:"松ぼっくり", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601259/file_00000000137c7206b3d096d9056cce23_ubrp1o.png" },
   c2_kaedenohane:   { id:"c2_kaedenohane",   name:"楓の羽", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601381/file_0000000011107206acd7bf78a8d6c38c_jl1ll2.png" },
@@ -600,14 +600,14 @@ const ITEMS = {
   c2_enokorogusa:   { id:"c2_enokorogusa",   name:"エノコログサ", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601350/file_00000000e5d8720685153239e7c38090_klddjc.png" },
   c2_smallbranch:   { id:"c2_smallbranch",   name:"小枝", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601278/file_00000000773871f9882a145265a2e44f_aurnea.png" },
   c2_smalltree:     { id:"c2_smalltree",     name:"小さな木", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601336/file_00000000e5b8720698bbc28cc55779d1_wy5b9k.png" },
-  c2_smallflower:   { id:"c2_smallflower",   name:"小花", price:250, image:"" },
+  c2_smallflower:   { id:"c2_smallflower",   name:"小花", price:250, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624608/file_0000000088907207b5b79192b0c1e3a2_em7o9f.png" },
 
   // 自分で選ぶ：第三層
-  c3_bigflower:      { id:"c3_bigflower",      name:"大花", price:500, image:"" },
-  c3_watage:         { id:"c3_watage",         name:"綿毛", price:50, image:"" },
-  c3_aotsuzurafuji:  { id:"c3_aotsuzurafuji",  name:"アオツヅラフジ", price:150, image:"" },
-  c3_manryou:        { id:"c3_manryou",        name:"マンリョウ", price:100, image:"" },
-  c3_kiminosenryou:  { id:"c3_kiminosenryou",  name:"キミノセンリュウ", price:150, image:"" },
+  c3_bigflower:      { id:"c3_bigflower",      name:"大花", price:500, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624555/file_000000005f64720780b8ca288d804eaa_bgf36h.png" },
+  c3_watage:         { id:"c3_watage",         name:"綿毛", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624495/file_00000000335c720998099e4840b6b982_2_c3lc7c.png" },
+  c3_aotsuzurafuji:  { id:"c3_aotsuzurafuji",  name:"アオツヅラフジ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624540/file_0000000046547209a86e9a2791632d12_a8febb.png" },
+  c3_manryou:        { id:"c3_manryou",        name:"マンリョウ", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624525/file_0000000012a47206858dbe1b581faf74_ggbeok.png" },
+  c3_kiminosenryou:  { id:"c3_kiminosenryou",  name:"キミノセンリュウ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624572/file_0000000094c4720691f82acea6a7e4b0_wnmdoq.png" },
 };
 
 /* ========= 買う（6作品）: デフォルト ========= */
