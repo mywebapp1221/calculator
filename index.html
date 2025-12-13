@@ -74,7 +74,6 @@ body{
   color:#374151; font-weight:900;
 }
 .img img{ width:100%; height:100%; object-fit:cover; display:block; }
-.img .ph{ padding:10px; text-align:center; }
 .content{ padding:14px; }
 .name{ font-weight:900; font-size:15px; }
 .desc{ margin-top:6px; font-size:13px; color:var(--muted); line-height:1.35; }
@@ -132,7 +131,7 @@ body{
 .modal{
   width:min(980px,100%); background:#fff; border-radius:18px 18px 0 0;
   box-shadow:0 20px 60px rgba(0,0,0,.35); padding:14px;
-  max-height:75vh; overflow:auto;
+  max-height:80vh; overflow:auto;
 }
 .modal-head{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
 .modal-title{ font-weight:900; }
@@ -199,6 +198,46 @@ body{
 .checkout-body{ padding:10px; }
 .checkout-name{ font-weight:900; }
 .checkout-qty{ font-size:12px; color:var(--muted); margin-top:4px; }
+
+/* ===== buy edit UI ===== */
+.buy-tools{
+  display:flex; gap:10px; flex-wrap:wrap;
+  margin:6px 2px 12px;
+}
+.ghost{
+  border:1px solid var(--line); background:#fff; border-radius:12px;
+  padding:10px 12px; font-weight:900; cursor:pointer;
+}
+.edit-badge{
+  position:absolute; left:10px; top:10px;
+  background:rgba(255,255,255,.92); border:1px solid var(--line);
+  color:#111827; font-weight:900; font-size:12px;
+  padding:6px 10px; border-radius:999px;
+}
+.form{
+  margin-top:10px; display:flex; flex-direction:column; gap:10px;
+}
+.field{
+  display:flex; flex-direction:column; gap:6px;
+}
+.label{ font-weight:900; font-size:12px; color:#111827; }
+.input, .textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  font-size:14px;
+  outline:none;
+}
+.textarea{ min-height:110px; resize:vertical; }
+.preview{
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+.preview .pimg{ height:180px; background:linear-gradient(180deg,#e5e7eb,#d1d5db); display:flex; align-items:center; justify-content:center; color:#374151; font-weight:900; }
+.preview .pimg img{ width:100%; height:100%; object-fit:cover; display:block; }
+.preview .pbody{ padding:12px; }
 </style>
 </head>
 
@@ -227,7 +266,7 @@ body{
       <div class="grid two">
         <div class="card" data-add="set_momiji_red">
           <div class="add-pill">＋ 追加</div>
-          <div class="img"><div class="ph">写真(赤) まだ</div></div>
+          <div class="img">写真(赤) まだ</div>
           <div class="content">
             <div class="name">紅葉セット</div>
             <div class="desc">🔴 赤色の植物 使い放題</div>
@@ -237,7 +276,7 @@ body{
 
         <div class="card" data-add="set_momiji_yellow">
           <div class="add-pill">＋ 追加</div>
-          <div class="img" id="setPhotoWrap">
+          <div class="img">
             <img id="setPhotoA" alt="黄葉セット">
           </div>
           <div class="content">
@@ -261,7 +300,7 @@ body{
       <div class="grid">
         <div class="card" data-add="set_prime">
           <div class="add-pill">＋ 追加</div>
-          <div class="img"><div class="ph">写真 まだ</div></div>
+          <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">プライムセット</div>
             <div class="desc">すべて使い放題</div>
@@ -271,7 +310,7 @@ body{
 
         <div class="card" data-add="set_standard">
           <div class="add-pill">＋ 追加</div>
-          <div class="img"><div class="ph">写真 まだ</div></div>
+          <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">スタンダードセット</div>
             <div class="desc">植物4種＋花1</div>
@@ -281,7 +320,7 @@ body{
 
         <div class="card" data-add="set_growth">
           <div class="add-pill">＋ 追加</div>
-          <div class="img"><div class="ph">写真 まだ</div></div>
+          <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">グロースセット</div>
             <div class="desc">植物3種</div>
@@ -291,7 +330,7 @@ body{
 
         <div class="card" data-add="set_basic">
           <div class="add-pill">＋ 追加</div>
-          <div class="img"><div class="ph">写真 まだ</div></div>
+          <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">ベーシックセット</div>
             <div class="desc">植物1種</div>
@@ -321,12 +360,12 @@ body{
           <span class="section-badge">第一層</span><span class="section-title">土台を決める</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c1_soil"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">土</div><div class="desc">第一層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c1_smallstone"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小石</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c1_moss"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">苔</div><div class="desc">第一層</div><div class="price">¥200</div></div></div>
-          <div class="card" data-add="c1_momiji"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">紅葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c1_kouyou"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">黄葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c1_unknowngrass"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">名もなき草</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c1_soil"><div class="add-pill">＋ 追加</div><div class="img">土</div><div class="content"><div class="name">土</div><div class="desc">第一層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c1_smallstone"><div class="add-pill">＋ 追加</div><div class="img">小石</div><div class="content"><div class="name">小石</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c1_moss"><div class="add-pill">＋ 追加</div><div class="img">苔</div><div class="content"><div class="name">苔</div><div class="desc">第一層</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c1_momiji"><div class="add-pill">＋ 追加</div><div class="img">紅葉</div><div class="content"><div class="name">紅葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c1_kouyou"><div class="add-pill">＋ 追加</div><div class="img">黄葉</div><div class="content"><div class="name">黄葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c1_unknowngrass"><div class="add-pill">＋ 追加</div><div class="img">草</div><div class="content"><div class="name">名もなき草</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
         </div>
       </div>
 
@@ -336,16 +375,16 @@ body{
           <span class="section-badge">第二層</span><span class="section-title">中景を作る</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c2_bigstone"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">大石</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c2_yamamoss"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">山苔</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
-          <div class="card" data-add="c2_donguri"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">どんぐり</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c2_matubokkuri"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">松ぼっくり</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_kaedenohane"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">楓の羽</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c2_chigaya"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">チガヤ</div><div class="desc">第二層</div><div class="price">¥200</div></div></div>
-          <div class="card" data-add="c2_enokorogusa"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">エノコログサ</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_smallbranch"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小枝</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c2_smalltree"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小さな木</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_smallflower"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小花</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
+          <div class="card" data-add="c2_bigstone"><div class="add-pill">＋ 追加</div><div class="img">大石</div><div class="content"><div class="name">大石</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c2_yamamoss"><div class="add-pill">＋ 追加</div><div class="img">山苔</div><div class="content"><div class="name">山苔</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
+          <div class="card" data-add="c2_donguri"><div class="add-pill">＋ 追加</div><div class="img">どんぐり</div><div class="content"><div class="name">どんぐり</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c2_matubokkuri"><div class="add-pill">＋ 追加</div><div class="img">松ぼっくり</div><div class="content"><div class="name">松ぼっくり</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c2_kaedenohane"><div class="add-pill">＋ 追加</div><div class="img">楓の羽</div><div class="content"><div class="name">楓の羽</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c2_chigaya"><div class="add-pill">＋ 追加</div><div class="img">チガヤ</div><div class="content"><div class="name">チガヤ</div><div class="desc">第二層</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c2_enokorogusa"><div class="add-pill">＋ 追加</div><div class="img">エノコログサ</div><div class="content"><div class="name">エノコログサ</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c2_smallbranch"><div class="add-pill">＋ 追加</div><div class="img">小枝</div><div class="content"><div class="name">小枝</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c2_smalltree"><div class="add-pill">＋ 追加</div><div class="img">小さな木</div><div class="content"><div class="name">小さな木</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c2_smallflower"><div class="add-pill">＋ 追加</div><div class="img">小花</div><div class="content"><div class="name">小花</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
         </div>
       </div>
 
@@ -355,47 +394,32 @@ body{
           <span class="section-badge">第三層</span><span class="section-title">仕上げ</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c3_bigflower"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">大花</div><div class="desc">第三層</div><div class="price">¥500</div></div></div>
-          <div class="card" data-add="c3_watage"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">綿毛</div><div class="desc">第三層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c3_aotsuzurafuji"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">アオツヅラフジ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c3_manryou"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">マンリョウ</div><div class="desc">第三層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c3_bigflower"><div class="add-pill">＋ 追加</div><div class="img">大花</div><div class="content"><div class="name">大花</div><div class="desc">第三層</div><div class="price">¥500</div></div></div>
+          <div class="card" data-add="c3_watage"><div class="add-pill">＋ 追加</div><div class="img">綿毛</div><div class="content"><div class="name">綿毛</div><div class="desc">第三層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c3_aotsuzurafuji"><div class="add-pill">＋ 追加</div><div class="img">青</div><div class="content"><div class="name">アオツヅラフジ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c3_manryou"><div class="add-pill">＋ 追加</div><div class="img">赤</div><div class="content"><div class="name">マンリョウ</div><div class="desc">第三層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img">黄</div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== 買う（作品一覧：サンプル） ===== -->
+    <!-- ===== 買う（完成作品：6作品・編集可能） ===== -->
     <section id="view-buy" class="hidden">
       <div class="section-head">
         <span class="section-badge">買う</span>
         <span class="section-title">完成作品を選ぶ</span>
       </div>
-      <p class="section-sub">作品をタップでカートへ追加できます（ここに作品を増やしていく）。</p>
+      <p class="section-sub">作品をタップでカートへ追加。✏️編集で写真/タイトル/値段/解説をいつでも変更できます（端末に保存）。</p>
 
-      <div class="grid">
-        <div class="card" data-add="b_art_001">
-          <div class="add-pill">＋ 追加</div>
-          <div class="img"></div>
-          <div class="content">
-            <div class="name">作品A（サンプル）</div>
-            <div class="desc">自然を閉じ込めた一点物</div>
-            <div class="price">¥2,500</div>
-          </div>
-        </div>
-
-        <div class="card" data-add="b_art_002">
-          <div class="add-pill">＋ 追加</div>
-          <div class="img"></div>
-          <div class="content">
-            <div class="name">作品B（サンプル）</div>
-            <div class="desc">黄葉モチーフ</div>
-            <div class="price">¥3,000</div>
-          </div>
-        </div>
+      <div class="buy-tools">
+        <button class="ghost" id="resetBuy">買う：初期に戻す</button>
       </div>
 
+      <div class="grid" id="buyGrid"><!-- JSで6枚生成 --></div>
+
       <div class="small">
-        ※作品の写真は Cloudinary URL を入れれば表示できる（下の ITEMS で image を設定）。
+        ※写真は Cloudinary のURL（https://...png など）を入れると表示されます。<br>
+        ※編集内容はこの端末のブラウザに保存されます（別PC/別スマホには共有されません）。
       </div>
     </section>
 
@@ -432,7 +456,7 @@ body{
       </div>
 
       <div class="small" id="checkoutHint">
-        「レジに進む」で、合計金額と選んだ素材の写真一覧を表示します。
+        「レジに進む」で、合計金額と選んだ素材/作品の写真一覧を表示します。
       </div>
     </div>
 
@@ -443,7 +467,7 @@ body{
         <div id="checkoutTotal">¥0</div>
       </div>
 
-      <div class="small">あなたが選んだ素材（数量分）</div>
+      <div class="small">あなたが選んだ商品（数量も表示）</div>
       <div class="checkout-grid" id="checkoutGrid"></div>
 
       <div class="actions">
@@ -456,6 +480,58 @@ body{
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- ===== buy edit modal ===== -->
+<div class="modal-bg" id="editBg" role="dialog" aria-modal="true" aria-label="作品を編集">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">✏️ 作品を編集</div>
+      <button class="modal-close" id="editClose">閉じる</button>
+    </div>
+
+    <div class="small" id="editTargetHint">対象：</div>
+
+    <div class="form">
+      <div class="field">
+        <div class="label">写真URL（Cloudinaryなど）</div>
+        <input class="input" id="editImage" placeholder="https://...png / jpg" />
+      </div>
+
+      <div class="field">
+        <div class="label">タイトル</div>
+        <input class="input" id="editTitle" placeholder="例：こもれびの森 001" />
+      </div>
+
+      <div class="field">
+        <div class="label">値段（数字だけ）</div>
+        <input class="input" id="editPrice" inputmode="numeric" placeholder="例：2500" />
+      </div>
+
+      <div class="field">
+        <div class="label">解説</div>
+        <textarea class="textarea" id="editDesc" placeholder="例：自然を閉じ込めた一点物。"></textarea>
+      </div>
+
+      <div class="preview" id="editPreview">
+        <div class="pimg" id="previewImg">プレビュー</div>
+        <div class="pbody">
+          <div style="font-weight:900;" id="previewTitle">（タイトル）</div>
+          <div style="color:var(--muted); font-size:12px; margin-top:6px;" id="previewDesc">（解説）</div>
+          <div style="font-weight:900; font-size:18px; margin-top:10px;" id="previewPrice">¥0</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="danger" id="editResetOne">この作品だけ初期に戻す</button>
+        <button class="primary" id="editSave">保存</button>
+      </div>
+
+      <div class="small">
+        ※保存すると、この端末のブラウザに記録されます。
+      </div>
+    </div>
   </div>
 </div>
 
@@ -500,11 +576,41 @@ const ITEMS = {
   c3_aotsuzurafuji:  { id:"c3_aotsuzurafuji",  name:"アオツヅラフジ", price:150, image:"" },
   c3_manryou:        { id:"c3_manryou",        name:"マンリョウ", price:100, image:"" },
   c3_kiminosenryou:  { id:"c3_kiminosenryou",  name:"キミノセンリュウ", price:150, image:"" },
-
-  // 買う（作品サンプル）
-  b_art_001: { id:"b_art_001", name:"作品A（サンプル）", price:2500, image:"" },
-  b_art_002: { id:"b_art_002", name:"作品B（サンプル）", price:3000, image:"" },
 };
+
+/* ========= 買う（6作品）: デフォルト ========= */
+const BUY_KEY = "karts_buy_items_v1";
+const DEFAULT_BUY = [
+  { id:"buy_001", title:"作品 001", price:2500, desc:"自然を閉じ込めた一点物。", image:"" },
+  { id:"buy_002", title:"作品 002", price:3000, desc:"黄葉モチーフ。", image:"" },
+  { id:"buy_003", title:"作品 003", price:1800, desc:"静かな森のイメージ。", image:"" },
+  { id:"buy_004", title:"作品 004", price:2200, desc:"石と苔のバランス。", image:"" },
+  { id:"buy_005", title:"作品 005", price:4000, desc:"特別な一点（限定）。", image:"" },
+  { id:"buy_006", title:"作品 006", price:1500, desc:"小さな世界の入口。", image:"" },
+];
+
+function loadBuy(){
+  try{
+    const raw = localStorage.getItem(BUY_KEY);
+    if(!raw) return structuredClone(DEFAULT_BUY);
+    const arr = JSON.parse(raw);
+    if(!Array.isArray(arr) || arr.length !== 6) return structuredClone(DEFAULT_BUY);
+    // 欠けてても安全に
+    return arr.map((x,i)=>({
+      id: String(x?.id || DEFAULT_BUY[i].id),
+      title: String(x?.title || DEFAULT_BUY[i].title),
+      price: Number(x?.price || DEFAULT_BUY[i].price),
+      desc: String(x?.desc || DEFAULT_BUY[i].desc),
+      image: String(x?.image || DEFAULT_BUY[i].image),
+    }));
+  }catch(e){
+    return structuredClone(DEFAULT_BUY);
+  }
+}
+function saveBuy(arr){
+  localStorage.setItem(BUY_KEY, JSON.stringify(arr));
+}
+let BUY = loadBuy();
 
 /* ========= カート ========= */
 function loadCart(){
@@ -519,20 +625,29 @@ function cartTotal(){
   let t=0;
   for(const id of Object.keys(cart)){
     const qty = cart[id].qty||0;
-    const item = ITEMS[id];
+    const item = getAnyItem(id);
     if(item) t += item.price * qty;
   }
   return t;
 }
 function yen(n){ return "¥" + Number(n||0).toLocaleString("ja-JP"); }
 
+/* BUY作品も含めて item を返す */
+function getAnyItem(id){
+  if(ITEMS[id]) return ITEMS[id];
+  const b = BUY.find(x=>x.id===id);
+  if(b) return { id:b.id, name:b.title, price:Number(b.price||0), image:(b.image||"") };
+  return null;
+}
+
 function addToCart(id){
-  if(!ITEMS[id]) return;
+  const item = getAnyItem(id);
+  if(!item) return;
   if(!cart[id]) cart[id] = { id, qty:0 };
   cart[id].qty += 1;
   saveCart(cart);
   renderBadge();
-  showToast((ITEMS[id].name||"追加") + " を追加");
+  showToast((item.name||"追加") + " を追加");
 }
 function setQty(id, qty){
   if(qty<=0){ delete cart[id]; }
@@ -552,49 +667,18 @@ function showToast(msg){
   window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 900);
 }
 
-/* ========= 画像をカードへ反映（今回の修正の肝） ========= */
-function applyCardImages(){
-  document.querySelectorAll(".card[data-add]").forEach(card=>{
-    const id = card.dataset.add;
-    const item = ITEMS[id];
-    if(!item) return;
-
-    const imgBox = card.querySelector(".img");
-    if(!imgBox) return;
-
-    const url = (item.image || "").trim();
-
-    // セット黄葉は既にimgタグがあるのでそれを優先
-    const existingImg = imgBox.querySelector("img");
-
-    if(url.startsWith("http")){
-      const img = existingImg || document.createElement("img");
-      img.alt = item.name || "";
-      img.src = url;
-      if(!existingImg){
-        imgBox.innerHTML = "";
-        imgBox.appendChild(img);
-      }
-    }else{
-      // 画像ない場合はプレースホルダー文字
-      imgBox.innerHTML = `<div class="ph">写真 未設定</div>`;
-    }
-  });
-}
-
+/* ========= UI ========= */
 function renderBadge(){
   document.getElementById("cartBadge").textContent = String(cartCount());
 }
 function renderSetPhoto(){
   const img = document.getElementById("setPhotoA");
-  const wrap = document.getElementById("setPhotoWrap");
   const url = (ITEMS.set_momiji_yellow.image || "").trim();
-  if(!img || !wrap) return;
-
+  if(!img) return;
   if(url.startsWith("http")){
     img.src = url;
   }else{
-    wrap.innerHTML = `<div class="ph">写真URL未設定</div>`;
+    img.parentElement.textContent = "写真URL未設定";
   }
 }
 
@@ -612,7 +696,7 @@ function showView(key){
     b.classList.toggle("active", b.dataset.view===key);
   });
   if(location.hash !== "#" + key) location.hash = key;
-  window.scrollTo({top:0, behavior:"auto"});
+  window.scrollTo({top:0, behavior:"instant"});
 }
 function initViewFromHash(){
   const key = (location.hash||"#set").replace("#","");
@@ -629,22 +713,17 @@ const pillWrap = document.getElementById("customPills");
 function showCustomCat(cat){
   const ids = ["layer1","layer2","layer3"];
   ids.forEach(k=>{
-    const el = document.getElementById("cat-"+k);
-    if(el) el.classList.toggle("hidden", k!==cat);
+    document.getElementById("cat-"+k).classList.toggle("hidden", k!==cat);
   });
-  if(pillWrap){
-    pillWrap.querySelectorAll(".pill").forEach(p=>{
-      p.classList.toggle("active", p.dataset.cat===cat);
-    });
-  }
-}
-if(pillWrap){
   pillWrap.querySelectorAll(".pill").forEach(p=>{
-    p.addEventListener("click", ()=>showCustomCat(p.dataset.cat));
+    p.classList.toggle("active", p.dataset.cat===cat);
   });
 }
+pillWrap?.querySelectorAll(".pill").forEach(p=>{
+  p.addEventListener("click", ()=>showCustomCat(p.dataset.cat));
+});
 
-/* ---- add handlers ---- */
+/* ---- add handlers（ITEMS側） ---- */
 document.querySelectorAll("[data-add]").forEach(el=>{
   el.addEventListener("click", ()=>addToCart(el.dataset.add));
 });
@@ -691,7 +770,7 @@ function renderCart(){
     cartList.innerHTML = `<div class="small">カートは空です。カードをタップして追加してね。</div>`;
   }else{
     ids.forEach(id=>{
-      const it = ITEMS[id];
+      const it = getAnyItem(id);
       if(!it) return;
       const qty = cart[id].qty||0;
 
@@ -713,6 +792,7 @@ function renderCart(){
   }
   cartTotalEl.textContent = yen(cartTotal());
 
+  // bind +/- (毎回付け直す)
   cartList.querySelectorAll("[data-minus]").forEach(b=>{
     b.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -743,7 +823,7 @@ function renderCheckout(){
   }
 
   ids.forEach(id=>{
-    const it = ITEMS[id];
+    const it = getAnyItem(id);
     if(!it) return;
     const qty = cart[id].qty || 0;
 
@@ -788,12 +868,161 @@ document.getElementById("confirmDummy").addEventListener("click", ()=>{
   alert("OK！この内容で準備する（※今はダミー）\n合計：" + yen(cartTotal()));
 });
 
+/* =========================
+   買う（6作品）: 生成 + 編集
+========================= */
+const buyGrid = document.getElementById("buyGrid");
+
+function buyCardHTML(b){
+  const url = (b.image||"").trim();
+  const img = url.startsWith("http")
+    ? `<img src="${url}" alt="${escapeHtml(b.title)}">`
+    : `<div>作品写真</div>`;
+
+  return `
+    <div class="card" data-buy-add="${b.id}">
+      <div class="add-pill">＋ 追加</div>
+      <div class="edit-badge" data-buy-edit="${b.id}">✏️ 編集</div>
+      <div class="img">${img}</div>
+      <div class="content">
+        <div class="name">${escapeHtml(b.title)}</div>
+        <div class="desc">${escapeHtml(b.desc)}</div>
+        <div class="price">${yen(b.price)}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderBuy(){
+  BUY = loadBuy(); // 最新を読む
+  buyGrid.innerHTML = BUY.map(buyCardHTML).join("");
+
+  // 追加
+  buyGrid.querySelectorAll("[data-buy-add]").forEach(el=>{
+    el.addEventListener("click", ()=>addToCart(el.dataset.buyAdd));
+  });
+
+  // 編集（カードのクリックと分けるため stopPropagation）
+  buyGrid.querySelectorAll("[data-buy-edit]").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      openEdit(btn.dataset.buyEdit);
+    });
+  });
+}
+
+/* --- 編集モーダル --- */
+const editBg = document.getElementById("editBg");
+const editClose = document.getElementById("editClose");
+const editTargetHint = document.getElementById("editTargetHint");
+const editImage = document.getElementById("editImage");
+const editTitle = document.getElementById("editTitle");
+const editPrice = document.getElementById("editPrice");
+const editDesc = document.getElementById("editDesc");
+const editSave = document.getElementById("editSave");
+const editResetOne = document.getElementById("editResetOne");
+
+const previewImg = document.getElementById("previewImg");
+const previewTitle = document.getElementById("previewTitle");
+const previewDesc = document.getElementById("previewDesc");
+const previewPrice = document.getElementById("previewPrice");
+
+let editingId = null;
+
+function openEdit(id){
+  const b = BUY.find(x=>x.id===id);
+  if(!b) return;
+
+  editingId = id;
+  editTargetHint.textContent = "対象： " + b.id;
+  editImage.value = b.image || "";
+  editTitle.value = b.title || "";
+  editPrice.value = String(b.price ?? "");
+  editDesc.value = b.desc || "";
+  updatePreview();
+
+  editBg.style.display = "flex";
+}
+function closeEdit(){
+  editBg.style.display = "none";
+  editingId = null;
+}
+editClose.addEventListener("click", closeEdit);
+editBg.addEventListener("click", (e)=>{ if(e.target===editBg) closeEdit(); });
+
+function updatePreview(){
+  const url = (editImage.value||"").trim();
+  if(url.startsWith("http")){
+    previewImg.innerHTML = `<img src="${url}" alt="preview">`;
+  }else{
+    previewImg.textContent = "プレビュー";
+  }
+  previewTitle.textContent = editTitle.value || "（タイトル）";
+  previewDesc.textContent = editDesc.value || "（解説）";
+  previewPrice.textContent = yen(Number(editPrice.value||0));
+}
+
+[editImage, editTitle, editPrice, editDesc].forEach(el=>{
+  el.addEventListener("input", updatePreview);
+});
+
+editSave.addEventListener("click", ()=>{
+  if(!editingId) return;
+  const idx = BUY.findIndex(x=>x.id===editingId);
+  if(idx<0) return;
+
+  const next = structuredClone(BUY);
+  next[idx] = {
+    id: editingId,
+    title: (editTitle.value||"").trim() || DEFAULT_BUY[idx].title,
+    price: Number(String(editPrice.value||"0").replace(/[^\d]/g,"")) || 0,
+    desc: (editDesc.value||"").trim(),
+    image: (editImage.value||"").trim(),
+  };
+  saveBuy(next);
+  BUY = loadBuy();
+  renderBuy();
+  showToast("作品を保存しました");
+  closeEdit();
+});
+
+editResetOne.addEventListener("click", ()=>{
+  if(!editingId) return;
+  const idx = BUY.findIndex(x=>x.id===editingId);
+  if(idx<0) return;
+
+  const next = structuredClone(BUY);
+  next[idx] = structuredClone(DEFAULT_BUY[idx]);
+  saveBuy(next);
+  BUY = loadBuy();
+  renderBuy();
+  showToast("この作品を初期に戻しました");
+  closeEdit();
+});
+
+document.getElementById("resetBuy").addEventListener("click", ()=>{
+  saveBuy(structuredClone(DEFAULT_BUY));
+  BUY = loadBuy();
+  renderBuy();
+  showToast("買う：初期に戻しました");
+});
+
+/* ========= utility ========= */
+function escapeHtml(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
+}
+
 /* init */
 renderSetPhoto();
-applyCardImages();   // ★これで一覧カードに写真が出る
 renderBadge();
 initViewFromHash();
 showCustomCat("layer1");
+renderBuy();
 </script>
 
 </body>
