@@ -85,57 +85,120 @@ body{
   font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
 
-/* ===== VS強化：期間限定の見た目 ===== */
-.battle-wrap{
-  margin:10px 0 12px;
-  padding:14px;
-  border-radius:18px;
-  border:1px solid rgba(17,24,39,.10);
-  background:
-    radial-gradient(circle at 18% 40%, rgba(220,38,38,.22), transparent 55%),
-    radial-gradient(circle at 82% 40%, rgba(245,158,11,.24), transparent 58%),
-    linear-gradient(90deg, rgba(220,38,38,.12), rgba(245,158,11,.12));
+/* ===== VS HERO（ここが目玉） ===== */
+.vs-hero{
   position:relative;
+  border-radius:22px;
   overflow:hidden;
+  border:1px solid rgba(15,23,42,.10);
+  box-shadow:0 18px 50px rgba(0,0,0,.12);
+  margin:12px 0 16px;
 }
-.battle-top{
+.vs-hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.55), transparent 55%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.45), transparent 55%),
+    linear-gradient(90deg, rgba(220,38,38,.22) 0%, rgba(220,38,38,.10) 46%, rgba(245,158,11,.10) 54%, rgba(245,158,11,.22) 100%);
+}
+.vs-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.72));
+  pointer-events:none;
+}
+.vs-inner{
+  position:relative;
+  padding:14px;
+  z-index:2;
+}
+.vs-top{
   display:flex; align-items:center; justify-content:space-between; gap:10px;
-  margin:2px 2px 10px;
+  margin-bottom:10px;
 }
-.limited-pill{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:8px 12px; border-radius:999px;
-  background:rgba(17,24,39,.92); color:#fff;
+.vs-badges{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.badge-pill{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border-radius:999px;
   font-weight:900; font-size:12px;
+  border:1px solid rgba(15,23,42,.14);
+  background:rgba(255,255,255,.75);
 }
-.spark{
-  width:8px; height:8px; border-radius:999px; background:#f59e0b;
-  box-shadow:0 0 0 6px rgba(245,158,11,.18);
+.badge-pill.hot{
+  background:linear-gradient(135deg, rgba(17,24,39,.95), rgba(51,65,85,.95));
+  color:#fff; border-color:transparent;
 }
-.vs-badge{
-  padding:8px 12px; border-radius:999px;
-  background:linear-gradient(90deg, #dc2626, #f59e0b);
-  color:#fff; font-weight:900; font-size:12px;
-  border:1px solid rgba(255,255,255,.6);
-  box-shadow:0 12px 26px rgba(0,0,0,.14);
-}
-.battle-sub{
-  margin:0 2px 12px;
-  font-size:12px; font-weight:900;
-  color:rgba(17,24,39,.72);
+.badge-pill.red{ background:rgba(220,38,38,.12); }
+.badge-pill.yellow{ background:rgba(245,158,11,.12); }
+.vs-kicker{
+  font-weight:900;
+  font-size:12px;
+  color:rgba(15,23,42,.75);
 }
 
-.vs{
-  margin:12px 2px 6px; padding:12px 14px; border-radius:16px;
-  background:
-    radial-gradient(circle at 30% 50%, rgba(220,38,38,.12), transparent 55%),
-    radial-gradient(circle at 70% 50%, rgba(245,158,11,.12), transparent 60%),
-    #fff;
-  border:1px solid rgba(17,24,39,.12);
-  font-weight:900; display:flex; justify-content:space-between; align-items:center;
+.vs-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  align-items:stretch;
 }
-.vs .mini{
-  font-size:12px; color:rgba(17,24,39,.65); font-weight:900;
+.vs-center{
+  position:absolute;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:58px; height:58px;
+  border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:1000;
+  letter-spacing:.08em;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(15,23,42,.14);
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+  z-index:4;
+}
+.vs-card{
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(15,23,42,.12);
+  background:#fff;
+  box-shadow:0 10px 26px rgba(0,0,0,.10);
+  position:relative;
+}
+.vs-card.red::before,
+.vs-card.yellow::before{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  opacity:.22;
+}
+.vs-card.red::before{
+  background:linear-gradient(180deg, rgba(220,38,38,.22), transparent 55%);
+}
+.vs-card.yellow::before{
+  background:linear-gradient(180deg, rgba(245,158,11,.22), transparent 55%);
+}
+.vs-card .img{ height:180px; }
+.vs-card .content{ padding:14px; }
+.vs-card .name{ font-size:16px; }
+.vs-card .price{ font-size:22px; }
+.vs-tag{
+  position:absolute; left:10px; top:10px;
+  z-index:5;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:1000;
+  font-size:12px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(15,23,42,.14);
+}
+.vs-tag.red{ color:#b91c1c; }
+.vs-tag.yellow{ color:#b45309; }
+
+@media (max-width:520px){
+  .vs-card .img{ height:150px; }
+  .vs-center{ width:52px; height:52px; }
 }
 
 /* ===== custom: category pills ===== */
@@ -302,50 +365,55 @@ body{
 
     <!-- ===== セット ===== -->
     <section id="view-set">
+
+      <!-- ★VSっぽい「期間限定」演出ブロック -->
+      <div class="vs-hero">
+        <div class="vs-inner">
+          <div class="vs-top">
+            <div class="vs-badges">
+              <span class="badge-pill hot">期間限定</span>
+              <span class="badge-pill red">紅葉</span>
+              <span class="badge-pill yellow">黄葉</span>
+            </div>
+            <div class="vs-kicker">今だけの2択</div>
+          </div>
+
+          <div class="vs-grid">
+            <div class="vs-center">VS</div>
+
+            <div class="vs-card red card" data-add="set_momiji_red">
+              <div class="vs-tag red">RED</div>
+              <div class="add-pill">＋ 追加</div>
+              <div class="img">写真(赤) まだ</div>
+              <div class="content">
+                <div class="name">紅葉セット</div>
+                <div class="desc">🔴 赤色の植物 使い放題</div>
+                <div class="price">¥2,800〜</div>
+              </div>
+            </div>
+
+            <div class="vs-card yellow card" data-add="set_momiji_yellow">
+              <div class="vs-tag yellow">YELLOW</div>
+              <div class="add-pill">＋ 追加</div>
+              <div class="img">
+                <img id="setPhotoA" alt="黄葉セット">
+              </div>
+              <div class="content">
+                <div class="name">黄葉セット</div>
+                <div class="desc">🟡 黄色の植物 使い放題</div>
+                <div class="price">¥2,800〜</div>
+              </div>
+            </div>
+          </div>
+
+          <p class="section-sub" style="margin:10px 2px 0;">
+            タップでカートへ追加できます（今だけの2択）
+          </p>
+        </div>
+      </div>
+
+      <!-- ここから定番 -->
       <div class="section-head">
-        <span class="section-badge">期間限定</span>
-        <span class="section-title">紅葉 vs 黄葉</span>
-      </div>
-
-      <!-- VS強調ブロック -->
-      <div class="battle-wrap">
-        <div class="battle-top">
-          <div class="limited-pill"><span class="spark"></span> 今だけの対決</div>
-          <div class="vs-badge">VS</div>
-        </div>
-        <p class="battle-sub">タップでカートへ追加できます（赤 or 黄、どっちで世界を作る？）</p>
-
-        <div class="grid two">
-          <div class="card" data-add="set_momiji_red">
-            <div class="add-pill">＋ 追加</div>
-            <div class="img">写真(赤) まだ</div>
-            <div class="content">
-              <div class="name">紅葉セット</div>
-              <div class="desc">🔴 赤色の植物 使い放題</div>
-              <div class="price">¥2,800〜</div>
-            </div>
-          </div>
-
-          <div class="card" data-add="set_momiji_yellow">
-            <div class="add-pill">＋ 追加</div>
-            <div class="img">
-              <img id="setPhotoA" alt="黄葉セット">
-            </div>
-            <div class="content">
-              <div class="name">黄葉セット</div>
-              <div class="desc">🟡 黄色の植物 使い放題</div>
-              <div class="price">¥2,800〜</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="vs">
-          <span>紅か、黄か。</span>
-          <span class="mini">どっち派？</span>
-        </div>
-      </div>
-
-      <div class="section-head" style="margin-top:10px;">
         <span class="section-badge">セット</span>
         <span class="section-title">定番</span>
       </div>
@@ -784,7 +852,7 @@ function renderItemCardImages(){
   });
 }
 
-/* ---- view switch ---- */
+/* ---- view switch (1ページ) ---- */
 const views = {
   set: document.getElementById("view-set"),
   custom: document.getElementById("view-custom"),
@@ -912,7 +980,7 @@ function renderCart(){
   });
 }
 
-/* ---- checkout render ---- */
+/* ---- checkout render (合計+写真一覧) ---- */
 function renderCheckout(){
   checkoutTotalEl.textContent = yen(cartTotal());
   checkoutGrid.innerHTML = "";
@@ -1122,7 +1190,7 @@ renderBadge();
 initViewFromHash();
 showCustomCat("layer1");
 renderBuy();
-renderItemCardImages(); // ★セット/自分で選ぶ/追加セットも、imageがあれば写真が出る
+renderItemCardImages(); // 「自分で選ぶ」等の写真を自動反映
 </script>
 
 </body>
