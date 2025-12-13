@@ -85,10 +85,57 @@ body{
   font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
 
+/* ===== VS強化：期間限定の見た目 ===== */
+.battle-wrap{
+  margin:10px 0 12px;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(17,24,39,.10);
+  background:
+    radial-gradient(circle at 18% 40%, rgba(220,38,38,.22), transparent 55%),
+    radial-gradient(circle at 82% 40%, rgba(245,158,11,.24), transparent 58%),
+    linear-gradient(90deg, rgba(220,38,38,.12), rgba(245,158,11,.12));
+  position:relative;
+  overflow:hidden;
+}
+.battle-top{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  margin:2px 2px 10px;
+}
+.limited-pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:999px;
+  background:rgba(17,24,39,.92); color:#fff;
+  font-weight:900; font-size:12px;
+}
+.spark{
+  width:8px; height:8px; border-radius:999px; background:#f59e0b;
+  box-shadow:0 0 0 6px rgba(245,158,11,.18);
+}
+.vs-badge{
+  padding:8px 12px; border-radius:999px;
+  background:linear-gradient(90deg, #dc2626, #f59e0b);
+  color:#fff; font-weight:900; font-size:12px;
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 12px 26px rgba(0,0,0,.14);
+}
+.battle-sub{
+  margin:0 2px 12px;
+  font-size:12px; font-weight:900;
+  color:rgba(17,24,39,.72);
+}
+
 .vs{
-  margin:14px 2px 18px; padding:12px 14px; border-radius:14px;
-  background:#fff; border:1px solid var(--line);
-  font-weight:900; display:flex; justify-content:space-between;
+  margin:12px 2px 6px; padding:12px 14px; border-radius:16px;
+  background:
+    radial-gradient(circle at 30% 50%, rgba(220,38,38,.12), transparent 55%),
+    radial-gradient(circle at 70% 50%, rgba(245,158,11,.12), transparent 60%),
+    #fff;
+  border:1px solid rgba(17,24,39,.12);
+  font-weight:900; display:flex; justify-content:space-between; align-items:center;
+}
+.vs .mini{
+  font-size:12px; color:rgba(17,24,39,.65); font-weight:900;
 }
 
 /* ===== custom: category pills ===== */
@@ -259,38 +306,46 @@ body{
         <span class="section-badge">期間限定</span>
         <span class="section-title">紅葉 vs 黄葉</span>
       </div>
-      <p class="section-sub">タップでカートへ追加できます</p>
 
-      <div class="grid two">
-        <div class="card" data-add="set_momiji_red">
-          <div class="add-pill">＋ 追加</div>
-          <div class="img">写真(赤) まだ</div>
-          <div class="content">
-            <div class="name">紅葉セット</div>
-            <div class="desc">🔴 赤色の植物 使い放題</div>
-            <div class="price">¥2,800〜</div>
+      <!-- VS強調ブロック -->
+      <div class="battle-wrap">
+        <div class="battle-top">
+          <div class="limited-pill"><span class="spark"></span> 今だけの対決</div>
+          <div class="vs-badge">VS</div>
+        </div>
+        <p class="battle-sub">タップでカートへ追加できます（赤 or 黄、どっちで世界を作る？）</p>
+
+        <div class="grid two">
+          <div class="card" data-add="set_momiji_red">
+            <div class="add-pill">＋ 追加</div>
+            <div class="img">写真(赤) まだ</div>
+            <div class="content">
+              <div class="name">紅葉セット</div>
+              <div class="desc">🔴 赤色の植物 使い放題</div>
+              <div class="price">¥2,800〜</div>
+            </div>
+          </div>
+
+          <div class="card" data-add="set_momiji_yellow">
+            <div class="add-pill">＋ 追加</div>
+            <div class="img">
+              <img id="setPhotoA" alt="黄葉セット">
+            </div>
+            <div class="content">
+              <div class="name">黄葉セット</div>
+              <div class="desc">🟡 黄色の植物 使い放題</div>
+              <div class="price">¥2,800〜</div>
+            </div>
           </div>
         </div>
 
-        <div class="card" data-add="set_momiji_yellow">
-          <div class="add-pill">＋ 追加</div>
-          <div class="img">
-            <img id="setPhotoA" alt="黄葉セット">
-          </div>
-          <div class="content">
-            <div class="name">黄葉セット</div>
-            <div class="desc">🟡 黄色の植物 使い放題</div>
-            <div class="price">¥2,800〜</div>
-          </div>
+        <div class="vs">
+          <span>紅か、黄か。</span>
+          <span class="mini">どっち派？</span>
         </div>
       </div>
 
-      <div class="vs">
-        <span>紅か、黄か。</span>
-        <span>どっち派？</span>
-      </div>
-
-      <div class="section-head">
+      <div class="section-head" style="margin-top:10px;">
         <span class="section-badge">セット</span>
         <span class="section-title">定番</span>
       </div>
@@ -565,7 +620,6 @@ body{
 
 <script>
 /* ========= 設定 ========= */
-/** ★黄葉セットのCloudinary URLをここに入れる（https://... から始まるやつ） */
 const PHOTO_A = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624565/file_000000001eb872069ab5fda893a3cfe5_xhfwpq.png";
 
 /* ========= 商品マスタ ========= */
@@ -578,9 +632,9 @@ const ITEMS = {
   set_growth:        { id:"set_growth",        name:"グロースセット", price:1400, image:"" },
   set_basic:         { id:"set_basic",         name:"ベーシックセット", price:800,  image:"" },
 
-  // ★追加セット
-  set_wabisabi:      { id:"set_wabisabi",      name:"侘び寂びセット", price:2600, image:"" },   // ここもCloudinary入れられる
-  set_hanabanas:     { id:"set_hanabanas",     name:"花々セット",     price:3600, image:"" },   // ここもCloudinary入れられる
+  // 追加セット
+  set_wabisabi:      { id:"set_wabisabi",      name:"侘び寂びセット", price:2600, image:"" },
+  set_hanabanas:     { id:"set_hanabanas",     name:"花々セット",     price:3600, image:"" },
 
   // 自分で選ぶ：第一層
   c1_soil:         { id:"c1_soil",         name:"土", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601177/file_0000000072507207a77fbfba241ea449_uvlzrs.png" },
@@ -715,7 +769,7 @@ function renderSetPhoto(){
   }
 }
 
-/* ★ここが重要：ITEMSのimageがあるカードは自動で写真を入れる */
+/* ★重要：ITEMSのimageがあるカードは自動で写真を入れる */
 function renderItemCardImages(){
   document.querySelectorAll(".card[data-add]").forEach(card=>{
     const id = card.dataset.add;
@@ -730,7 +784,7 @@ function renderItemCardImages(){
   });
 }
 
-/* ---- view switch (1ページ) ---- */
+/* ---- view switch ---- */
 const views = {
   set: document.getElementById("view-set"),
   custom: document.getElementById("view-custom"),
@@ -858,7 +912,7 @@ function renderCart(){
   });
 }
 
-/* ---- checkout render (合計+写真一覧) ---- */
+/* ---- checkout render ---- */
 function renderCheckout(){
   checkoutTotalEl.textContent = yen(cartTotal());
   checkoutGrid.innerHTML = "";
@@ -1068,7 +1122,7 @@ renderBadge();
 initViewFromHash();
 showCustomCat("layer1");
 renderBuy();
-renderItemCardImages(); // ★これで「自分で選ぶ」の写真が出る
+renderItemCardImages(); // ★セット/自分で選ぶ/追加セットも、imageがあれば写真が出る
 </script>
 
 </body>
