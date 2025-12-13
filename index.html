@@ -217,9 +217,7 @@ body{
 .form{
   margin-top:10px; display:flex; flex-direction:column; gap:10px;
 }
-.field{
-  display:flex; flex-direction:column; gap:6px;
-}
+.field{ display:flex; flex-direction:column; gap:6px; }
 .label{ font-weight:900; font-size:12px; color:#111827; }
 .input, .textarea{
   width:100%;
@@ -338,6 +336,36 @@ body{
           </div>
         </div>
       </div>
+
+      <!-- ★追加（下らへん） -->
+      <div class="section-head" style="margin-top:18px;">
+        <span class="section-badge">追加</span>
+        <span class="section-title">おすすめ</span>
+      </div>
+      <p class="section-sub">メニューの下に追加：侘び寂びセット / 花々セット</p>
+
+      <div class="grid two">
+        <div class="card" data-add="set_wabisabi">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真 まだ</div>
+          <div class="content">
+            <div class="name">侘び寂びセット</div>
+            <div class="desc">静けさ・余白・枯れ感（渋い世界）</div>
+            <div class="price">¥2,600〜</div>
+          </div>
+        </div>
+
+        <div class="card" data-add="set_hanabanas">
+          <div class="add-pill">＋ 追加</div>
+          <div class="img">写真 まだ</div>
+          <div class="content">
+            <div class="name">花々セット</div>
+            <div class="desc">花多めで一気に華やか（映え）</div>
+            <div class="price">¥3,600〜</div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ===== 自分で選ぶ（カテゴリ切替＋追加） ===== -->
@@ -550,6 +578,10 @@ const ITEMS = {
   set_growth:        { id:"set_growth",        name:"グロースセット", price:1400, image:"" },
   set_basic:         { id:"set_basic",         name:"ベーシックセット", price:800,  image:"" },
 
+  // ★追加セット
+  set_wabisabi:      { id:"set_wabisabi",      name:"侘び寂びセット", price:2600, image:"" },   // ここもCloudinary入れられる
+  set_hanabanas:     { id:"set_hanabanas",     name:"花々セット",     price:3600, image:"" },   // ここもCloudinary入れられる
+
   // 自分で選ぶ：第一層
   c1_soil:         { id:"c1_soil",         name:"土", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601177/file_0000000072507207a77fbfba241ea449_uvlzrs.png" },
   c1_smallstone:   { id:"c1_smallstone",   name:"小石", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601234/file_000000007448720795ef08bff7d5136b_ctv9eu.png" },
@@ -589,13 +621,14 @@ const DEFAULT_BUY = [
   { id:"buy_006", title:"作品 006", price:1500, desc:"小さな世界の入口。", image:"" },
 ];
 
+function cloneObj(x){ return JSON.parse(JSON.stringify(x)); }
+
 function loadBuy(){
   try{
     const raw = localStorage.getItem(BUY_KEY);
-    if(!raw) return structuredClone(DEFAULT_BUY);
+    if(!raw) return cloneObj(DEFAULT_BUY);
     const arr = JSON.parse(raw);
-    if(!Array.isArray(arr) || arr.length !== 6) return structuredClone(DEFAULT_BUY);
-    // 欠けてても安全に
+    if(!Array.isArray(arr) || arr.length !== 6) return cloneObj(DEFAULT_BUY);
     return arr.map((x,i)=>({
       id: String(x?.id || DEFAULT_BUY[i].id),
       title: String(x?.title || DEFAULT_BUY[i].title),
@@ -604,7 +637,7 @@ function loadBuy(){
       image: String(x?.image || DEFAULT_BUY[i].image),
     }));
   }catch(e){
-    return structuredClone(DEFAULT_BUY);
+    return cloneObj(DEFAULT_BUY);
   }
 }
 function saveBuy(arr){
@@ -621,15 +654,6 @@ function saveCart(c){ localStorage.setItem("karts_cart", JSON.stringify(c)); }
 let cart = loadCart();
 
 function cartCount(){ return Object.values(cart).reduce((s,it)=>s+(it.qty||0),0); }
-function cartTotal(){
-  let t=0;
-  for(const id of Object.keys(cart)){
-    const qty = cart[id].qty||0;
-    const item = getAnyItem(id);
-    if(item) t += item.price * qty;
-  }
-  return t;
-}
 function yen(n){ return "¥" + Number(n||0).toLocaleString("ja-JP"); }
 
 /* BUY作品も含めて item を返す */
@@ -638,6 +662,15 @@ function getAnyItem(id){
   const b = BUY.find(x=>x.id===id);
   if(b) return { id:b.id, name:b.title, price:Number(b.price||0), image:(b.image||"") };
   return null;
+}
+function cartTotal(){
+  let t=0;
+  for(const id of Object.keys(cart)){
+    const qty = cart[id].qty||0;
+    const item = getAnyItem(id);
+    if(item) t += item.price * qty;
+  }
+  return t;
 }
 
 function addToCart(id){
@@ -680,6 +713,21 @@ function renderSetPhoto(){
   }else{
     img.parentElement.textContent = "写真URL未設定";
   }
+}
+
+/* ★ここが重要：ITEMSのimageがあるカードは自動で写真を入れる */
+function renderItemCardImages(){
+  document.querySelectorAll(".card[data-add]").forEach(card=>{
+    const id = card.dataset.add;
+    const it = ITEMS[id];
+    if(!it) return;
+    const url = (it.image||"").trim();
+    const imgBox = card.querySelector(".img");
+    if(!imgBox) return;
+    if(url.startsWith("http")){
+      imgBox.innerHTML = `<img src="${url}" alt="${escapeHtml(it.name||id)}">`;
+    }
+  });
 }
 
 /* ---- view switch (1ページ) ---- */
@@ -778,7 +826,7 @@ function renderCart(){
       row.className = "cart-item";
       row.innerHTML = `
         <div class="cart-left">
-          <div class="cart-name">${it.name}</div>
+          <div class="cart-name">${escapeHtml(it.name)}</div>
           <div class="cart-meta">${yen(it.price)} × ${qty} = ${yen(it.price*qty)}</div>
         </div>
         <div class="cart-right">
@@ -792,7 +840,6 @@ function renderCart(){
   }
   cartTotalEl.textContent = yen(cartTotal());
 
-  // bind +/- (毎回付け直す)
   cartList.querySelectorAll("[data-minus]").forEach(b=>{
     b.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -832,13 +879,13 @@ function renderCheckout(){
 
     const url = (it.image || "").trim();
     const imgHtml = url.startsWith("http")
-      ? `<img src="${url}" alt="${it.name}">`
+      ? `<img src="${url}" alt="${escapeHtml(it.name)}">`
       : `<div>写真未設定</div>`;
 
     card.innerHTML = `
       <div class="checkout-img">${imgHtml}</div>
       <div class="checkout-body">
-        <div class="checkout-name">${it.name}</div>
+        <div class="checkout-name">${escapeHtml(it.name)}</div>
         <div class="checkout-qty">数量：${qty} / 小計：${yen(it.price*qty)}</div>
       </div>
     `;
@@ -894,15 +941,13 @@ function buyCardHTML(b){
 }
 
 function renderBuy(){
-  BUY = loadBuy(); // 最新を読む
+  BUY = loadBuy();
   buyGrid.innerHTML = BUY.map(buyCardHTML).join("");
 
-  // 追加
   buyGrid.querySelectorAll("[data-buy-add]").forEach(el=>{
     el.addEventListener("click", ()=>addToCart(el.dataset.buyAdd));
   });
 
-  // 編集（カードのクリックと分けるため stopPropagation）
   buyGrid.querySelectorAll("[data-buy-edit]").forEach(btn=>{
     btn.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -971,7 +1016,7 @@ editSave.addEventListener("click", ()=>{
   const idx = BUY.findIndex(x=>x.id===editingId);
   if(idx<0) return;
 
-  const next = structuredClone(BUY);
+  const next = cloneObj(BUY);
   next[idx] = {
     id: editingId,
     title: (editTitle.value||"").trim() || DEFAULT_BUY[idx].title,
@@ -991,8 +1036,8 @@ editResetOne.addEventListener("click", ()=>{
   const idx = BUY.findIndex(x=>x.id===editingId);
   if(idx<0) return;
 
-  const next = structuredClone(BUY);
-  next[idx] = structuredClone(DEFAULT_BUY[idx]);
+  const next = cloneObj(BUY);
+  next[idx] = cloneObj(DEFAULT_BUY[idx]);
   saveBuy(next);
   BUY = loadBuy();
   renderBuy();
@@ -1001,7 +1046,7 @@ editResetOne.addEventListener("click", ()=>{
 });
 
 document.getElementById("resetBuy").addEventListener("click", ()=>{
-  saveBuy(structuredClone(DEFAULT_BUY));
+  saveBuy(cloneObj(DEFAULT_BUY));
   BUY = loadBuy();
   renderBuy();
   showToast("買う：初期に戻しました");
@@ -1023,6 +1068,7 @@ renderBadge();
 initViewFromHash();
 showCustomCat("layer1");
 renderBuy();
+renderItemCardImages(); // ★これで「自分で選ぶ」の写真が出る
 </script>
 
 </body>
