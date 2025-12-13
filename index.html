@@ -74,6 +74,7 @@ body{
   color:#374151; font-weight:900;
 }
 .img img{ width:100%; height:100%; object-fit:cover; display:block; }
+.img .ph{ padding:10px; text-align:center; }
 .content{ padding:14px; }
 .name{ font-weight:900; font-size:15px; }
 .desc{ margin-top:6px; font-size:13px; color:var(--muted); line-height:1.35; }
@@ -226,7 +227,7 @@ body{
       <div class="grid two">
         <div class="card" data-add="set_momiji_red">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">写真(赤) まだ</div>
+          <div class="img"><div class="ph">写真(赤) まだ</div></div>
           <div class="content">
             <div class="name">紅葉セット</div>
             <div class="desc">🔴 赤色の植物 使い放題</div>
@@ -236,7 +237,7 @@ body{
 
         <div class="card" data-add="set_momiji_yellow">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">
+          <div class="img" id="setPhotoWrap">
             <img id="setPhotoA" alt="黄葉セット">
           </div>
           <div class="content">
@@ -260,7 +261,7 @@ body{
       <div class="grid">
         <div class="card" data-add="set_prime">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">写真 まだ</div>
+          <div class="img"><div class="ph">写真 まだ</div></div>
           <div class="content">
             <div class="name">プライムセット</div>
             <div class="desc">すべて使い放題</div>
@@ -270,7 +271,7 @@ body{
 
         <div class="card" data-add="set_standard">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">写真 まだ</div>
+          <div class="img"><div class="ph">写真 まだ</div></div>
           <div class="content">
             <div class="name">スタンダードセット</div>
             <div class="desc">植物4種＋花1</div>
@@ -280,7 +281,7 @@ body{
 
         <div class="card" data-add="set_growth">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">写真 まだ</div>
+          <div class="img"><div class="ph">写真 まだ</div></div>
           <div class="content">
             <div class="name">グロースセット</div>
             <div class="desc">植物3種</div>
@@ -290,7 +291,7 @@ body{
 
         <div class="card" data-add="set_basic">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">写真 まだ</div>
+          <div class="img"><div class="ph">写真 まだ</div></div>
           <div class="content">
             <div class="name">ベーシックセット</div>
             <div class="desc">植物1種</div>
@@ -320,12 +321,12 @@ body{
           <span class="section-badge">第一層</span><span class="section-title">土台を決める</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c1_soil"><div class="add-pill">＋ 追加</div><div class="img">土</div><div class="content"><div class="name">土</div><div class="desc">第一層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c1_smallstone"><div class="add-pill">＋ 追加</div><div class="img">小石</div><div class="content"><div class="name">小石</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c1_moss"><div class="add-pill">＋ 追加</div><div class="img">苔</div><div class="content"><div class="name">苔</div><div class="desc">第一層</div><div class="price">¥200</div></div></div>
-          <div class="card" data-add="c1_momiji"><div class="add-pill">＋ 追加</div><div class="img">紅葉</div><div class="content"><div class="name">紅葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c1_kouyou"><div class="add-pill">＋ 追加</div><div class="img">黄葉</div><div class="content"><div class="name">黄葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c1_unknowngrass"><div class="add-pill">＋ 追加</div><div class="img">草</div><div class="content"><div class="name">名もなき草</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c1_soil"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">土</div><div class="desc">第一層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c1_smallstone"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小石</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c1_moss"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">苔</div><div class="desc">第一層</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c1_momiji"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">紅葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c1_kouyou"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">黄葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c1_unknowngrass"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">名もなき草</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
         </div>
       </div>
 
@@ -335,16 +336,16 @@ body{
           <span class="section-badge">第二層</span><span class="section-title">中景を作る</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c2_bigstone"><div class="add-pill">＋ 追加</div><div class="img">大石</div><div class="content"><div class="name">大石</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c2_yamamoss"><div class="add-pill">＋ 追加</div><div class="img">山苔</div><div class="content"><div class="name">山苔</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
-          <div class="card" data-add="c2_donguri"><div class="add-pill">＋ 追加</div><div class="img">どんぐり</div><div class="content"><div class="name">どんぐり</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c2_matubokkuri"><div class="add-pill">＋ 追加</div><div class="img">松ぼっくり</div><div class="content"><div class="name">松ぼっくり</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_kaedenohane"><div class="add-pill">＋ 追加</div><div class="img">楓の羽</div><div class="content"><div class="name">楓の羽</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c2_chigaya"><div class="add-pill">＋ 追加</div><div class="img">チガヤ</div><div class="content"><div class="name">チガヤ</div><div class="desc">第二層</div><div class="price">¥200</div></div></div>
-          <div class="card" data-add="c2_enokorogusa"><div class="add-pill">＋ 追加</div><div class="img">エノコログサ</div><div class="content"><div class="name">エノコログサ</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_smallbranch"><div class="add-pill">＋ 追加</div><div class="img">小枝</div><div class="content"><div class="name">小枝</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c2_smalltree"><div class="add-pill">＋ 追加</div><div class="img">小さな木</div><div class="content"><div class="name">小さな木</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_smallflower"><div class="add-pill">＋ 追加</div><div class="img">小花</div><div class="content"><div class="name">小花</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
+          <div class="card" data-add="c2_bigstone"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">大石</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c2_yamamoss"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">山苔</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
+          <div class="card" data-add="c2_donguri"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">どんぐり</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c2_matubokkuri"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">松ぼっくり</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c2_kaedenohane"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">楓の羽</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c2_chigaya"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">チガヤ</div><div class="desc">第二層</div><div class="price">¥200</div></div></div>
+          <div class="card" data-add="c2_enokorogusa"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">エノコログサ</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c2_smallbranch"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小枝</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c2_smalltree"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小さな木</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c2_smallflower"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">小花</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
         </div>
       </div>
 
@@ -354,11 +355,11 @@ body{
           <span class="section-badge">第三層</span><span class="section-title">仕上げ</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c3_bigflower"><div class="add-pill">＋ 追加</div><div class="img">大花</div><div class="content"><div class="name">大花</div><div class="desc">第三層</div><div class="price">¥500</div></div></div>
-          <div class="card" data-add="c3_watage"><div class="add-pill">＋ 追加</div><div class="img">綿毛</div><div class="content"><div class="name">綿毛</div><div class="desc">第三層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c3_aotsuzurafuji"><div class="add-pill">＋ 追加</div><div class="img">青</div><div class="content"><div class="name">アオツヅラフジ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c3_manryou"><div class="add-pill">＋ 追加</div><div class="img">赤</div><div class="content"><div class="name">マンリョウ</div><div class="desc">第三層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img">黄</div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c3_bigflower"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">大花</div><div class="desc">第三層</div><div class="price">¥500</div></div></div>
+          <div class="card" data-add="c3_watage"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">綿毛</div><div class="desc">第三層</div><div class="price">¥50</div></div></div>
+          <div class="card" data-add="c3_aotsuzurafuji"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">アオツヅラフジ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c3_manryou"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">マンリョウ</div><div class="desc">第三層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img"></div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
         </div>
       </div>
     </section>
@@ -374,7 +375,7 @@ body{
       <div class="grid">
         <div class="card" data-add="b_art_001">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">作品写真</div>
+          <div class="img"></div>
           <div class="content">
             <div class="name">作品A（サンプル）</div>
             <div class="desc">自然を閉じ込めた一点物</div>
@@ -384,7 +385,7 @@ body{
 
         <div class="card" data-add="b_art_002">
           <div class="add-pill">＋ 追加</div>
-          <div class="img">作品写真</div>
+          <div class="img"></div>
           <div class="content">
             <div class="name">作品B（サンプル）</div>
             <div class="desc">黄葉モチーフ</div>
@@ -464,10 +465,6 @@ body{
 const PHOTO_A = "PASTE_CLOUDINARY_URL_HERE";
 
 /* ========= 商品マスタ ========= */
-/**
- * image: "https://...." を入れたら、レジ画面で写真が出る
- * 入れてない場合は「写真未設定」表示
- */
 const ITEMS = {
   // セット
   set_momiji_red:    { id:"set_momiji_red",    name:"紅葉セット", price:2800, image:"" },
@@ -487,6 +484,7 @@ const ITEMS = {
 
   // 自分で選ぶ：第二層
   c2_bigstone:      { id:"c2_bigstone",      name:"大石", price:150, image:"" },
+  c2_yamamoss:      { id:"c2_yamamoss",      name:"山苔", price:250, image:"" },
   c2_donguri:       { id:"c2_donguri",       name:"どんぐり", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601304/file_00000000e1a87206929eec93544ea09d_lihqtn.png" },
   c2_matubokkuri:   { id:"c2_matubokkuri",   name:"松ぼっくり", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601259/file_00000000137c7206b3d096d9056cce23_ubrp1o.png" },
   c2_kaedenohane:   { id:"c2_kaedenohane",   name:"楓の羽", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601381/file_0000000011107206acd7bf78a8d6c38c_jl1ll2.png" },
@@ -554,18 +552,49 @@ function showToast(msg){
   window.__toastTimer = setTimeout(()=>t.classList.remove("show"), 900);
 }
 
-/* ========= UI ========= */
+/* ========= 画像をカードへ反映（今回の修正の肝） ========= */
+function applyCardImages(){
+  document.querySelectorAll(".card[data-add]").forEach(card=>{
+    const id = card.dataset.add;
+    const item = ITEMS[id];
+    if(!item) return;
+
+    const imgBox = card.querySelector(".img");
+    if(!imgBox) return;
+
+    const url = (item.image || "").trim();
+
+    // セット黄葉は既にimgタグがあるのでそれを優先
+    const existingImg = imgBox.querySelector("img");
+
+    if(url.startsWith("http")){
+      const img = existingImg || document.createElement("img");
+      img.alt = item.name || "";
+      img.src = url;
+      if(!existingImg){
+        imgBox.innerHTML = "";
+        imgBox.appendChild(img);
+      }
+    }else{
+      // 画像ない場合はプレースホルダー文字
+      imgBox.innerHTML = `<div class="ph">写真 未設定</div>`;
+    }
+  });
+}
+
 function renderBadge(){
   document.getElementById("cartBadge").textContent = String(cartCount());
 }
 function renderSetPhoto(){
   const img = document.getElementById("setPhotoA");
+  const wrap = document.getElementById("setPhotoWrap");
   const url = (ITEMS.set_momiji_yellow.image || "").trim();
-  if(!img) return;
+  if(!img || !wrap) return;
+
   if(url.startsWith("http")){
     img.src = url;
   }else{
-    img.parentElement.textContent = "写真URL未設定";
+    wrap.innerHTML = `<div class="ph">写真URL未設定</div>`;
   }
 }
 
@@ -583,7 +612,7 @@ function showView(key){
     b.classList.toggle("active", b.dataset.view===key);
   });
   if(location.hash !== "#" + key) location.hash = key;
-  window.scrollTo({top:0, behavior:"instant"});
+  window.scrollTo({top:0, behavior:"auto"});
 }
 function initViewFromHash(){
   const key = (location.hash||"#set").replace("#","");
@@ -600,15 +629,20 @@ const pillWrap = document.getElementById("customPills");
 function showCustomCat(cat){
   const ids = ["layer1","layer2","layer3"];
   ids.forEach(k=>{
-    document.getElementById("cat-"+k).classList.toggle("hidden", k!==cat);
+    const el = document.getElementById("cat-"+k);
+    if(el) el.classList.toggle("hidden", k!==cat);
   });
+  if(pillWrap){
+    pillWrap.querySelectorAll(".pill").forEach(p=>{
+      p.classList.toggle("active", p.dataset.cat===cat);
+    });
+  }
+}
+if(pillWrap){
   pillWrap.querySelectorAll(".pill").forEach(p=>{
-    p.classList.toggle("active", p.dataset.cat===cat);
+    p.addEventListener("click", ()=>showCustomCat(p.dataset.cat));
   });
 }
-pillWrap?.querySelectorAll(".pill").forEach(p=>{
-  p.addEventListener("click", ()=>showCustomCat(p.dataset.cat));
-});
 
 /* ---- add handlers ---- */
 document.querySelectorAll("[data-add]").forEach(el=>{
@@ -679,7 +713,6 @@ function renderCart(){
   }
   cartTotalEl.textContent = yen(cartTotal());
 
-  // bind +/- (毎回付け直す)
   cartList.querySelectorAll("[data-minus]").forEach(b=>{
     b.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -714,7 +747,6 @@ function renderCheckout(){
     if(!it) return;
     const qty = cart[id].qty || 0;
 
-    // 1商品1カード（数量も表示）
     const card = document.createElement("div");
     card.className = "checkout-card";
 
@@ -743,7 +775,6 @@ document.getElementById("clearCart").addEventListener("click", ()=>{
 });
 
 document.getElementById("checkout").addEventListener("click", ()=>{
-  // alertは廃止して、レジ画面へ
   renderCheckout();
   switchModalMode("checkout");
 });
@@ -759,6 +790,7 @@ document.getElementById("confirmDummy").addEventListener("click", ()=>{
 
 /* init */
 renderSetPhoto();
+applyCardImages();   // ★これで一覧カードに写真が出る
 renderBadge();
 initViewFromHash();
 showCustomCat("layer1");
