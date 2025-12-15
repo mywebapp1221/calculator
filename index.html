@@ -424,7 +424,7 @@ body{
           <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">プライムセット</div>
-            <div class="desc">全21種類の植物が使い放題　　　　　　　　　　　　　　×あなただけのwebページ</div>
+            <div class="desc">全21種類の植物が使い放題 ×あなただけのwebページ</div>
             <div class="price">¥3,000</div>
           </div>
         </div>
@@ -434,7 +434,7 @@ body{
           <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">スタンダードセット</div>
-            <div class="desc">10種類の植物が使い放題　　　　　　　　　　　　　　×あなただけのwebページ</div>
+            <div class="desc">10種類の植物が使い放題 ×あなただけのwebページ</div>
             <div class="price">¥1,400〜</div>
           </div>
         </div>
@@ -444,7 +444,7 @@ body{
           <div class="img">写真 まだ</div>
           <div class="content">
             <div class="name">グロースセット</div>
-            <div class="desc">5種類の植物が使い放題　　　　　　　　　　　　　　×あなただけのwebページ</div>
+            <div class="desc">5種類の植物が使い放題 ×あなただけのwebページ</div>
             <div class="price">¥1,200〜</div>
           </div>
         </div>
@@ -499,10 +499,12 @@ body{
       </div>
       <p class="section-sub">カテゴリを切り替えて、タップでカートへ。カートから数量変更できます。</p>
 
+      <!-- ★4つに変更：第一層/第二層/第三層/webサイトプラン -->
       <div class="pills" id="customPills">
         <button class="pill active" data-cat="layer1">第一層</button>
         <button class="pill" data-cat="layer2">第二層</button>
         <button class="pill" data-cat="layer3">第三層</button>
+        <button class="pill" data-cat="website">webサイトプラン</button>
       </div>
 
       <!-- 第一層 -->
@@ -552,6 +554,27 @@ body{
           <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img">黄</div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
         </div>
       </div>
+
+      <!-- ★追加：webサイトプラン -->
+      <div id="cat-website" class="hidden">
+        <div class="section-head">
+          <span class="section-badge">webサイトプラン</span><span class="section-title">あなただけのページ</span>
+        </div>
+        <p class="section-sub">写真つきで、あなた専用のWebページを作れます。</p>
+
+        <div class="grid two">
+          <div class="card" data-add="web_plan">
+            <div class="add-pill">＋ 追加</div>
+            <div class="img">写真 まだ</div>
+            <div class="content">
+              <div class="name">webサイトプラン</div>
+              <div class="desc">あなただけのwebページを作れます</div>
+              <div class="price">¥0〜</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ===== 買う（完成作品：6作品・編集可能） ===== -->
@@ -618,6 +641,12 @@ body{
         <div id="checkoutTotal">¥0</div>
       </div>
 
+      <!-- ★追加：OKボタン押下後に表示される「最終合計」 -->
+      <div class="total-row" id="finalTotalRow" style="display:none;">
+        <div>最終合計</div>
+        <div id="finalTotal">¥0</div>
+      </div>
+
       <div class="small">あなたが選んだ商品（数量も表示）</div>
       <div class="checkout-grid" id="checkoutGrid"></div>
 
@@ -627,7 +656,7 @@ body{
       </div>
 
       <div class="small">
-        ※「この内容でOK」は今はダミー（後でPayPay/レシート発行などに拡張できる）
+        ※「この内容でOK」で最終合計を表示します（後でPayPay/レシート発行などに拡張できる）
       </div>
     </div>
 
@@ -690,6 +719,9 @@ body{
 /* ========= 設定 ========= */
 const PHOTO_A = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624565/file_000000001eb872069ab5fda893a3cfe5_xhfwpq.png";
 
+/** ★webサイトプランの写真URL（好きなCloudinary画像に差し替えOK） */
+const WEB_PLAN_PHOTO = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765628575/file_0000000042c872068f8eba7a5a64be7d_pb0uro.png";
+
 /* ========= 商品マスタ ========= */
 const ITEMS = {
   // セット
@@ -730,6 +762,9 @@ const ITEMS = {
   c3_aotsuzurafuji:  { id:"c3_aotsuzurafuji",  name:"アオツヅラフジ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624540/file_0000000046547209a86e9a2791632d12_a8febb.png" },
   c3_manryou:        { id:"c3_manryou",        name:"マンリョウ", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624525/file_0000000012a47206858dbe1b581faf74_ggbeok.png" },
   c3_kiminosenryou:  { id:"c3_kiminosenryou",  name:"キミノセンリュウ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624572/file_0000000094c4720691f82acea6a7e4b0_wnmdoq.png" },
+
+  // ★追加：webサイトプラン（価格は仮で0、後で好きに変更OK）
+  web_plan: { id:"web_plan", name:"webサイトプラン", price:0, image:WEB_PLAN_PHOTO },
 };
 
 /* ========= 買う（6作品）: デフォルト ========= */
@@ -881,9 +916,12 @@ window.addEventListener("hashchange", initViewFromHash);
 /* ---- custom category switch ---- */
 const pillWrap = document.getElementById("customPills");
 function showCustomCat(cat){
-  const ids = ["layer1","layer2","layer3"];
+  // ★4カテゴリに増やした
+  const ids = ["layer1","layer2","layer3","website"];
   ids.forEach(k=>{
-    document.getElementById("cat-"+k).classList.toggle("hidden", k!==cat);
+    const el = document.getElementById("cat-"+k);
+    if(!el) return;
+    el.classList.toggle("hidden", k!==cat);
   });
   pillWrap.querySelectorAll(".pill").forEach(p=>{
     p.classList.toggle("active", p.dataset.cat===cat);
@@ -909,6 +947,10 @@ const checkoutView = document.getElementById("checkoutView");
 const checkoutTotalEl = document.getElementById("checkoutTotal");
 const checkoutGrid = document.getElementById("checkoutGrid");
 
+// ★最終合計表示エリア
+const finalTotalRow = document.getElementById("finalTotalRow");
+const finalTotalEl = document.getElementById("finalTotal");
+
 function openCart(){
   switchModalMode("cart");
   renderCart();
@@ -926,6 +968,15 @@ function switchModalMode(mode){
     modalTitle.textContent = "🧾 レジ";
     cartView.classList.add("hidden");
     checkoutView.classList.remove("hidden");
+
+    // ★チェックアウトに入るたび、最終合計は隠してリセット
+    if(finalTotalRow){
+      finalTotalRow.style.display = "none";
+    }
+    if(finalTotalEl){
+      finalTotalEl.textContent = "¥0";
+    }
+
   }else{
     modalTitle.textContent = "🛒 カート";
     checkoutView.classList.add("hidden");
@@ -1033,8 +1084,12 @@ document.getElementById("backToCart").addEventListener("click", ()=>{
   renderCart();
 });
 
+// ★変更：OKボタンで最終合計を表示する
 document.getElementById("confirmDummy").addEventListener("click", ()=>{
-  alert("OK！この内容で準備する（※今はダミー）\n合計：" + yen(cartTotal()));
+  const total = yen(cartTotal());
+  if(finalTotalEl) finalTotalEl.textContent = total;
+  if(finalTotalRow) finalTotalRow.style.display = "flex";
+  showToast("合計金額を表示しました");
 });
 
 /* =========================
