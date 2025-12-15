@@ -76,19 +76,15 @@ body{
 }
 .img img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-/* ★ここが追加：写真を「切らずに全部見せる」用 */
-.img.contain{
-  background:#fff;
-}
+/* ★写真を「切らずに全部見せる」用 */
+.img.contain{ background:#fff; }
 .img.contain img{
-  object-fit:contain;      /* ← 全体が入る */
-  padding:8px;             /* ← 端がギリギリにならない */
+  object-fit:contain;
+  padding:8px;
 }
 
-/* ★ここが追加：webサイトプランはバナーっぽく見せたい場合（任意） */
-.img.banner{
-  height:180px;
-}
+/* ★webサイトプランはバナーっぽく見せたい場合（任意） */
+.img.banner{ height:180px; }
 @media (max-width:520px){
   .img.banner{ height:160px; }
 }
@@ -104,7 +100,7 @@ body{
   font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
 
-/* ===== VS HERO（ここが目玉） ===== */
+/* ===== VS HERO ===== */
 .vs-hero{
   position:relative;
   border-radius:22px;
@@ -315,7 +311,7 @@ body{
 .checkout-name{ font-weight:900; }
 .checkout-qty{ font-size:12px; color:var(--muted); margin-top:4px; }
 
-/* ★ここが追加：「OK押したら合計を画面に出す」 */
+/* OK押したら合計を画面に出す */
 .final-box{
   margin-top:12px;
   border:1px solid rgba(15,23,42,.14);
@@ -511,7 +507,6 @@ body{
       </div>
       <p class="section-sub">カテゴリを切り替えて、タップでカートへ。カートから数量変更できます。</p>
 
-      <!-- ★タブ追加：webサイトプラン -->
       <div class="pills" id="customPills">
         <button class="pill active" data-cat="layer1">第一層</button>
         <button class="pill" data-cat="layer2">第二層</button>
@@ -567,7 +562,7 @@ body{
         </div>
       </div>
 
-      <!-- ★追加：webサイトプラン -->
+      <!-- webサイトプラン -->
       <div id="cat-webplan" class="hidden">
         <div class="section-head">
           <span class="section-badge">webサイトプラン</span><span class="section-title">あなただけのページ</span>
@@ -577,10 +572,7 @@ body{
         <div class="grid two">
           <div class="card" data-add="web_plan">
             <div class="add-pill">＋ 追加</div>
-
-            <!-- ★ここがポイント：contain + banner で「切れない」 -->
             <div class="img contain banner">写真</div>
-
             <div class="content">
               <div class="name">webサイトプラン</div>
               <div class="desc">あなただけのwebページを作れます</div>
@@ -588,18 +580,16 @@ body{
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ===== 買う（完成作品：6作品・編集可能） ===== -->
+    <!-- ===== 買う（完成作品） ===== -->
     <section id="view-buy" class="hidden">
       <div class="section-head">
         <span class="section-badge">買う</span>
         <span class="section-title">完成作品を選ぶ</span>
       </div>
       <p class="section-sub">作品をタップでカートへ追加。✏️編集で写真/タイトル/値段/解説をいつでも変更できます（端末に保存）。</p>
-      </div>
 
       <div class="grid" id="buyGrid"><!-- JSで6枚生成 --></div>
 
@@ -657,7 +647,6 @@ body{
         <button class="primary" id="confirmDummy">この内容でOK</button>
       </div>
 
-      <!-- ★ここが追加：OK押したら合計を画面内に表示 -->
       <div class="final-box hidden" id="finalBox">
         <div class="final-title">✅ 受付しました</div>
         <div class="final-amount" id="finalAmount">¥0</div>
@@ -688,7 +677,7 @@ body{
 
       <div class="field">
         <div class="label">タイトル</div>
-        <input class="input" id="editTitle" placeholder="例：こもれびの森 001" />
+        <input class="input" id="editTitle" placeholder="例：つぶつぶの森" />
       </div>
 
       <div class="field">
@@ -698,7 +687,7 @@ body{
 
       <div class="field">
         <div class="label">解説</div>
-        <textarea class="textarea" id="editDesc" placeholder="例：自然を閉じ込めた一点物。"></textarea>
+        <textarea class="textarea" id="editDesc" placeholder="例：手のひらに眠る小さな森の記憶。"></textarea>
       </div>
 
       <div class="preview" id="editPreview">
@@ -726,8 +715,8 @@ body{
 /* ========= 設定 ========= */
 const PHOTO_A = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624565/file_000000001eb872069ab5fda893a3cfe5_xhfwpq.png";
 
-/* ★webサイトプランの写真URL（Cloudinary）を入れるならここ */
-const WEB_PLAN_PHOTO = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624617/Screenshot_20251213-123011.CapCut_1_gua1fe.png"; // 例: "https://res.cloudinary.com/...png"
+/* webサイトプランの写真URL（Cloudinary） */
+const WEB_PLAN_PHOTO = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624617/Screenshot_20251213-123011.CapCut_1_gua1fe.png";
 
 /* ========= 商品マスタ ========= */
 const ITEMS = {
@@ -765,7 +754,6 @@ const ITEMS = {
   c3_manryou:        { id:"c3_manryou",        name:"マンリョウ", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624525/file_0000000012a47206858dbe1b581faf74_ggbeok.png" },
   c3_kiminosenryou:  { id:"c3_kiminosenryou",  name:"キミノセンリュウ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624572/file_0000000094c4720691f82acea6a7e4b0_wnmdoq.png" },
 
-  /* ★追加：webサイトプラン */
   web_plan: { id:"web_plan", name:"webサイトプラン", price:800, image:WEB_PLAN_PHOTO },
 };
 
@@ -870,7 +858,7 @@ function renderSetPhoto(){
   }
 }
 
-/* ★ITEMSのimageがあるカードは自動で写真を入れる */
+/* ITEMSのimageがあるカードは自動で写真を入れる */
 function renderItemCardImages(){
   document.querySelectorAll(".card[data-add]").forEach(card=>{
     const id = card.dataset.add;
@@ -900,7 +888,7 @@ function showView(key){
     b.classList.toggle("active", b.dataset.view===key);
   });
   if(location.hash !== "#" + key) location.hash = key;
-  window.scrollTo({top:0, behavior:"instant"});
+  window.scrollTo({top:0, behavior:"auto"});
 }
 function initViewFromHash(){
   const key = (location.hash||"#set").replace("#","");
@@ -915,7 +903,7 @@ window.addEventListener("hashchange", initViewFromHash);
 /* ---- custom category switch ---- */
 const pillWrap = document.getElementById("customPills");
 function showCustomCat(cat){
-  const ids = ["layer1","layer2","layer3","webplan"];  // ★webplan追加
+  const ids = ["layer1","layer2","layer3","webplan"];
   ids.forEach(k=>{
     document.getElementById("cat-"+k).classList.toggle("hidden", k!==cat);
   });
@@ -966,7 +954,6 @@ function switchModalMode(mode){
     checkoutView.classList.add("hidden");
     cartView.classList.remove("hidden");
   }
-  // ★モード切替時に最終表示は隠す
   finalBox?.classList.add("hidden");
 }
 
@@ -1069,7 +1056,6 @@ document.getElementById("backToCart").addEventListener("click", ()=>{
   renderCart();
 });
 
-/* ★修正：OKボタンで「合計金額を画面内に表示」 */
 document.getElementById("confirmDummy").addEventListener("click", ()=>{
   const total = cartTotal();
   finalAmount.textContent = yen(total);
@@ -1077,7 +1063,9 @@ document.getElementById("confirmDummy").addEventListener("click", ()=>{
   showToast("合計 " + yen(total));
 });
 
+/* ========= 買う（完成作品）表示 ========= */
 const buyGrid = document.getElementById("buyGrid");
+
 function buyCardHTML(b){
   const url = (b.image||"").trim();
   const img = url.startsWith("http")
@@ -1097,6 +1085,7 @@ function buyCardHTML(b){
     </div>
   `;
 }
+
 function renderBuy(){
   BUY = loadBuy();
   buyGrid.innerHTML = BUY.map(buyCardHTML).join("");
@@ -1187,10 +1176,13 @@ editSave.addEventListener("click", ()=>{
   closeEdit();
 });
 
+/* ★全体リセットは廃止：この作品だけは誤爆防止で確認 */
 editResetOne.addEventListener("click", ()=>{
   if(!editingId) return;
   const idx = BUY.findIndex(x=>x.id===editingId);
   if(idx<0) return;
+
+  if(!confirm("この作品を初期状態に戻します。よろしいですか？")) return;
 
   const next = cloneObj(BUY);
   next[idx] = cloneObj(DEFAULT_BUY[idx]);
@@ -1199,13 +1191,6 @@ editResetOne.addEventListener("click", ()=>{
   renderBuy();
   showToast("この作品を初期に戻しました");
   closeEdit();
-});
-
-document.getElementById("resetBuy").addEventListener("click", ()=>{
-  saveBuy(cloneObj(DEFAULT_BUY));
-  BUY = loadBuy();
-  renderBuy();
-  showToast("買う：初期に戻しました");
 });
 
 function escapeHtml(s){
