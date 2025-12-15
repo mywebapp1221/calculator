@@ -67,6 +67,7 @@ body{
   transition: transform .08s ease;
 }
 .card:active{ transform:scale(.99); }
+
 .img{
   height:160px; overflow:hidden;
   background:linear-gradient(180deg,#e5e7eb,#d1d5db);
@@ -74,6 +75,24 @@ body{
   color:#374151; font-weight:900;
 }
 .img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ★ここが追加：写真を「切らずに全部見せる」用 */
+.img.contain{
+  background:#fff;
+}
+.img.contain img{
+  object-fit:contain;      /* ← 全体が入る */
+  padding:8px;             /* ← 端がギリギリにならない */
+}
+
+/* ★ここが追加：webサイトプランはバナーっぽく見せたい場合（任意） */
+.img.banner{
+  height:180px;
+}
+@media (max-width:520px){
+  .img.banner{ height:160px; }
+}
+
 .content{ padding:14px; }
 .name{ font-weight:900; font-size:15px; }
 .desc{ margin-top:6px; font-size:13px; color:var(--muted); line-height:1.35; }
@@ -108,11 +127,7 @@ body{
   background:linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.72));
   pointer-events:none;
 }
-.vs-inner{
-  position:relative;
-  padding:14px;
-  z-index:2;
-}
+.vs-inner{ position:relative; padding:14px; z-index:2; }
 .vs-top{
   display:flex; align-items:center; justify-content:space-between; gap:10px;
   margin-bottom:10px;
@@ -131,11 +146,7 @@ body{
 }
 .badge-pill.red{ background:rgba(220,38,38,.12); }
 .badge-pill.yellow{ background:rgba(245,158,11,.12); }
-.vs-kicker{
-  font-weight:900;
-  font-size:12px;
-  color:rgba(15,23,42,.75);
-}
+.vs-kicker{ font-weight:900; font-size:12px; color:rgba(15,23,42,.75); }
 
 .vs-grid{
   position:relative;
@@ -173,12 +184,8 @@ body{
   pointer-events:none;
   opacity:.22;
 }
-.vs-card.red::before{
-  background:linear-gradient(180deg, rgba(220,38,38,.22), transparent 55%);
-}
-.vs-card.yellow::before{
-  background:linear-gradient(180deg, rgba(245,158,11,.22), transparent 55%);
-}
+.vs-card.red::before{ background:linear-gradient(180deg, rgba(220,38,38,.22), transparent 55%); }
+.vs-card.yellow::before{ background:linear-gradient(180deg, rgba(245,158,11,.22), transparent 55%); }
 .vs-card .img{ height:180px; }
 .vs-card .content{ padding:14px; }
 .vs-card .name{ font-size:16px; }
@@ -195,7 +202,6 @@ body{
 }
 .vs-tag.red{ color:#b91c1c; }
 .vs-tag.yellow{ color:#b45309; }
-
 @media (max-width:520px){
   .vs-card .img{ height:150px; }
   .vs-center{ width:52px; height:52px; }
@@ -309,6 +315,18 @@ body{
 .checkout-name{ font-weight:900; }
 .checkout-qty{ font-size:12px; color:var(--muted); margin-top:4px; }
 
+/* ★ここが追加：「OK押したら合計を画面に出す」 */
+.final-box{
+  margin-top:12px;
+  border:1px solid rgba(15,23,42,.14);
+  background:linear-gradient(180deg, #ffffff, #f8fafc);
+  border-radius:14px;
+  padding:12px;
+}
+.final-title{ font-weight:1000; }
+.final-amount{ font-weight:1000; font-size:26px; margin-top:6px; }
+.final-sub{ font-size:12px; color:var(--muted); margin-top:6px; line-height:1.5; }
+
 /* ===== buy edit UI ===== */
 .buy-tools{
   display:flex; gap:10px; flex-wrap:wrap;
@@ -324,9 +342,7 @@ body{
   color:#111827; font-weight:900; font-size:12px;
   padding:6px 10px; border-radius:999px;
 }
-.form{
-  margin-top:10px; display:flex; flex-direction:column; gap:10px;
-}
+.form{ margin-top:10px; display:flex; flex-direction:column; gap:10px; }
 .field{ display:flex; flex-direction:column; gap:6px; }
 .label{ font-weight:900; font-size:12px; color:#111827; }
 .input, .textarea{
@@ -338,12 +354,11 @@ body{
   outline:none;
 }
 .textarea{ min-height:110px; resize:vertical; }
-.preview{
-  border:1px solid var(--line);
-  border-radius:14px;
-  overflow:hidden;
+.preview{ border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+.preview .pimg{
+  height:180px; background:linear-gradient(180deg,#e5e7eb,#d1d5db);
+  display:flex; align-items:center; justify-content:center; color:#374151; font-weight:900;
 }
-.preview .pimg{ height:180px; background:linear-gradient(180deg,#e5e7eb,#d1d5db); display:flex; align-items:center; justify-content:center; color:#374151; font-weight:900; }
 .preview .pimg img{ width:100%; height:100%; object-fit:cover; display:block; }
 .preview .pbody{ padding:12px; }
 </style>
@@ -366,7 +381,6 @@ body{
     <!-- ===== セット ===== -->
     <section id="view-set">
 
-      <!-- ★VSっぽい「期間限定」演出ブロック -->
       <div class="vs-hero">
         <div class="vs-inner">
           <div class="vs-top">
@@ -412,7 +426,6 @@ body{
         </div>
       </div>
 
-      <!-- ここから定番 -->
       <div class="section-head">
         <span class="section-badge">セット</span>
         <span class="section-title">定番</span>
@@ -460,7 +473,6 @@ body{
         </div>
       </div>
 
-      <!-- ★追加（下らへん） -->
       <div class="section-head" style="margin-top:18px;">
         <span class="section-badge">追加</span>
         <span class="section-title">おすすめ</span>
@@ -491,7 +503,7 @@ body{
 
     </section>
 
-    <!-- ===== 自分で選ぶ（カテゴリ切替＋追加） ===== -->
+    <!-- ===== 自分で選ぶ ===== -->
     <section id="view-custom" class="hidden">
       <div class="section-head">
         <span class="section-badge">自分で選ぶ</span>
@@ -499,12 +511,12 @@ body{
       </div>
       <p class="section-sub">カテゴリを切り替えて、タップでカートへ。カートから数量変更できます。</p>
 
-      <!-- ★4つに変更：第一層/第二層/第三層/webサイトプラン -->
+      <!-- ★タブ追加：webサイトプラン -->
       <div class="pills" id="customPills">
         <button class="pill active" data-cat="layer1">第一層</button>
         <button class="pill" data-cat="layer2">第二層</button>
         <button class="pill" data-cat="layer3">第三層</button>
-        <button class="pill" data-cat="website">webサイトプラン</button>
+        <button class="pill" data-cat="webplan">webサイトプラン</button>
       </div>
 
       <!-- 第一層 -->
@@ -556,16 +568,19 @@ body{
       </div>
 
       <!-- ★追加：webサイトプラン -->
-      <div id="cat-website" class="hidden">
+      <div id="cat-webplan" class="hidden">
         <div class="section-head">
           <span class="section-badge">webサイトプラン</span><span class="section-title">あなただけのページ</span>
         </div>
-        <p class="section-sub">写真つきで、あなた専用のWebページを作れます。</p>
+        <p class="section-sub">写真つきで、あなただけのWebページを作れます。</p>
 
         <div class="grid two">
           <div class="card" data-add="web_plan">
             <div class="add-pill">＋ 追加</div>
-            <div class="img">写真 まだ</div>
+
+            <!-- ★ここがポイント：contain + banner で「切れない」 -->
+            <div class="img contain banner">写真</div>
+
             <div class="content">
               <div class="name">webサイトプラン</div>
               <div class="desc">あなただけのwebページを作れます</div>
@@ -573,8 +588,8 @@ body{
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </section>
 
     <!-- ===== 買う（完成作品：6作品・編集可能） ===== -->
@@ -604,10 +619,8 @@ body{
   🛒 カート <span class="badge" id="cartBadge">0</span>
 </button>
 
-<!-- toast -->
 <div class="toast" id="toast">カートに追加しました</div>
 
-<!-- cart modal -->
 <div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-label="カート">
   <div class="modal">
     <div class="modal-head">
@@ -615,7 +628,6 @@ body{
       <button class="modal-close" id="closeModal">閉じる</button>
     </div>
 
-    <!-- CART VIEW -->
     <div id="cartView">
       <div class="cart-list" id="cartList"></div>
 
@@ -634,17 +646,10 @@ body{
       </div>
     </div>
 
-    <!-- CHECKOUT VIEW -->
     <div id="checkoutView" class="hidden">
       <div class="total-row" style="margin-top:8px;">
         <div>お会計</div>
         <div id="checkoutTotal">¥0</div>
-      </div>
-
-      <!-- ★追加：OKボタン押下後に表示される「最終合計」 -->
-      <div class="total-row" id="finalTotalRow" style="display:none;">
-        <div>最終合計</div>
-        <div id="finalTotal">¥0</div>
       </div>
 
       <div class="small">あなたが選んだ商品（数量も表示）</div>
@@ -655,8 +660,13 @@ body{
         <button class="primary" id="confirmDummy">この内容でOK</button>
       </div>
 
-      <div class="small">
-        ※「この内容でOK」で最終合計を表示します（後でPayPay/レシート発行などに拡張できる）
+      <!-- ★ここが追加：OK押したら合計を画面内に表示 -->
+      <div class="final-box hidden" id="finalBox">
+        <div class="final-title">✅ 受付しました</div>
+        <div class="final-amount" id="finalAmount">¥0</div>
+        <div class="final-sub">
+          この金額で準備します（あとでPayPay連携やレシートに拡張できる）
+        </div>
       </div>
     </div>
 
@@ -719,12 +729,11 @@ body{
 /* ========= 設定 ========= */
 const PHOTO_A = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624565/file_000000001eb872069ab5fda893a3cfe5_xhfwpq.png";
 
-/** ★webサイトプランの写真URL（好きなCloudinary画像に差し替えOK） */
-const WEB_PLAN_PHOTO = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765628575/file_0000000042c872068f8eba7a5a64be7d_pb0uro.png";
+/* ★webサイトプランの写真URL（Cloudinary）を入れるならここ */
+const WEB_PLAN_PHOTO = "https://res.cloudinary.com/drfgen4gm/image/upload/v1765624617/Screenshot_20251213-123011.CapCut_1_gua1fe.png"; // 例: "https://res.cloudinary.com/...png"
 
 /* ========= 商品マスタ ========= */
 const ITEMS = {
-  // セット
   set_momiji_red:    { id:"set_momiji_red",    name:"紅葉セット", price:1100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624506/file_00000000bb3072069f6dbb872cd09bce_2_w5kit3.png" },
   set_momiji_yellow: { id:"set_momiji_yellow", name:"黄葉セット", price:1100, image:PHOTO_A },
   set_prime:         { id:"set_prime",         name:"プライムセット", price:3000, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765628575/file_0000000042c872068f8eba7a5a64be7d_pb0uro.png" },
@@ -732,11 +741,9 @@ const ITEMS = {
   set_growth:        { id:"set_growth",        name:"グロースセット", price:1200, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765628568/file_00000000fdd87206ac9d7536d96a372a_mj24ru.png" },
   set_basic:         { id:"set_basic",         name:"ベーシックセット", price:650,  image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765628586/file_000000007a3c7206b1d67770fe6e78a7_ic3dit.png" },
 
-  // 追加セット
   set_wabisabi:      { id:"set_wabisabi",      name:"侘び寂びセット", price:1100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765671003/file_00000000de10720682a3f0a3d1110331_ntxqzo.png" },
   set_hanabanas:     { id:"set_hanabanas",     name:"花々セット",     price:1250, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765670969/file_0000000047d47208965d95441a96056d_u4upoi.png" },
 
-  // 自分で選ぶ：第一層
   c1_soil:         { id:"c1_soil",         name:"土", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601177/file_0000000072507207a77fbfba241ea449_uvlzrs.png" },
   c1_smallstone:   { id:"c1_smallstone",   name:"小石", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601234/file_000000007448720795ef08bff7d5136b_ctv9eu.png" },
   c1_moss:         { id:"c1_moss",         name:"苔", price:200, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601219/file_00000000241871fa9aafe1bafbbb984a_k5zad1.png" },
@@ -744,7 +751,6 @@ const ITEMS = {
   c1_kouyou:       { id:"c1_kouyou",       name:"黄葉", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601393/file_000000005a44722f856531f88eb3110a_uwor1e.png" },
   c1_unknowngrass: { id:"c1_unknowngrass", name:"名もなき草", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624471/file_0000000047787206beebb52b9e5a639f_2_g1lu54.png" },
 
-  // 自分で選ぶ：第二層
   c2_bigstone:      { id:"c2_bigstone",      name:"大石", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624883/file_00000000d0f87206857479d9a19cbbd8_zgybek.png" },
   c2_yamamoss:      { id:"c2_yamamoss",      name:"山苔", price:250, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624583/file_00000000ec507206a3336d7c2d198f9a_dhrsdf.png" },
   c2_donguri:       { id:"c2_donguri",       name:"どんぐり", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601304/file_00000000e1a87206929eec93544ea09d_lihqtn.png" },
@@ -756,15 +762,14 @@ const ITEMS = {
   c2_smalltree:     { id:"c2_smalltree",     name:"小さな木", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765601336/file_00000000e5b8720698bbc28cc55779d1_wy5b9k.png" },
   c2_smallflower:   { id:"c2_smallflower",   name:"小花", price:250, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624608/file_0000000088907207b5b79192b0c1e3a2_em7o9f.png" },
 
-  // 自分で選ぶ：第三層
   c3_bigflower:      { id:"c3_bigflower",      name:"大花", price:500, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624555/file_000000005f64720780b8ca288d804eaa_bgf36h.png" },
   c3_watage:         { id:"c3_watage",         name:"綿毛", price:50, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624495/file_00000000335c720998099e4840b6b982_2_c3lc7c.png" },
   c3_aotsuzurafuji:  { id:"c3_aotsuzurafuji",  name:"アオツヅラフジ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624540/file_0000000046547209a86e9a2791632d12_a8febb.png" },
   c3_manryou:        { id:"c3_manryou",        name:"マンリョウ", price:100, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624525/file_0000000012a47206858dbe1b581faf74_ggbeok.png" },
   c3_kiminosenryou:  { id:"c3_kiminosenryou",  name:"キミノセンリュウ", price:150, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624572/file_0000000094c4720691f82acea6a7e4b0_wnmdoq.png" },
 
-  // ★追加：webサイトプラン（価格は仮で0、後で好きに変更OK）
-  web_plan: { id:"web_plan", name:"webサイトプラン", price:0, image:"https://res.cloudinary.com/drfgen4gm/image/upload/v1765624617/Screenshot_20251213-123011.CapCut_1_gua1fe.png" },
+  /* ★追加：webサイトプラン */
+  web_plan: { id:"web_plan", name:"webサイトプラン", price:0, image:WEB_PLAN_PHOTO },
 };
 
 /* ========= 買う（6作品）: デフォルト ========= */
@@ -779,7 +784,6 @@ const DEFAULT_BUY = [
 ];
 
 function cloneObj(x){ return JSON.parse(JSON.stringify(x)); }
-
 function loadBuy(){
   try{
     const raw = localStorage.getItem(BUY_KEY);
@@ -797,9 +801,7 @@ function loadBuy(){
     return cloneObj(DEFAULT_BUY);
   }
 }
-function saveBuy(arr){
-  localStorage.setItem(BUY_KEY, JSON.stringify(arr));
-}
+function saveBuy(arr){ localStorage.setItem(BUY_KEY, JSON.stringify(arr)); }
 let BUY = loadBuy();
 
 /* ========= カート ========= */
@@ -813,7 +815,6 @@ let cart = loadCart();
 function cartCount(){ return Object.values(cart).reduce((s,it)=>s+(it.qty||0),0); }
 function yen(n){ return "¥" + Number(n||0).toLocaleString("ja-JP"); }
 
-/* BUY作品も含めて item を返す */
 function getAnyItem(id){
   if(ITEMS[id]) return ITEMS[id];
   const b = BUY.find(x=>x.id===id);
@@ -872,7 +873,7 @@ function renderSetPhoto(){
   }
 }
 
-/* ★重要：ITEMSのimageがあるカードは自動で写真を入れる */
+/* ★ITEMSのimageがあるカードは自動で写真を入れる */
 function renderItemCardImages(){
   document.querySelectorAll(".card[data-add]").forEach(card=>{
     const id = card.dataset.add;
@@ -881,13 +882,14 @@ function renderItemCardImages(){
     const url = (it.image||"").trim();
     const imgBox = card.querySelector(".img");
     if(!imgBox) return;
+
     if(url.startsWith("http")){
       imgBox.innerHTML = `<img src="${url}" alt="${escapeHtml(it.name||id)}">`;
     }
   });
 }
 
-/* ---- view switch (1ページ) ---- */
+/* ---- view switch ---- */
 const views = {
   set: document.getElementById("view-set"),
   custom: document.getElementById("view-custom"),
@@ -916,12 +918,9 @@ window.addEventListener("hashchange", initViewFromHash);
 /* ---- custom category switch ---- */
 const pillWrap = document.getElementById("customPills");
 function showCustomCat(cat){
-  // ★4カテゴリに増やした
-  const ids = ["layer1","layer2","layer3","website"];
+  const ids = ["layer1","layer2","layer3","webplan"];  // ★webplan追加
   ids.forEach(k=>{
-    const el = document.getElementById("cat-"+k);
-    if(!el) return;
-    el.classList.toggle("hidden", k!==cat);
+    document.getElementById("cat-"+k).classList.toggle("hidden", k!==cat);
   });
   pillWrap.querySelectorAll(".pill").forEach(p=>{
     p.classList.toggle("active", p.dataset.cat===cat);
@@ -931,7 +930,7 @@ pillWrap?.querySelectorAll(".pill").forEach(p=>{
   p.addEventListener("click", ()=>showCustomCat(p.dataset.cat));
 });
 
-/* ---- add handlers（ITEMS側） ---- */
+/* ---- add handlers ---- */
 document.querySelectorAll("[data-add]").forEach(el=>{
   el.addEventListener("click", ()=>addToCart(el.dataset.add));
 });
@@ -947,18 +946,15 @@ const checkoutView = document.getElementById("checkoutView");
 const checkoutTotalEl = document.getElementById("checkoutTotal");
 const checkoutGrid = document.getElementById("checkoutGrid");
 
-// ★最終合計表示エリア
-const finalTotalRow = document.getElementById("finalTotalRow");
-const finalTotalEl = document.getElementById("finalTotal");
+const finalBox = document.getElementById("finalBox");
+const finalAmount = document.getElementById("finalAmount");
 
 function openCart(){
   switchModalMode("cart");
   renderCart();
   modalBg.style.display = "flex";
 }
-function closeCart(){
-  modalBg.style.display = "none";
-}
+function closeCart(){ modalBg.style.display = "none"; }
 document.getElementById("cartFab").addEventListener("click", openCart);
 document.getElementById("closeModal").addEventListener("click", closeCart);
 modalBg.addEventListener("click", (e)=>{ if(e.target===modalBg) closeCart(); });
@@ -968,20 +964,13 @@ function switchModalMode(mode){
     modalTitle.textContent = "🧾 レジ";
     cartView.classList.add("hidden");
     checkoutView.classList.remove("hidden");
-
-    // ★チェックアウトに入るたび、最終合計は隠してリセット
-    if(finalTotalRow){
-      finalTotalRow.style.display = "none";
-    }
-    if(finalTotalEl){
-      finalTotalEl.textContent = "¥0";
-    }
-
   }else{
     modalTitle.textContent = "🛒 カート";
     checkoutView.classList.add("hidden");
     cartView.classList.remove("hidden");
   }
+  // ★モード切替時に最終表示は隠す
+  finalBox?.classList.add("hidden");
 }
 
 function renderCart(){
@@ -1031,7 +1020,6 @@ function renderCart(){
   });
 }
 
-/* ---- checkout render (合計+写真一覧) ---- */
 function renderCheckout(){
   checkoutTotalEl.textContent = yen(cartTotal());
   checkoutGrid.innerHTML = "";
@@ -1084,19 +1072,15 @@ document.getElementById("backToCart").addEventListener("click", ()=>{
   renderCart();
 });
 
-// ★変更：OKボタンで最終合計を表示する
+/* ★修正：OKボタンで「合計金額を画面内に表示」 */
 document.getElementById("confirmDummy").addEventListener("click", ()=>{
-  const total = yen(cartTotal());
-  if(finalTotalEl) finalTotalEl.textContent = total;
-  if(finalTotalRow) finalTotalRow.style.display = "flex";
-  showToast("合計金額を表示しました");
+  const total = cartTotal();
+  finalAmount.textContent = yen(total);
+  finalBox.classList.remove("hidden");
+  showToast("合計 " + yen(total));
 });
 
-/* =========================
-   買う（6作品）: 生成 + 編集
-========================= */
 const buyGrid = document.getElementById("buyGrid");
-
 function buyCardHTML(b){
   const url = (b.image||"").trim();
   const img = url.startsWith("http")
@@ -1116,7 +1100,6 @@ function buyCardHTML(b){
     </div>
   `;
 }
-
 function renderBuy(){
   BUY = loadBuy();
   buyGrid.innerHTML = BUY.map(buyCardHTML).join("");
@@ -1183,7 +1166,6 @@ function updatePreview(){
   previewDesc.textContent = editDesc.value || "（解説）";
   previewPrice.textContent = yen(Number(editPrice.value||0));
 }
-
 [editImage, editTitle, editPrice, editDesc].forEach(el=>{
   el.addEventListener("input", updatePreview);
 });
@@ -1229,7 +1211,6 @@ document.getElementById("resetBuy").addEventListener("click", ()=>{
   showToast("買う：初期に戻しました");
 });
 
-/* ========= utility ========= */
 function escapeHtml(s){
   return String(s ?? "")
     .replaceAll("&","&amp;")
@@ -1245,7 +1226,7 @@ renderBadge();
 initViewFromHash();
 showCustomCat("layer1");
 renderBuy();
-renderItemCardImages(); // 「自分で選ぶ」等の写真を自動反映
+renderItemCardImages();
 </script>
 
 </body>
