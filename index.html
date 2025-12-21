@@ -100,6 +100,30 @@ body{
   font-weight:900; font-size:12px; padding:6px 10px; border-radius:999px;
 }
 
+/* ===== stock button ===== */
+.stock-row{
+  margin-top:12px;
+  display:flex;
+  justify-content:flex-end;
+}
+.stock-btn{
+  border:1px solid rgba(15,23,42,.18);
+  background:#fff;
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:1000;
+  cursor:pointer;
+  font-size:12px;
+}
+.stock-btn.soldout{
+  border-color:#fecaca;
+  background:#fff1f2;
+  color:#b91c1c;
+}
+.card.soldout{ opacity:.72; }
+.card.soldout .img img{ filter:grayscale(.15) contrast(.95); }
+.card.soldout .add-pill{ background:rgba(220,38,38,.92); }
+
 /* ===== VS HERO ===== */
 .vs-hero{
   position:relative;
@@ -274,7 +298,8 @@ body{
   border-radius:12px; padding:10px; font-weight:900; cursor:pointer;
 }
 .primary{
-  border:none; background:#111827; color:#fff; border-radius:12px; padding:10px 12px; font-weight:900; cursor:pointer;
+  border:none; background:#111827; color:#fff; border-radius:12px;
+  padding:10px 12px; font-weight:900; cursor:pointer;
 }
 .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
 .small{ font-size:12px; color:var(--muted); margin-top:6px; line-height:1.5; }
@@ -399,6 +424,7 @@ body{
                 <div class="name">紅葉セット</div>
                 <div class="desc">🔴 赤色の植物 使い放題×あなただけのwebページ</div>
                 <div class="price">¥1,100〜</div>
+                <div class="stock-row"><button class="stock-btn" data-stock-btn="set_momiji_red" type="button">在庫切れにする</button></div>
               </div>
             </div>
 
@@ -412,6 +438,7 @@ body{
                 <div class="name">黄葉セット</div>
                 <div class="desc">🟡 黄色の植物 使い放題×あなただけのwebページ</div>
                 <div class="price">¥1,100〜</div>
+                <div class="stock-row"><button class="stock-btn" data-stock-btn="set_momiji_yellow" type="button">在庫切れにする</button></div>
               </div>
             </div>
           </div>
@@ -435,6 +462,7 @@ body{
             <div class="name">プライムセット</div>
             <div class="desc">全21種類の植物が使い放題 ×あなただけのwebページ</div>
             <div class="price">¥3,000</div>
+            <div class="stock-row"><button class="stock-btn" data-stock-btn="set_prime" type="button">在庫切れにする</button></div>
           </div>
         </div>
 
@@ -445,6 +473,7 @@ body{
             <div class="name">スタンダードセット</div>
             <div class="desc">10種類の植物が使い放題 ×あなただけのwebページ</div>
             <div class="price">¥1,400〜</div>
+            <div class="stock-row"><button class="stock-btn" data-stock-btn="set_standard" type="button">在庫切れにする</button></div>
           </div>
         </div>
 
@@ -455,6 +484,7 @@ body{
             <div class="name">グロースセット</div>
             <div class="desc">5種類の植物が使い放題 ×あなただけのwebページ</div>
             <div class="price">¥1,200〜</div>
+            <div class="stock-row"><button class="stock-btn" data-stock-btn="set_growth" type="button">在庫切れにする</button></div>
           </div>
         </div>
 
@@ -465,6 +495,7 @@ body{
             <div class="name">ベーシックセット</div>
             <div class="desc">2種類の植物が使い放題</div>
             <div class="price">¥650〜</div>
+            <div class="stock-row"><button class="stock-btn" data-stock-btn="set_basic" type="button">在庫切れにする</button></div>
           </div>
         </div>
       </div>
@@ -483,6 +514,7 @@ body{
             <div class="name">侘び寂びセット</div>
             <div class="desc">静けさ・余白・枯れ感×あなただけのwebページ</div>
             <div class="price">¥1,100〜</div>
+            <div class="stock-row"><button class="stock-btn" data-stock-btn="set_wabisabi" type="button">在庫切れにする</button></div>
           </div>
         </div>
 
@@ -493,6 +525,7 @@ body{
             <div class="name">花々セット</div>
             <div class="desc">花多めで一気に華やか×あなただけのwebページ</div>
             <div class="price">¥1,250〜</div>
+            <div class="stock-row"><button class="stock-btn" data-stock-btn="set_hanabanas" type="button">在庫切れにする</button></div>
           </div>
         </div>
       </div>
@@ -520,12 +553,12 @@ body{
           <span class="section-badge">第一層</span><span class="section-title">土台を決める</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c1_soil"><div class="add-pill">＋ 追加</div><div class="img">土</div><div class="content"><div class="name">土</div><div class="desc">第一層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c1_smallstone"><div class="add-pill">＋ 追加</div><div class="img">小石</div><div class="content"><div class="name">小石</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c1_moss"><div class="add-pill">＋ 追加</div><div class="img">苔</div><div class="content"><div class="name">苔</div><div class="desc">第一層</div><div class="price">¥200</div></div></div>
-          <div class="card" data-add="c1_momiji"><div class="add-pill">＋ 追加</div><div class="img">紅葉</div><div class="content"><div class="name">紅葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c1_kouyou"><div class="add-pill">＋ 追加</div><div class="img">黄葉</div><div class="content"><div class="name">黄葉</div><div class="desc">第一層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c1_unknowngrass"><div class="add-pill">＋ 追加</div><div class="img">草</div><div class="content"><div class="name">名もなき草</div><div class="desc">第一層</div><div class="price">¥100</div></div></div>
+          <div class="card" data-add="c1_soil"><div class="add-pill">＋ 追加</div><div class="img">土</div><div class="content"><div class="name">土</div><div class="desc">第一層</div><div class="price">¥50</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c1_soil" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c1_smallstone"><div class="add-pill">＋ 追加</div><div class="img">小石</div><div class="content"><div class="name">小石</div><div class="desc">第一層</div><div class="price">¥100</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c1_smallstone" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c1_moss"><div class="add-pill">＋ 追加</div><div class="img">苔</div><div class="content"><div class="name">苔</div><div class="desc">第一層</div><div class="price">¥200</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c1_moss" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c1_momiji"><div class="add-pill">＋ 追加</div><div class="img">紅葉</div><div class="content"><div class="name">紅葉</div><div class="desc">第一層</div><div class="price">¥150</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c1_momiji" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c1_kouyou"><div class="add-pill">＋ 追加</div><div class="img">黄葉</div><div class="content"><div class="name">黄葉</div><div class="desc">第一層</div><div class="price">¥150</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c1_kouyou" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c1_unknowngrass"><div class="add-pill">＋ 追加</div><div class="img">草</div><div class="content"><div class="name">名もなき草</div><div class="desc">第一層</div><div class="price">¥100</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c1_unknowngrass" type="button">在庫切れにする</button></div></div></div>
         </div>
       </div>
 
@@ -535,16 +568,16 @@ body{
           <span class="section-badge">第二層</span><span class="section-title">中景を作る</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c2_bigstone"><div class="add-pill">＋ 追加</div><div class="img">大石</div><div class="content"><div class="name">大石</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c2_yamamoss"><div class="add-pill">＋ 追加</div><div class="img">山苔</div><div class="content"><div class="name">山苔</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
-          <div class="card" data-add="c2_donguri"><div class="add-pill">＋ 追加</div><div class="img">どんぐり</div><div class="content"><div class="name">どんぐり</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c2_matubokkuri"><div class="add-pill">＋ 追加</div><div class="img">松ぼっくり</div><div class="content"><div class="name">松ぼっくり</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_kaedenohane"><div class="add-pill">＋ 追加</div><div class="img">楓の羽</div><div class="content"><div class="name">楓の羽</div><div class="desc">第二層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c2_chigaya"><div class="add-pill">＋ 追加</div><div class="img">チガヤ</div><div class="content"><div class="name">チガヤ</div><div class="desc">第二層</div><div class="price">¥200</div></div></div>
-          <div class="card" data-add="c2_enokorogusa"><div class="add-pill">＋ 追加</div><div class="img">エノコログサ</div><div class="content"><div class="name">エノコログサ</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_smallbranch"><div class="add-pill">＋ 追加</div><div class="img">小枝</div><div class="content"><div class="name">小枝</div><div class="desc">第二層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c2_smalltree"><div class="add-pill">＋ 追加</div><div class="img">小さな木</div><div class="content"><div class="name">小さな木</div><div class="desc">第二層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c2_smallflower"><div class="add-pill">＋ 追加</div><div class="img">小花</div><div class="content"><div class="name">小花</div><div class="desc">第二層</div><div class="price">¥250</div></div></div>
+          <div class="card" data-add="c2_bigstone"><div class="add-pill">＋ 追加</div><div class="img">大石</div><div class="content"><div class="name">大石</div><div class="desc">第二層</div><div class="price">¥150</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_bigstone" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_yamamoss"><div class="add-pill">＋ 追加</div><div class="img">山苔</div><div class="content"><div class="name">山苔</div><div class="desc">第二層</div><div class="price">¥250</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_yamamoss" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_donguri"><div class="add-pill">＋ 追加</div><div class="img">どんぐり</div><div class="content"><div class="name">どんぐり</div><div class="desc">第二層</div><div class="price">¥50</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_donguri" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_matubokkuri"><div class="add-pill">＋ 追加</div><div class="img">松ぼっくり</div><div class="content"><div class="name">松ぼっくり</div><div class="desc">第二層</div><div class="price">¥100</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_matubokkuri" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_kaedenohane"><div class="add-pill">＋ 追加</div><div class="img">楓の羽</div><div class="content"><div class="name">楓の羽</div><div class="desc">第二層</div><div class="price">¥150</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_kaedenohane" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_chigaya"><div class="add-pill">＋ 追加</div><div class="img">チガヤ</div><div class="content"><div class="name">チガヤ</div><div class="desc">第二層</div><div class="price">¥200</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_chigaya" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_enokorogusa"><div class="add-pill">＋ 追加</div><div class="img">エノコログサ</div><div class="content"><div class="name">エノコログサ</div><div class="desc">第二層</div><div class="price">¥100</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_enokorogusa" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_smallbranch"><div class="add-pill">＋ 追加</div><div class="img">小枝</div><div class="content"><div class="name">小枝</div><div class="desc">第二層</div><div class="price">¥50</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_smallbranch" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_smalltree"><div class="add-pill">＋ 追加</div><div class="img">小さな木</div><div class="content"><div class="name">小さな木</div><div class="desc">第二層</div><div class="price">¥100</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_smalltree" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c2_smallflower"><div class="add-pill">＋ 追加</div><div class="img">小花</div><div class="content"><div class="name">小花</div><div class="desc">第二層</div><div class="price">¥250</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c2_smallflower" type="button">在庫切れにする</button></div></div></div>
         </div>
       </div>
 
@@ -554,11 +587,11 @@ body{
           <span class="section-badge">第三層</span><span class="section-title">仕上げ</span>
         </div>
         <div class="grid">
-          <div class="card" data-add="c3_bigflower"><div class="add-pill">＋ 追加</div><div class="img">大花</div><div class="content"><div class="name">大花</div><div class="desc">第三層</div><div class="price">¥500</div></div></div>
-          <div class="card" data-add="c3_watage"><div class="add-pill">＋ 追加</div><div class="img">綿毛</div><div class="content"><div class="name">綿毛</div><div class="desc">第三層</div><div class="price">¥50</div></div></div>
-          <div class="card" data-add="c3_aotsuzurafuji"><div class="add-pill">＋ 追加</div><div class="img">青</div><div class="content"><div class="name">アオツヅラフジ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
-          <div class="card" data-add="c3_manryou"><div class="add-pill">＋ 追加</div><div class="img">赤</div><div class="content"><div class="name">マンリョウ</div><div class="desc">第三層</div><div class="price">¥100</div></div></div>
-          <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img">黄</div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div></div></div>
+          <div class="card" data-add="c3_bigflower"><div class="add-pill">＋ 追加</div><div class="img">大花</div><div class="content"><div class="name">大花</div><div class="desc">第三層</div><div class="price">¥500</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c3_bigflower" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c3_watage"><div class="add-pill">＋ 追加</div><div class="img">綿毛</div><div class="content"><div class="name">綿毛</div><div class="desc">第三層</div><div class="price">¥50</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c3_watage" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c3_aotsuzurafuji"><div class="add-pill">＋ 追加</div><div class="img">青</div><div class="content"><div class="name">アオツヅラフジ</div><div class="desc">第三層</div><div class="price">¥150</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c3_aotsuzurafuji" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c3_manryou"><div class="add-pill">＋ 追加</div><div class="img">赤</div><div class="content"><div class="name">マンリョウ</div><div class="desc">第三層</div><div class="price">¥100</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c3_manryou" type="button">在庫切れにする</button></div></div></div>
+          <div class="card" data-add="c3_kiminosenryou"><div class="add-pill">＋ 追加</div><div class="img">黄</div><div class="content"><div class="name">キミノセンリュウ</div><div class="desc">第三層</div><div class="price">¥150</div><div class="stock-row"><button class="stock-btn" data-stock-btn="c3_kiminosenryou" type="button">在庫切れにする</button></div></div></div>
         </div>
       </div>
 
@@ -577,6 +610,7 @@ body{
               <div class="name">webサイトプラン</div>
               <div class="desc">あなただけのwebページを作れます</div>
               <div class="price">¥800〜</div>
+              <div class="stock-row"><button class="stock-btn" data-stock-btn="web_plan" type="button">在庫切れにする</button></div>
             </div>
           </div>
         </div>
@@ -595,7 +629,6 @@ body{
 
       <div class="small">
         ※記載されている写真は1週間以内にとられた写真です<br>
-        
       </div>
     </section>
 
@@ -757,6 +790,22 @@ const ITEMS = {
   web_plan: { id:"web_plan", name:"webサイトプラン", price:800, image:WEB_PLAN_PHOTO },
 };
 
+/* ========= 在庫（端末に保存） ========= */
+const STOCK_KEY = "karts_stock_v1";
+function loadStock(){
+  try{ return JSON.parse(localStorage.getItem(STOCK_KEY)||"{}"); }
+  catch(e){ return {}; }
+}
+function saveStock(s){ localStorage.setItem(STOCK_KEY, JSON.stringify(s)); }
+let stock = loadStock(); // { itemId: true(在庫切れ) }
+
+function isSoldOut(id){ return !!stock[id]; }
+function toggleSoldOut(id){
+  stock[id] = !stock[id];
+  saveStock(stock);
+  renderStockStateAll();
+}
+
 /* ========= 買う（6作品）: デフォルト ========= */
 const BUY_KEY = "karts_buy_items_v1";
 const DEFAULT_BUY = [
@@ -819,12 +868,19 @@ function cartTotal(){
 function addToCart(id){
   const item = getAnyItem(id);
   if(!item) return;
+
+  if(isSoldOut(id)){
+    showToast("在庫切れです");
+    return;
+  }
+
   if(!cart[id]) cart[id] = { id, qty:0 };
   cart[id].qty += 1;
   saveCart(cart);
   renderBadge();
   showToast((item.name||"追加") + " を追加");
 }
+
 function setQty(id, qty){
   if(qty<=0){ delete cart[id]; }
   else { cart[id] = { id, qty }; }
@@ -871,6 +927,58 @@ function renderItemCardImages(){
     if(url.startsWith("http")){
       imgBox.innerHTML = `<img src="${url}" alt="${escapeHtml(it.name||id)}">`;
     }
+  });
+}
+
+/* ===== 在庫ボタン & 見た目反映 ===== */
+function ensureStockButton(card, id){
+  const content = card.querySelector(".content");
+  if(!content) return;
+  if(content.querySelector(`[data-stock-btn="${id}"]`)) return;
+
+  const row = document.createElement("div");
+  row.className = "stock-row";
+  row.innerHTML = `
+    <button class="stock-btn" data-stock-btn="${id}" type="button">在庫切れにする</button>
+  `;
+  content.appendChild(row);
+
+  const btn = row.querySelector("button");
+  btn.addEventListener("click", (e)=>{
+    e.stopPropagation(); // カードの追加を誤爆させない
+    toggleSoldOut(id);
+  });
+}
+
+function renderStockState(card, id){
+  const sold = isSoldOut(id);
+  card.classList.toggle("soldout", sold);
+
+  const btn = card.querySelector(`[data-stock-btn="${id}"]`);
+  if(btn){
+    btn.textContent = sold ? "販売再開（在庫あり）" : "在庫切れにする";
+    btn.classList.toggle("soldout", sold);
+  }
+
+  const pill = card.querySelector(".add-pill");
+  if(pill){
+    pill.textContent = sold ? "在庫切れ" : "＋ 追加";
+  }
+}
+
+function renderStockStateAll(){
+  // data-add（素材/セット/プラン）
+  document.querySelectorAll(".card[data-add]").forEach(card=>{
+    const id = card.dataset.add;
+    ensureStockButton(card, id);
+    renderStockState(card, id);
+  });
+
+  // 買う（完成作品）data-buy-add
+  document.querySelectorAll(".card[data-buy-add]").forEach(card=>{
+    const id = card.dataset.buyAdd;
+    ensureStockButton(card, id);
+    renderStockState(card, id);
   });
 }
 
@@ -1081,6 +1189,9 @@ function buyCardHTML(b){
         <div class="name">${escapeHtml(b.title)}</div>
         <div class="desc">${escapeHtml(b.desc)}</div>
         <div class="price">${yen(b.price)}</div>
+        <div class="stock-row">
+          <button class="stock-btn" data-stock-btn="${b.id}" type="button">在庫切れにする</button>
+        </div>
       </div>
     </div>
   `;
@@ -1100,6 +1211,9 @@ function renderBuy(){
       openEdit(btn.dataset.buyEdit);
     });
   });
+
+  // 買うのカードにも在庫状態反映
+  renderStockStateAll();
 }
 
 /* --- 編集モーダル --- */
@@ -1202,6 +1316,18 @@ function escapeHtml(s){
     .replaceAll("'","&#39;");
 }
 
+/* 在庫ボタン（HTMLに書いてある分）へイベント付与 */
+function bindStockButtons(){
+  document.querySelectorAll("[data-stock-btn]").forEach(btn=>{
+    if(btn.__stockBound) return;
+    btn.__stockBound = true;
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      toggleSoldOut(btn.dataset.stockBtn);
+    });
+  });
+}
+
 /* init */
 renderSetPhoto();
 renderBadge();
@@ -1209,6 +1335,8 @@ initViewFromHash();
 showCustomCat("layer1");
 renderBuy();
 renderItemCardImages();
+bindStockButtons();
+renderStockStateAll();
 </script>
 
 </body>
